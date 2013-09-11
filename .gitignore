@@ -4,3 +4,14 @@
 *.jar
 *.war
 *.ear
+
+# TeX Auxiliaries #
+*.aux
+*.el
+*.toc
+*.pdf
+*.log
+
+# emacs stuff #
+*~
+auto/*
