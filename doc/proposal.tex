@@ -1,7 +1,10 @@
-\documentclass{article}
+\documentclass[letterpaper]{article}
+\usepackage[margin=1cm]{geometry}
 \usepackage{csquotes}
 
-\title{Proposal}
+\pagenumbering{gobble}
+
+\title{Game Development Proposal}
 \author{%
   Sean Allred \and
   Natalie Cunningham \and
@@ -11,73 +14,63 @@
 
 \begin{document}
 \maketitle
-\noindent
 
 \section{Milestones}
 \label{sec:milestones}
 
-\subsection{Milestone 1}
-\label{sec:milestone-1}
-\begin{itemize}
-\item Having a `working' basic engine
-  (graphics, controls, sound).
-\item We can move about in our grid.
-\item We will have at least part of the map done
-  and be able to walk around that area
-\item Plot (and branches) draft complete.
-\item Music working samples acquired.
-\end{itemize}
-
-\subsection{Milestone 2}
-\label{sec:milestone-2}
-\begin{itemize}
-\item All puzzles conceptually designed.
-\item Collision handling in the map.
-\item interaction with other objects
-\item All art assets in
-\item Animations working in game engine
-\end{itemize}
-
-\subsection{Milestone 3}
-\label{sec:milestone-3}
-\begin{itemize}
-\item Plot frozen.
-\item Music frozen.
-\item Art frozen.
-\end{itemize}
-
-\section{Influences}
-\label{sec:influences}
-
-\begin{itemize}
-\item pok\'emon
-\item fire emblem
-\item oracle of seasons\slash ages
-\item ocarina of time (music aspect)
-\item Kirby (collecting dragon pieces)
-\item old zelda games
-\end{itemize}
+\begin{description}
+\item[Milestone 1]
+  By this milestone, we will have a working game engine.
+  This at least includes having a firm control on
+    the graphics,
+    the audio,
+    and the physical user interface
+    of the game.
+  As a proof of progress, we will be able to
+    move about on the map as the player.
+  We will acquire working music samples,
+    and we will have working sprites for all major objects in the game to date.
+\item[Milestone 2]
+  By this milestone, the plot will be detailed enough to pass as a game.
+  (What exactly this entails is of course subjective, but it's a fair assessment.)
+  In addition, collision handling will be dealt with without error
+    and the player will be able to interact with other things on the map.
+  All sprites will be in for the game.
+  If desired, backdrops will be produced for dialogue scenes and cut-scenes.
+  Concept art will yet continue as we define the game.
+  A method for animations (walking, running, flying) will be in-place, and
+    all major puzzles will be conceptually defined.
+\item[Milestone 3]
+  By this final milestone, all assets for the game will be frozen.
+  By this point, we expect to be ready to make our golden copy.
+  We will make sure all documentation for the game is in order and deploy.
+\end{description}
 
 \section{Description}
 \label{sec:description}
 
-Top-down \textsc{rpg}.
-8-bit.
+\def\GameTitle{\textit}
 
 Our game is set in a fantasy world in a forest.
-It is a puzzle-based game with an end goal of \enquote{saving the world.}
-As the game progresses and you complete more puzzles,
+It is a puzzle-based game with an end goal of \enquote*{saving the day}---literally.
+As the game progresses when you complete more puzzles,
   time also progresses and the scenery reflects the transition from day to night.
-Once the player completes the game, morning arrives.
+
 The driving aspect of the game is the music.
 At the start, there is no music.
-As you complete puzzles, you find parts of the music that serve as the background
-music.
+As you complete puzzles, you find parts of the music that serve as the background music.
 The more parts you find, the more depth the music has until you finally collect all the parts and have a full song with all the instruments playing.
 At this point, morning arrives, thus beating the game.
 
-
-\newpage
+This game is heavily influenced by \enquote*{classic} 8-bit \textsc{rpg} games
+  such as \GameTitle{The~Legend of~Zelda}
+  (specifically \GameTitle{The~Ocarina of~Time}),
+  \GameTitle{Fire~Emblem}, and
+  \GameTitle{Pok\'emon}.
+While the 8-bit style alone will evoke a certain nostalgia for (our) childhood,
+  this game will be even \emph{more} fun from its sense of adventure,
+  its challenging puzzles, and of course
+  its unforgiving silliness.
 
 \section{Flash Fiction}
 \label{sec:flash-fiction}
@@ -127,20 +120,22 @@ Startled, you sit \emph{straight} up on that once-comfortable couch
   I need you.
   What do you say?}
 
+\bigskip
+
+\begin{center}
 \thought{\dots Why is there a talking seal in my house!?}
 
 \vfill
 
 \thought{Wait\dots did that seal just say \enquote*{fly}?}
+\end{center}
 
-\vfill
+% \newpage
 
-\newpage
-
-so you know how butter goes away sometimes and comes back to help 
-well
-he's evil twin seal-brother, margarine the walrus, leads him astray
-when the main character finally finds out, he says \enquote{I can't believe it's not butter!}
+% so you know how butter goes away sometimes and comes back to help 
+% well
+% his evil twin seal-brother, margarine the walrus, leads him astray
+% when the main character finally finds out, he says \enquote{I can't believe it's not butter!}
 
 \end{document}
 
