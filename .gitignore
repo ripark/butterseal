@@ -12,6 +12,9 @@
 *.pdf
 *.log
 
+# Object files
+*.o
+
 # emacs stuff #
 *~
 auto/*
