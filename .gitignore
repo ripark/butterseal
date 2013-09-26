@@ -18,3 +18,6 @@
 # emacs stuff #
 *~
 auto/*
+
+# ADT stuff (you should download this yourself; it's too big for GitHub)
+src/adt-*/

@@ -1,4 +1,4 @@
-package edu.smcm.ButterSeal;
+package edu.smcm.gamedev.butterseal;
 
 import android.os.Bundle;
 
@@ -13,6 +13,6 @@ public class MainActivity extends AndroidApplication {
         AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
         cfg.useGL20 = false;
         
-        initialize(new ButterSealGame(), cfg);
+        initialize(new ButterSeal(), cfg);
     }
 }
