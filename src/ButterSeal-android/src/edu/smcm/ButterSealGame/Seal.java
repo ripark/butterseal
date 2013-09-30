@@ -92,61 +92,44 @@ public class Seal implements ApplicationListener
 		{
 			touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
 			
-			if((touchPos.x < (WIDTH/2)) && (touchPos.y < (HEIGHT/2))) 	//if screen is touched in top left quadrant
+			if(touchPos.y < (HEIGHT/2))
 			{
-				if(touchPos.x > touchPos.y) 			//move up
-				{
-					if(camera.position.y < (mHEIGHT-cHEIGHT))		//out of bounds check
-						camera.translate(0, 3, 0);
-				}
-				else 									//move left
+				if(touchPos.x < touchPos.y)					//move left
 				{
 					if(camera.position.x > (cWIDTH))			//out of bounds check
 						camera.translate(-3, 0, 0);
 				}
-			}
-			
-			else if(touchPos.x < WIDTH/2) 					//if screen is touched in bottom left quadrant
-			{
-				if(touchPos.x > (HEIGHT - touchPos.y)) 	//move down <------------
-				{	
-					if(camera.position.y > (cHEIGHT))			//check
-						camera.translate(0, -3, 0);
-				}
-				else 									//move left
-				{
-					if(camera.position.x > (cWIDTH))			//check
-						camera.translate(-3, 0, 0);
-				}
-			}
-			
-			else if(touchPos.y < HEIGHT/2) 					//if screen is touched in top right quadrant
-			{
-				if(touchPos.y > (WIDTH - touchPos.x)) 	//move right
+				else if(touchPos.y > (WIDTH - touchPos.x)) 	//move right
 				{
 					if(camera.position.x < (mWIDTH-cWIDTH))
 						camera.translate(3, 0, 0);
 				}
-				else 									//move up <-----------------
+				else										//move up
 				{
-					if(camera.position.y < (mHEIGHT-cHEIGHT))
+					if(camera.position.y < (mHEIGHT-cHEIGHT))		//out of bounds check
 						camera.translate(0, 3, 0);
 				}
 			}
 			
-			else 										//if screen is touched in bottom right quadrant
-			{										
-				if((HEIGHT - touchPos.y) < (WIDTH - touchPos.x)) 			//move down
+			else
+			{
+				if(touchPos.x < (HEIGHT - touchPos.y))			//move left
+				{
+					if(camera.position.x > (cWIDTH))			//check
+						camera.translate(-3, 0, 0);
+				}
+				else if((HEIGHT - touchPos.y) < (WIDTH - touchPos.x))	//move right
 				{
 					if(camera.position.y > (cHEIGHT))
-						camera.translate(0, -3, 0);
+						camera.translate(0, -3, 0);					
 				}
-				else 									//move right <--------------
+				else											//move down
 				{
 					if(camera.position.x < (mWIDTH-cWIDTH))
-					camera.translate(3, 0, 0);
+						camera.translate(3, 0, 0);
 				}
 			}
+			
 		}
 	}
 
