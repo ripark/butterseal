@@ -94,19 +94,19 @@ public class Seal implements ApplicationListener
 			
 			if(touchPos.y < (HEIGHT/2))
 			{
-				if(touchPos.x < touchPos.y)					//move left
+				if(touchPos.x < touchPos.y)				//move left
 				{
-					if(camera.position.x > (cWIDTH))			//out of bounds check
+					if(camera.position.x > (cWIDTH))		//out of bounds check
 						camera.translate(-3, 0, 0);
 				}
-				else if(touchPos.y > (WIDTH - touchPos.x)) 	//move right
+				else if(touchPos.y > (WIDTH - touchPos.x)) 		//move right
 				{
-					if(camera.position.x < (mWIDTH-cWIDTH))
+					if(camera.position.x < (mWIDTH-cWIDTH))		//out of bounds check
 						camera.translate(3, 0, 0);
 				}
-				else										//move up
+				else							//move up
 				{
-					if(camera.position.y < (mHEIGHT-cHEIGHT))		//out of bounds check
+					if(camera.position.y < (mHEIGHT-cHEIGHT))	//out of bounds check
 						camera.translate(0, 3, 0);
 				}
 			}
@@ -115,17 +115,17 @@ public class Seal implements ApplicationListener
 			{
 				if(touchPos.x < (HEIGHT - touchPos.y))			//move left
 				{
-					if(camera.position.x > (cWIDTH))			//check
+					if(camera.position.x > (cWIDTH))		//out of bounds check
 						camera.translate(-3, 0, 0);
 				}
-				else if((HEIGHT - touchPos.y) < (WIDTH - touchPos.x))	//move right
+				else if((HEIGHT - touchPos.y) < (WIDTH - touchPos.x))	//move down
 				{
-					if(camera.position.y > (cHEIGHT))
+					if(camera.position.y > (cHEIGHT))		//out of bounds check
 						camera.translate(0, -3, 0);					
 				}
-				else											//move down
+				else							//move right
 				{
-					if(camera.position.x < (mWIDTH-cWIDTH))
+					if(camera.position.x < (mWIDTH-cWIDTH))		//out of bounds check
 						camera.translate(3, 0, 0);
 				}
 			}
