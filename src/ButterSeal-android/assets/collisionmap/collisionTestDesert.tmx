@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><map height="50" orientation="orthogonal" tileheight="32" tilewidth="32" version="1.0" width="50"><properties><property name="blended tiles" value=""/></properties>
+ <tileset firstgid="1" margin="1" name="tmwDesertSpacing" spacing="1" tileheight="32" tilewidth="32">
+  <image height="199" source="Program Files (x86)/Tiled/examples/tmwDesertSpacing.png" width="265"/>
+  <terraintypes>
+   <terrain name="sand" tile="29"/>
+   <terrain name="brick" tile="9"/>
+   <terrain name="cobblestone" tile="33"/>
+   <terrain name="sand" tile="14"/>
+  </terraintypes>
+  <tile id="0" terrain="0,0,0,1">
+   <properties>
+    <property name="wall" value="1"/>
+   </properties>
+  </tile>
+  <tile id="1" terrain="0,0,1,1">
+   <properties>
+    <property name="wall" value="1"/>
+   </properties>
+  </tile>
+  <tile id="2" terrain="0,0,1,0">
+   <properties>
+    <property name="wall" value="1"/>
+   </properties>
+  </tile>
+  <tile id="3" terrain="3,3,3,0"/>
+  <tile id="4" terrain="3,3,0,3"/>
+  <tile id="5" terrain="0,0,0,3"/>
+  <tile id="6" terrain="0,0,3,3"/>
+  <tile id="7" terrain="0,0,3,0"/>
+  <tile id="8" terrain="0,1,0,1">
+   <properties>
+    <property name="wall" value="1"/>
+   </properties>
+  </tile>
+  <tile id="9" terrain="1,1,1,1"/>
+  <tile id="10" terrain="1,0,1,0">
+   <properties>
+    <property name="wall" value="1"/>
+   </properties>
+  </tile>
+  <tile id="11" terrain="3,0,3,3"/>
+  <tile id="12" terrain="0,3,3,3"/>
+  <tile id="13" terrain="0,3,0,3"/>
+  <tile id="15" terrain="3,0,3,0"/>
+  <tile id="16" terrain="0,1,0,0">
+   <properties>
+    <property name="wall" value="1"/>
+   </properties>
+  </tile>
+  <tile id="17" terrain="1,1,0,0">
+   <properties>
+    <property name="wall" value="1"/>
+   </properties>
+  </tile>
+  <tile id="18" terrain="1,0,0,0">
+   <properties>
+    <property name="wall" value="1"/>
+   </properties>
+  </tile>
+  <tile id="19" terrain="1,1,1,0">
+   <properties>
+    <property name="wall" value="1"/>
+   </properties>
+  </tile>
+  <tile id="20" terrain="1,1,0,1">
+   <properties>
+    <property name="wall" value="1"/>
+   </properties>
+  </tile>
+  <tile id="21" terrain="0,3,0,0"/>
+  <tile id="22" terrain="3,3,0,0"/>
+  <tile id="23" terrain="3,0,0,0"/>
+  <tile id="24" terrain="0,0,0,2">
+   <properties>
+    <property name="wall" value="1"/>
+   </properties>
+  </tile>
+  <tile id="25" terrain="0,0,2,2">
+   <properties>
+    <property name="wall" value="1"/>
+   </properties>
+  </tile>
+  <tile id="26" terrain="0,0,2,0">
+   <properties>
+    <property name="wall" value="1"/>
+   </properties>
+  </tile>
+  <tile id="27" terrain="1,0,1,1">
+   <properties>
+    <property name="wall" value="1"/>
+   </properties>
+  </tile>
+  <tile id="28" terrain="0,1,1,1">
+   <properties>
+    <property name="wall" value="1"/>
+   </properties>
+  </tile>
+  <tile id="29" terrain="0,0,0,0"/>
+  <tile id="30">
+   <properties>
+    <property name="wall" value="1"/>
+   </properties>
+  </tile>
+  <tile id="31">
+   <properties>
+    <property name="wall" value="1"/>
+   </properties>
+  </tile>
+  <tile id="32" terrain="0,2,0,2">
+   <properties>
+    <property name="wall" value="1"/>
+   </properties>
+  </tile>
+  <tile id="33" terrain="2,2,2,2"/>
+  <tile id="34" terrain="2,0,2,0">
+   <properties>
+    <property name="wall" value="1"/>
+   </properties>
+  </tile>
+  <tile id="35" terrain="2,2,2,0">
+   <properties>
+    <property name="wall" value="1"/>
+   </properties>
+  </tile>
+  <tile id="36" terrain="2,2,0,2">
+   <properties>
+    <property name="wall" value="1"/>
+   </properties>
+  </tile>
+  <tile id="37">
+   <properties>
+    <property name="wall" value="1"/>
+   </properties>
+  </tile>
+  <tile id="38">
+   <properties>
+    <property name="wall" value="1"/>
+   </properties>
+  </tile>
+  <tile id="39">
+   <properties>
+    <property name="wall" value="1"/>
+   </properties>
+  </tile>
+  <tile id="40" terrain="0,2,0,0">
+   <properties>
+    <property name="wall" value="1"/>
+   </properties>
+  </tile>
+  <tile id="41" terrain="2,2,0,0">
+   <properties>
+    <property name="wall" value="1"/>
+   </properties>
+  </tile>
+  <tile id="42" terrain="2,0,0,0">
+   <properties>
+    <property name="wall" value="1"/>
+   </properties>
+  </tile>
+  <tile id="43" terrain="2,0,2,2">
+   <properties>
+    <property name="wall" value="1"/>
+   </properties>
+  </tile>
+  <tile id="44" terrain="0,2,2,2">
+   <properties>
+    <property name="wall" value="1"/>
+   </properties>
+  </tile>
+  <tile id="45">
+   <properties>
+    <property name="wall" value="1"/>
+   </properties>
+  </tile>
+  <tile id="46">
+   <properties>
+    <property name="wall" value="1"/>
+   </properties>
+  </tile>
+  <tile id="47">
+   <properties>
+    <property name="wall" value="1"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer height="50" name="Tile Layer 1" width="50">
+  <data compression="zlib" encoding="base64">
+   eJztmk9PwkAQxYueqAci6gFRqHggakL8/p/OJZTYTObNn+1sWRIOLzEy7PS3b3d22tI2TdPeVJ2ek5ZXpheG4yHpN2kToFnSXdJ90Hicjtc6BxxROebOMVdJr0nrzDwWjm0Gx2M/5pMx/iNpl/Tp9FXjiFgXrfL5YfD3V8/x4/RV4+A+z5GHewd8XQq+ahza9yP8oGuW44jcH1Ec2l4uybEH3+8yOM57WRI3zkHIEe0HV9Mox3Evfzf/e3kxoR9I0hwhDqoaOCxq+2uV5OHg1vgl9rmmUn7k9gq1cXD1BY3XOThQDeTG13oiCwetL975svpxUMaXeqSc/UHzaD0Y5eA8s6wrqceK4PD0YJY5RhxS7xzBwfVgtJZumDwop7Ru0RqN4ODEcXAx3BzsGnzORHB0gGPLxFAOrjYh1lr84M5oT1wpDtpDaWeIxNAZYqfyY8jC5Txfm6UPuDQHxxOtKTmkuaV9gGW+tZjj9XFnTkkO7zVKMdqZY+FAfQetpQvw/7EctBfgzhwLh9R3SH6gHjWHQ4u3cKBnPxqH1489iIniQNI4UG+h+bHqY9Ygz5Qc0pmu3SfRZ7wlOIb5NA5UHzQ/aL3mOGgtGeuHRXS8EveTkeuKCtUHqS+vkQMJ+TEVRzeCY/hdicNz7+TlQM8+LfvP48cY32taV575Ks1heYd4rX4M55me1Uidkod6l8sx62O97z/R+9ixeXI5vO/Fz0L3VmPz5HJEvP+0yJoHcUT9LmMKod9lvDWn/u6a9M5w3FSH/gAvK+pY
+  </data>
+ </layer>
+ <objectgroup height="50" name="Object Layer 1" width="50">
+  <object height="32" name="PlayerStartingPos" type="player" width="32" x="832" y="1440">
+   <properties>
+    <property name="yoloswag420" value="1"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>
