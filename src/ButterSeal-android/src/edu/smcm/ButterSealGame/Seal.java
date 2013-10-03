@@ -27,7 +27,6 @@ public class Seal implements ApplicationListener
 	private int mapWidth;
 	private int mapHeight;
 	
-	private int tileType;
 	private int currentTileX;
 	private int currentTileY;
 	
@@ -52,6 +51,7 @@ public class Seal implements ApplicationListener
 	private long lastActionTime;
 	
 	private boolean isMoving;
+	private boolean isPressed;
 	private int moveAmount;
 	
 	private enum MapQuadrant
@@ -65,10 +65,27 @@ public class Seal implements ApplicationListener
 	
 	private MapQuadrant quadrant;
 	
-	//sets up everything. (in order, somewhat) Gets the screen dimensions, sets the initial screen color, creates the d-pad texture,
-	//gets the d-pad dimensions, sets up music (currently commented out, music not included), makes the d-pad sprite and sets it 
-	//in the bottom left corner, imports everything about the tiled map, sets up the camera dimensions, and gets the initial player 
-	//spawn point and sets the camera and player to that point.
+	private static class Tile
+	{
+		public int tileId;
+		
+		public enum Kind
+		{
+			WALL,
+			playTheBestMusic
+		};
+		public Kind kind;
+	}
+	private Tile currentTile;
+	
+	
+	/**
+	 * sets up everything. (in order, somewhat) Gets the screen dimensions, sets the initial screen color, creates the d-pad texture,
+	 * gets the d-pad dimensions, sets up music (currently commented out, music not included), makes the d-pad sprite and sets it 
+	 * in the bottom left corner, imports everything about the tiled map, sets up the camera dimensions, and gets the initial player 
+	 * spawn point and sets the camera and player to that point.
+	 */
+
 	@Override
 	public void create() 
 	{
@@ -126,9 +143,12 @@ public class Seal implements ApplicationListener
 				
 		currentTileX = 26;
 		currentTileY = 45;
+		currentTile = new Tile();
+		currentTile.tileId = tiledMap.layers.get(0).tiles[currentTileY][currentTileX];
 		
 		quadrant = MapQuadrant.INVALID;
 		isMoving = false;
+		isPressed = false;
 		moveAmount = 0;
 	}
  
@@ -138,10 +158,12 @@ public class Seal implements ApplicationListener
 		
 	}
  
-	//if the player is not currently moving, handles input.
-	//otherwise, it checks which quadrant of the d-pad was pressed, then translates the camera and the player at the same rate
-	//through the map in the specified direction. It currently moves 4 pixels per frame, and counts down from the initial move
-	//value of 32 until it has moved exactly one tile (32 pixels).
+	/**
+	 * if the player is not currently moving, handles input.
+	 * otherwise, it checks which quadrant of the d-pad was pressed, then translates the camera and the player at the same rate
+	 * through the map in the specified direction. It currently moves 4 pixels per frame, and counts down from the initial move
+	 * value of 32 until it has moved exactly one tile (32 pixels).
+	 */
 	private void movePlayerCamera()
 	{
 		if(!isMoving)
@@ -175,8 +197,10 @@ public class Seal implements ApplicationListener
 			isMoving = false;			
 	}
  
-	//basic render function. Calls for input first, then clears the screen. Then, it updates the camera, renders the map
-	//to the camera, draws the player to scale of the camera, and draws the d-pad at the bottom left corner.
+	/**
+	 * basic render function. Calls for input first, then clears the screen. Then, it updates the camera, renders the map
+	 * to the camera, draws the player to scale of the camera, and draws the d-pad and 'A' button.
+	 */
 	@Override
 	public void render() 
 	{		
@@ -217,29 +241,45 @@ public class Seal implements ApplicationListener
 		return false;
 	}
 	
-	//checks to see if the tile the player wants to move onto is a wall by getting the tile ID (tileType) and
-	//checking the property value.
-	private boolean isWall()
+	/**
+	 * checks to see the property of the tile the player wants to move onto by getting the tile ID and
+	 * checking the property value. Checks property value against Property, if check goes through, returns true.
+	 * @param Property the property you are checking for to check for interaction.
+	 * @return
+	 */
+	private boolean Interaction(String Property)
 	{
-		if(quadrant == MapQuadrant.WEST) {
-			tileType = tiledMap.layers.get(0).tiles[currentTileY][currentTileX-1];
+		switch(quadrant)
+		{
+		case WEST:
+			currentTile.tileId = tiledMap.layers.get(0).tiles[currentTileY][currentTileX-1];
+			break;
+		case EAST:
+			currentTile.tileId = tiledMap.layers.get(0).tiles[currentTileY][currentTileX+1];
+			break;
+		case NORTH:
+			currentTile.tileId = tiledMap.layers.get(0).tiles[currentTileY-1][currentTileX];
+			break;
+		case SOUTH:
+			currentTile.tileId = tiledMap.layers.get(0).tiles[currentTileY+1][currentTileX];
+			break;
+		default:
+			break;
 		}
-		else if(quadrant == MapQuadrant.EAST) {
-			tileType = tiledMap.layers.get(0).tiles[currentTileY][currentTileX+1];
-		}
-		else if(quadrant == MapQuadrant.NORTH) {
-			tileType = tiledMap.layers.get(0).tiles[currentTileY-1][currentTileX];
-		}
-		else if(quadrant == MapQuadrant.SOUTH) {
-			tileType = tiledMap.layers.get(0).tiles[currentTileY+1][currentTileX];
-		}
-		if ("1".equals(tiledMap.getTileProperty(tileType, "wall"))) {
-		    return true;
+		if (tiledMap.getTileProperty(currentTile.tileId, Property) != null) {
+			if(Property == "playTheBestMusic") {
+				return true;
+			}
+			else if(Property == "wall")	{
+				return true;
+			}
 		}
 		return false;
 	}
 	
-	//finds the quadrant of the d-pad image the player is touching
+	/**
+	 * finds the quadrant of the d-pad image the player is touching
+	 */
 	private void findQuadrant()
 	{		
 		if(touchPos.y > (height - (uiHeight3*2)) && (touchPos.y < (height - uiHeight3)) && (touchPos.x < uiWidth3))
@@ -255,22 +295,28 @@ public class Seal implements ApplicationListener
  
 	}
 	
-	//checks to see if the player is touching inside the d-pad, then checks to see which quadrant of the d-pad is being touched.
-	//if input is valid, checks to make sure the camera won't go out of bounds, then checks for potential collision.
-	//if all checks go through, sets the camera up to move 32 pixels and changes isMoving status to true.
-	//Also, updates the CurrentTile coordinates.
+	/**
+	 * checks to see if the player is touching inside the d-pad, then checks to see which quadrant of the d-pad is being touched.
+	 * if input is valid, calls Interaction() for certain properties. If property checks go through, acts on those properties
+	 * by calling related functions.
+	 */
 	private void handleInput()
 	{
 		if(Gdx.input.isTouched()) 
 		{
 			touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
 			
+			if(isInAbutton())
+			{
+				if(Interaction("playTheBestMusic")) {
+					checkToggleMusic();
+				}
+				isPressed = true;
+				return;
+			}
+			
 			if(!isInDpad())
 			{
-				if(isInAbutton())
-				{
-					checkInteraction();
-				}
 				return;
 			}
 			
@@ -279,14 +325,14 @@ public class Seal implements ApplicationListener
 			switch(quadrant)
 			{
 			case WEST:				
-				if(!isWall()) {
+				if(!Interaction("wall")) {
 					moveAmount = 32;
 					isMoving = true;
 					currentTileX--;
 				}
 				break;
 			case EAST:				
-				if(!isWall()) {
+				if(!Interaction("wall")) {
 					moveAmount = 32;
 					isMoving = true;
 					currentTileX++;
@@ -294,14 +340,14 @@ public class Seal implements ApplicationListener
 				}
 				break;
 			case NORTH:				
-				if(!isWall()) {
+				if(!Interaction("wall")) {
 					moveAmount = 32;
 					isMoving = true;
 					currentTileY--;
 				}
 				break;
 			case SOUTH:
-				if(!isWall()) {
+				if(!Interaction("wall")) {
 					moveAmount = 32;
 					isMoving = true;
 					currentTileY++;
@@ -311,48 +357,22 @@ public class Seal implements ApplicationListener
 				break;
 			}			
 		}
+		isPressed = false;
 	}
 	
 	/**
-	 * checks the tile the character is facing for possible interaction. Currently only checks for music toggling.
-	 */
-	private void checkInteraction() 
-	{
-		if(quadrant == MapQuadrant.WEST) {
-			tileType = tiledMap.layers.get(0).tiles[currentTileY][currentTileX-1];
-		}
-		else if(quadrant == MapQuadrant.EAST) {
-			tileType = tiledMap.layers.get(0).tiles[currentTileY][currentTileX+1];
-		}
-		else if(quadrant == MapQuadrant.NORTH) {
-			tileType = tiledMap.layers.get(0).tiles[currentTileY-1][currentTileX];
-		}
-		else if(quadrant == MapQuadrant.SOUTH) {
-			tileType = tiledMap.layers.get(0).tiles[currentTileY+1][currentTileX];
-		}
-		if ("1".equals(tiledMap.getTileProperty(tileType, "playTheBestMusic"))) {
-		    checkToggleMusic();
-		}
-	}
-	
-	/**
-	 * toggles music. lastActionTime keeps you from toggling it every frame.
+	 * toggles music. Only applies the first frame the button is pressed.
 	 */
 	public void checkToggleMusic() 
 	{
-		if(BestMusic.isPlaying()) {
-	    	if(TimeUtils.nanoTime() - lastActionTime > 1000000000) {
-	    		BestMusic.pause();	 
-	    		lastActionTime = TimeUtils.nanoTime();
-	    	}
-	    }
-	    else {
-	    	if(TimeUtils.nanoTime() - lastActionTime > 1000000000) {
-	    		BestMusic.play();	 
-	    		lastActionTime = TimeUtils.nanoTime();
-	    	}
-	    }
-		
+		if(!isPressed) {
+			if(BestMusic.isPlaying()) {
+					BestMusic.pause();	 
+			}
+			else {
+					BestMusic.play();	 
+			}
+		}
 	}
  
 	@Override
