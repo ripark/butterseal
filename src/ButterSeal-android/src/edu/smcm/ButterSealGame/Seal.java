@@ -16,6 +16,7 @@ import com.badlogic.gdx.graphics.g2d.tiled.TiledObjectGroup;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.TimeUtils;
  
 public class Seal implements ApplicationListener
 {
@@ -30,14 +31,16 @@ public class Seal implements ApplicationListener
 	private int currentTileX;
 	private int currentTileY;
 	
-	private int dpadHeight;
-	private int dpadWidth;
-	private int dpadHeight3;
-	private int dpadWidth3;
+	private int uiHeight;
+	private int uiWidth;
+	private int uiHeight3;
+	private int uiWidth3;
 	
 	private Texture dpadImage;
+	private Texture aButtonImage;
 	private Rectangle dpad;
-	private Music DreamMusic;
+	private Rectangle aButton;
+	private Music BestMusic;
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
 	private Vector3 touchPos;
@@ -45,6 +48,8 @@ public class Seal implements ApplicationListener
 	private Player player;
 	private Matrix4 matrix;
 	private TiledMap tiledMap;
+	
+	private long lastActionTime;
 	
 	private boolean isMoving;
 	private int moveAmount;
@@ -72,18 +77,23 @@ public class Seal implements ApplicationListener
 		
 		Gdx.gl.glClearColor(0f,0,0.0f,1);
 		
-		dpadImage = new Texture(Gdx.files.internal("dpad.png"));
-		dpadHeight = dpadImage.getHeight();
-		dpadWidth = dpadImage.getWidth();
-		dpadHeight3 = dpadHeight/3;
-		dpadWidth3 = dpadWidth/3;
-		DreamMusic = Gdx.audio.newMusic(Gdx.files.internal("Dream.mp3"));
+		dpadImage = new Texture(Gdx.files.internal("dpad1.png"));
+		aButtonImage = new Texture(Gdx.files.internal("aButton.png"));
+		uiHeight = dpadImage.getHeight();
+		uiWidth = dpadImage.getWidth();
+		uiHeight3 = uiHeight/3;
+		uiWidth3 = uiWidth/3;
+		BestMusic = Gdx.audio.newMusic(Gdx.files.internal("Best.mp3"));
 		
 		dpad = new Rectangle();
 		dpad.x = 0;
 		dpad.y = 0;
-		dpad.width = dpadWidth;
-		dpad.height = dpadHeight;
+		dpad.width = uiWidth;
+		dpad.height = uiHeight;
+		
+		aButton = new Rectangle();
+		aButton.x = width-uiWidth;
+		aButton.y = 0;
 		
 		batch = new SpriteBatch();
 		
@@ -97,8 +107,7 @@ public class Seal implements ApplicationListener
 		mapWidth = tiledMap.width * tiledMap.tileWidth;
 		mapHeight = tiledMap.height * tiledMap.tileHeight;
 		
-		//DreamMusic.setLooping(true);
-		//DreamMusic.play();
+		BestMusic.setLooping(true);
 		
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, camWidth*2, camHeight*2);
@@ -183,20 +192,30 @@ public class Seal implements ApplicationListener
 		
 		batch.begin();
 		batch.draw(dpadImage, dpad.x, dpad.y);
+		batch.draw(aButtonImage, aButton.x, aButton.y);
 		batch.end();
 	}
 	
 	// Helper functions for handleInput
 	private boolean isInDpad()
 	{
-		if((touchPos.y < (height - dpadHeight)))
+		if((touchPos.y < (height - uiHeight)))
 			return false;
-		if(touchPos.x > dpadWidth)
+		if(touchPos.x > uiWidth)
 			return false;
 		
 		return true;		
 	}
 	
+	private boolean isInAbutton()
+	{
+		if((touchPos.y < (height - uiHeight3)) && (touchPos.y > (height - (uiHeight3*2))) && (touchPos.x < (width - uiWidth3)) &&
+				(touchPos.x > (width - (uiWidth3*2))))
+		{
+			return true;
+		}
+		return false;
+	}
 	
 	//checks to see if the tile the player wants to move onto is a wall by getting the tile ID (tileType) and
 	//checking the property value.
@@ -223,13 +242,13 @@ public class Seal implements ApplicationListener
 	//finds the quadrant of the d-pad image the player is touching
 	private void findQuadrant()
 	{		
-		if(touchPos.y > (height - (dpadHeight3*2)) && (touchPos.y < (height - dpadHeight3)) && (touchPos.x < dpadWidth3))
+		if(touchPos.y > (height - (uiHeight3*2)) && (touchPos.y < (height - uiHeight3)) && (touchPos.x < uiWidth3))
 			quadrant = MapQuadrant.WEST;
-		else if(touchPos.y > (height - (dpadHeight3*2)) && (touchPos.y < (height - dpadHeight3)) && (touchPos.x > (dpadWidth3*2)))
+		else if(touchPos.y > (height - (uiHeight3*2)) && (touchPos.y < (height - uiHeight3)) && (touchPos.x > (uiWidth3*2)))
 			quadrant = MapQuadrant.EAST;
-		else if((touchPos.y < (height - dpadHeight3*2)) && (touchPos.x < (dpadWidth3*2)) && (touchPos.x > dpadWidth3))
+		else if((touchPos.y < (height - uiHeight3*2)) && (touchPos.x < (uiWidth3*2)) && (touchPos.x > uiWidth3))
 			quadrant = MapQuadrant.NORTH;
-		else if((touchPos.y > (height - dpadHeight3)) && (touchPos.x > dpadWidth3) && (touchPos.x < (dpadWidth3*2)))
+		else if((touchPos.y > (height - uiHeight3)) && (touchPos.x > uiWidth3) && (touchPos.x < (uiWidth3*2)))
 			quadrant = MapQuadrant.SOUTH;
 		else
 			quadrant = MapQuadrant.INVALID;
@@ -247,26 +266,26 @@ public class Seal implements ApplicationListener
 			touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
 			
 			if(!isInDpad())
+			{
+				if(isInAbutton())
+				{
+					checkInteraction();
+				}
 				return;
+			}
 			
 			findQuadrant();
 			
 			switch(quadrant)
 			{
-			case WEST:
-				if(camera.position.x - 32 < camWidth) {
-					break;
-				}
+			case WEST:				
 				if(!isWall()) {
 					moveAmount = 32;
 					isMoving = true;
 					currentTileX--;
 				}
 				break;
-			case EAST:
-				if(camera.position.x + 32 > (mapWidth-camWidth)) {
-					break;
-				}
+			case EAST:				
 				if(!isWall()) {
 					moveAmount = 32;
 					isMoving = true;
@@ -274,10 +293,7 @@ public class Seal implements ApplicationListener
 					
 				}
 				break;
-			case NORTH:
-				if(camera.position.y + 32 > (mapHeight-camHeight)) {
-					break;
-				}
+			case NORTH:				
 				if(!isWall()) {
 					moveAmount = 32;
 					isMoving = true;
@@ -285,9 +301,6 @@ public class Seal implements ApplicationListener
 				}
 				break;
 			case SOUTH:
-				if(camera.position.y - 32 < (camHeight)) {
-					break;
-				}
 				if(!isWall()) {
 					moveAmount = 32;
 					isMoving = true;
@@ -298,6 +311,48 @@ public class Seal implements ApplicationListener
 				break;
 			}			
 		}
+	}
+	
+	/**
+	 * checks the tile the character is facing for possible interaction. Currently only checks for music toggling.
+	 */
+	private void checkInteraction() 
+	{
+		if(quadrant == MapQuadrant.WEST) {
+			tileType = tiledMap.layers.get(0).tiles[currentTileY][currentTileX-1];
+		}
+		else if(quadrant == MapQuadrant.EAST) {
+			tileType = tiledMap.layers.get(0).tiles[currentTileY][currentTileX+1];
+		}
+		else if(quadrant == MapQuadrant.NORTH) {
+			tileType = tiledMap.layers.get(0).tiles[currentTileY-1][currentTileX];
+		}
+		else if(quadrant == MapQuadrant.SOUTH) {
+			tileType = tiledMap.layers.get(0).tiles[currentTileY+1][currentTileX];
+		}
+		if ("1".equals(tiledMap.getTileProperty(tileType, "playTheBestMusic"))) {
+		    checkToggleMusic();
+		}
+	}
+	
+	/**
+	 * toggles music. lastActionTime keeps you from toggling it every frame.
+	 */
+	public void checkToggleMusic() 
+	{
+		if(BestMusic.isPlaying()) {
+	    	if(TimeUtils.nanoTime() - lastActionTime > 1000000000) {
+	    		BestMusic.pause();	 
+	    		lastActionTime = TimeUtils.nanoTime();
+	    	}
+	    }
+	    else {
+	    	if(TimeUtils.nanoTime() - lastActionTime > 1000000000) {
+	    		BestMusic.play();	 
+	    		lastActionTime = TimeUtils.nanoTime();
+	    	}
+	    }
+		
 	}
  
 	@Override
