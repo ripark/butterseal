@@ -1,13 +1,40 @@
+#+Title: Map Description Document
+#+Author: Sean Allred and Kyle Easterling
+#+Date: [2013-10-29 Tue]
+#+Description: This document describes the design of each map used in the game as well as their logical structure in respect to the tiles they use.
+
+* /Tiled/ Property Descriptions
+Tiled allows you to set properties for tiles of tile-sets used in its maps.
+These allow for easy handling in the program logic, since you don't have to have pre-knowledge of how the map is laid out in advance.
+To make this work, a standard has to be set that is common between the map-designer and the logic-designer so that collaboration is simple and effective.
+
+- =wall= :: Set this property to denote an absolutely impassable object.
+            Expects a value of =true= or =false= appropriately.
+- =active= :: Set this property to denote if the tile is interactive.
+              Expects a value of =true= or =false= appropriately.
+- =player= :: Set this property to denote the starting tile of the map.
+              The player will start on this tile; behavior is undefined for a map that has more than one tile with this property.
+              Set =true= or =false= appropriately.
+- =special= :: Set this property if the tile is special and should be handled as such in some way.
+               For example, set =special=beacon= to trigger program logic specific to beacons, such as toggle lighting.
+
+               Valid values are:
+  - =beacon=
+  - =torch=
+  - =door=
+  - =goal=
+- =air= :: set this property to denote an absolutely passable tile.
+           That is, no matter what, you can walk through this tile.
+
 * Ice Cave
 ** Goal
-The goal of the ice cave is to get into the little spot that is
-directly in front of you, but is walled off.  You can see it because
-of the torches, but you must use the beacons (you light them on fire
-and direct them) to light a path for yourself.  You've got to find a
-full path to the next instrument to continue the game.
-** Tile descriptions
-- =t= :: torch; you can walk through these and they light all the
-         tiles around them (eight in all)
+The goal of the ice cave is to get into the little spot that is directly in front of you, but is walled off.
+You can see it because of the torches, but you must use the beacons to light a path for yourself.
+(This means beacons are active; interacting with them lights its row and column.)
+You've got to find a full path to the next instrument to continue the game.
+
+** Tile Key
+- =t= :: torch; you can walk through these and they light all the tiles around them (eight in all)
 - =S= :: starting position
 - =d= :: door to the ice cave
 - =B= :: beacons; you can turn these around to light up different paths
