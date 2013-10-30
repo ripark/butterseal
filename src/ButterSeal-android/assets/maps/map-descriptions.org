@@ -1,0 +1,18 @@
+* Ice Cave
+** Goal
+The goal of the ice cave is to get into the little spot that is
+directly in front of you, but is walled off.  You can see it because
+of the torches, but you must use the beacons (you light them on fire
+and direct them) to light a path for yourself.  You've got to find a
+full path to the next instrument to continue the game.
+** Tile descriptions
+- =t= :: torch; you can walk through these and they light all the
+         tiles around them (eight in all)
+- =S= :: starting position
+- =d= :: door to the ice cave
+- =B= :: beacons; you can turn these around to light up different paths
+- =#= :: walls
+- =+= :: suggested path
+- =$= :: MONEY.  (The goal; this would be some sort of instrument.)
+
+All blank tiles are as yet unused.
