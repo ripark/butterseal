@@ -1,0 +1,2009 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><map height="25" orientation="orthogonal" tileheight="32" tilewidth="32" version="1.0" width="40"><properties><property name="blended tiles" value="49"/></properties>
+ <tileset firstgid="1" name="Test" tileheight="32" tilewidth="32">
+  <image height="384" source="Program Files (x86)/Tiled/tilesets/test.bmp" trans="ffffff" width="256"/>
+  <terraintypes>
+   <terrain name="Beacon" tile="69"/>
+   <terrain name="wall" tile="3"/>
+   <terrain name="torch" tile="61"/>
+   <terrain name="money" tile="4"/>
+   <terrain name="Spawn" tile="85"/>
+   <terrain name="door" tile="45"/>
+   <terrain name="ground" tile="93"/>
+   <terrain name="darkness" tile="8"/>
+  </terraintypes>
+  <tile id="3" terrain="1,1,1,1">
+   <properties>
+    <property name="unchangeable" value="1"/>
+    <property name="wall" value="1"/>
+   </properties>
+  </tile>
+  <tile id="4" terrain="3,3,3,3">
+   <properties>
+    <property name="money" value="1"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="darkness" value="1"/>
+    <property name="wall" value="1"/>
+   </properties>
+  </tile>
+  <tile id="45" terrain="5,5,5,5">
+   <properties>
+    <property name="door" value="1"/>
+   </properties>
+  </tile>
+  <tile id="61" terrain="2,2,2,2">
+   <properties>
+    <property name="torch" value="1"/>
+   </properties>
+  </tile>
+  <tile id="69" terrain="0,0,0,0">
+   <properties>
+    <property name="Beacon" value="1"/>
+   </properties>
+  </tile>
+  <tile id="85" terrain="4,4,4,4">
+   <properties>
+    <property name="spawn" value="1"/>
+   </properties>
+  </tile>
+  <tile id="93" terrain="6,6,6,6"/>
+  <tile id="94">
+   <properties>
+    <property name="wall" value="1"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="97" name="sewer_tileset" tileheight="32" tilewidth="32">
+  <image height="217" source="examples/sewer_tileset.png" width="192"/>
+  <terraintypes>
+   <terrain name="darkness" tile="9"/>
+  </terraintypes>
+  <tile id="9" terrain="0,0,0,0">
+   <properties>
+    <property name="darkness" value="1"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer height="25" name="Puzzle" width="40">
+  <data>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="70"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="70"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="70"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="70"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="70"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="70"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="70"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="70"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="70"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="70"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="70"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="70"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="70"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="70"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="70"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="70"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="70"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="4"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="4"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="70"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="70"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="4"/>
+   <tile gid="62"/>
+   <tile gid="94"/>
+   <tile gid="62"/>
+   <tile gid="4"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="4"/>
+   <tile gid="94"/>
+   <tile gid="5"/>
+   <tile gid="94"/>
+   <tile gid="4"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="4"/>
+   <tile gid="62"/>
+   <tile gid="94"/>
+   <tile gid="62"/>
+   <tile gid="4"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="70"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="70"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="70"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="62"/>
+   <tile gid="94"/>
+   <tile gid="70"/>
+   <tile gid="94"/>
+   <tile gid="62"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="70"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="70"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="62"/>
+   <tile gid="94"/>
+   <tile gid="62"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="70"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="70"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="70"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="70"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="62"/>
+   <tile gid="86"/>
+   <tile gid="62"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="70"/>
+   <tile gid="94"/>
+   <tile gid="70"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="70"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="62"/>
+   <tile gid="94"/>
+   <tile gid="46"/>
+   <tile gid="94"/>
+   <tile gid="62"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="94"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+  </data>
+ </layer>
+ <objectgroup height="25" name="Object Layer 1" width="40">
+  <object height="32" name="player" type="player" width="32" x="640" y="704"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="0" y="0"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="0" y="32"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="0" y="64"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="0" y="96"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="0" y="128"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="0" y="160"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="0" y="192"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="0" y="224"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="0" y="256"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="0" y="288"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="0" y="320"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="0" y="352"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="0" y="384"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="0" y="416"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="0" y="448"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="0" y="480"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="0" y="512"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="0" y="544"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="0" y="576"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="0" y="608"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="0" y="640"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="0" y="672"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="0" y="704"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="0" y="736"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="0" y="768"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="32" y="0"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="32" y="32"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="32" y="64"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="32" y="96"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="32" y="128"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="32" y="160"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="32" y="192"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="32" y="224"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="32" y="256"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="32" y="288"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="32" y="320"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="32" y="352"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="32" y="384"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="32" y="416"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="32" y="448"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="32" y="480"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="32" y="512"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="32" y="544"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="32" y="576"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="32" y="608"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="32" y="640"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="32" y="672"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="32" y="704"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="32" y="736"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="32" y="768"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="64" y="0"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="64" y="32"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="64" y="64"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="64" y="96"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="64" y="128"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="64" y="160"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="64" y="192"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="64" y="224"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="64" y="256"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="64" y="288"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="64" y="320"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="64" y="352"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="64" y="384"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="64" y="416"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="64" y="448"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="64" y="480"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="64" y="512"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="64" y="544"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="64" y="576"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="64" y="608"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="64" y="640"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="64" y="672"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="64" y="704"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="64" y="736"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="64" y="768"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="96" y="0"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="96" y="32"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="96" y="64"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="96" y="96"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="96" y="128"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="96" y="160"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="96" y="192"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="96" y="224"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="96" y="256"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="96" y="288"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="96" y="320"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="96" y="352"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="96" y="384"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="96" y="416"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="96" y="448"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="96" y="480"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="96" y="512"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="96" y="544"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="96" y="576"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="96" y="608"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="96" y="640"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="96" y="672"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="96" y="704"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="96" y="736"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="96" y="768"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="128" y="0"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="128" y="32"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="128" y="64"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="128" y="96"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="128" y="128"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="128" y="160"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="128" y="192"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="128" y="224"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="128" y="256"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="128" y="288"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="128" y="320"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="128" y="352"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="128" y="384"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="128" y="416"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="128" y="448"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="128" y="480"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="128" y="512"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="128" y="544"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="128" y="576"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="128" y="608"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="128" y="640"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="128" y="672"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="128" y="704"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="128" y="736"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="128" y="768"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="160" y="0"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="160" y="32"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="160" y="64"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="160" y="96"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="160" y="128"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="160" y="160"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="160" y="192"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="160" y="224"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="160" y="256"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="160" y="288"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="160" y="320"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="160" y="352"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="160" y="384"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="160" y="416"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="160" y="448"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="160" y="480"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="160" y="512"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="160" y="544"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="160" y="576"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="160" y="608"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="160" y="640"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="160" y="672"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="160" y="704"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="160" y="736"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="160" y="768"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="192" y="0"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="192" y="32"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="192" y="64"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="192" y="96"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="192" y="128"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="192" y="160"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="192" y="192"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="192" y="224"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="192" y="256"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="192" y="288"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="192" y="320"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="192" y="352"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="192" y="384"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="192" y="416"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="192" y="448"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="192" y="480"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="192" y="512"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="192" y="544"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="192" y="576"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="192" y="608"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="192" y="640"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="192" y="672"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="192" y="704"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="192" y="736"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="192" y="768"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="224" y="0"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="224" y="32"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="224" y="64"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="224" y="96"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="224" y="128"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="224" y="160"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="224" y="192"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="224" y="224"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="224" y="256"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="224" y="288"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="224" y="320"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="224" y="352"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="224" y="384"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="224" y="416"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="224" y="448"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="224" y="480"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="224" y="512"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="224" y="544"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="224" y="576"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="224" y="608"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="224" y="640"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="224" y="672"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="224" y="704"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="224" y="736"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="224" y="768"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="256" y="0"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="256" y="32"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="256" y="64"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="256" y="96"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="256" y="128"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="256" y="160"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="256" y="192"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="256" y="224"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="256" y="256"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="256" y="288"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="256" y="320"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="256" y="352"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="256" y="384"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="256" y="416"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="256" y="448"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="256" y="480"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="256" y="512"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="256" y="544"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="256" y="576"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="256" y="608"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="256" y="640"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="256" y="672"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="256" y="704"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="256" y="736"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="256" y="768"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="288" y="0"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="288" y="32"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="288" y="64"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="288" y="96"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="288" y="128"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="288" y="160"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="288" y="192"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="288" y="224"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="288" y="256"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="288" y="288"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="288" y="320"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="288" y="352"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="288" y="384"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="288" y="416"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="288" y="448"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="288" y="480"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="288" y="512"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="288" y="544"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="288" y="576"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="288" y="608"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="288" y="640"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="288" y="672"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="288" y="704"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="288" y="736"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="288" y="768"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="320" y="0"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="320" y="32"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="320" y="64"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="320" y="96"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="320" y="128"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="320" y="160"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="320" y="192"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="320" y="224"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="320" y="256"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="320" y="288"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="320" y="320"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="320" y="352"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="320" y="384"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="320" y="416"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="320" y="448"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="320" y="480"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="320" y="512"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="320" y="544"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="320" y="576"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="320" y="608"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="320" y="640"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="320" y="672"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="320" y="704"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="320" y="736"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="320" y="768"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="352" y="0"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="352" y="32"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="352" y="64"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="352" y="96"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="352" y="128"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="352" y="160"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="352" y="192"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="352" y="224"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="352" y="256"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="352" y="288"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="352" y="320"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="352" y="352"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="352" y="384"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="352" y="416"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="352" y="448"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="352" y="480"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="352" y="512"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="352" y="544"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="352" y="576"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="352" y="608"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="352" y="640"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="352" y="672"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="352" y="704"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="352" y="736"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="352" y="768"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="384" y="0"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="384" y="32"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="384" y="64"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="384" y="96"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="384" y="128"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="384" y="160"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="384" y="192"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="384" y="224"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="384" y="256"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="384" y="288"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="384" y="320"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="384" y="352"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="384" y="384"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="384" y="416"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="384" y="448"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="384" y="480"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="384" y="512"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="384" y="544"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="384" y="576"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="384" y="608"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="384" y="640"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="384" y="672"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="384" y="704"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="384" y="736"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="384" y="768"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="416" y="0"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="416" y="32"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="416" y="64"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="416" y="96"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="416" y="128"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="416" y="160"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="416" y="192"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="416" y="224"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="416" y="256"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="416" y="288"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="416" y="320"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="416" y="352"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="416" y="384"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="416" y="416"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="416" y="448"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="416" y="480"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="416" y="512"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="416" y="544"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="416" y="576"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="416" y="608"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="416" y="640"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="416" y="672"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="416" y="704"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="416" y="736"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="416" y="768"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="448" y="0"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="448" y="32"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="448" y="64"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="448" y="96"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="448" y="128"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="448" y="160"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="448" y="192"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="448" y="224"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="448" y="256"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="448" y="288"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="448" y="320"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="448" y="352"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="448" y="384"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="448" y="416"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="448" y="448"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="448" y="480"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="448" y="512"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="448" y="544"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="448" y="576"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="448" y="608"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="448" y="640"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="448" y="672"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="448" y="704"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="448" y="736"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="448" y="768"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="480" y="0"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="480" y="32"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="480" y="64"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="480" y="96"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="480" y="128"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="480" y="160"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="480" y="192"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="480" y="224"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="480" y="256"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="480" y="288"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="480" y="320"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="480" y="352"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="480" y="384"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="480" y="416"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="480" y="448"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="480" y="480"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="480" y="512"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="480" y="544"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="480" y="576"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="480" y="608"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="480" y="640"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="480" y="672"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="480" y="704"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="480" y="736"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="480" y="768"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="512" y="0"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="512" y="32"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="512" y="64"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="512" y="96"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="512" y="128"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="512" y="160"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="512" y="192"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="512" y="224"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="512" y="256"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="512" y="288"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="512" y="320"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="512" y="352"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="512" y="384"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="512" y="416"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="512" y="448"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="512" y="480"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="512" y="512"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="512" y="544"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="512" y="576"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="512" y="608"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="512" y="640"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="512" y="672"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="512" y="704"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="512" y="736"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="512" y="768"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="544" y="0"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="544" y="32"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="544" y="64"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="544" y="96"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="544" y="128"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="544" y="160"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="544" y="192"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="544" y="224"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="544" y="256"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="544" y="288"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="544" y="320"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="544" y="352"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="544" y="384"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="544" y="416"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="544" y="448"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="544" y="480"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="544" y="512"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="544" y="544"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="544" y="672"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="576" y="0"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="576" y="32"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="576" y="64"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="576" y="96"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="576" y="128"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="576" y="160"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="576" y="192"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="576" y="224"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="576" y="256"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="576" y="288"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="576" y="320"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="576" y="352"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="576" y="384"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="576" y="416"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="608" y="0"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="608" y="32"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="608" y="64"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="608" y="96"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="608" y="128"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="608" y="160"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="608" y="192"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="608" y="224"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="608" y="256"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="608" y="288"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="608" y="320"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="608" y="352"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="608" y="384"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="608" y="416"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="640" y="0"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="640" y="32"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="640" y="64"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="640" y="96"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="640" y="128"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="640" y="160"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="640" y="192"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="640" y="224"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="640" y="256"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="640" y="288"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="640" y="320"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="640" y="352"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="640" y="384"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="640" y="416"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="672" y="0"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="672" y="32"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="672" y="64"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="672" y="96"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="672" y="128"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="672" y="160"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="672" y="192"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="672" y="224"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="672" y="256"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="672" y="288"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="672" y="320"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="672" y="352"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="672" y="384"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="672" y="416"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="704" y="0"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="704" y="32"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="704" y="64"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="704" y="96"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="704" y="128"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="704" y="160"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="704" y="192"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="704" y="224"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="704" y="256"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="704" y="288"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="704" y="320"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="704" y="352"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="704" y="384"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="704" y="416"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="736" y="0"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="736" y="32"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="736" y="64"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="736" y="96"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="736" y="128"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="736" y="160"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="736" y="192"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="736" y="224"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="736" y="256"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="736" y="288"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="736" y="320"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="736" y="352"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="736" y="384"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="736" y="416"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="736" y="448"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="736" y="480"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="736" y="512"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="736" y="544"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="736" y="672"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="768" y="0"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="768" y="32"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="768" y="64"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="768" y="96"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="768" y="128"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="768" y="160"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="768" y="192"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="768" y="224"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="768" y="256"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="768" y="288"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="768" y="320"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="768" y="352"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="768" y="384"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="768" y="416"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="768" y="448"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="768" y="480"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="768" y="512"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="768" y="544"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="768" y="576"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="768" y="608"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="768" y="640"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="768" y="672"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="768" y="704"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="768" y="736"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="768" y="768"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="800" y="0"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="800" y="32"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="800" y="64"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="800" y="96"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="800" y="128"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="800" y="160"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="800" y="192"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="800" y="224"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="800" y="256"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="800" y="288"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="800" y="320"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="800" y="352"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="800" y="384"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="800" y="416"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="800" y="448"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="800" y="480"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="800" y="512"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="800" y="544"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="800" y="576"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="800" y="608"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="800" y="640"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="800" y="672"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="800" y="704"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="800" y="736"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="800" y="768"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="832" y="0"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="832" y="32"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="832" y="64"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="832" y="96"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="832" y="128"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="832" y="160"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="832" y="192"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="832" y="224"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="832" y="256"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="832" y="288"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="832" y="320"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="832" y="352"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="832" y="384"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="832" y="416"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="832" y="448"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="832" y="480"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="832" y="512"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="832" y="544"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="832" y="576"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="832" y="608"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="832" y="640"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="832" y="672"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="832" y="704"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="832" y="736"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="832" y="768"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="864" y="0"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="864" y="32"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="864" y="64"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="864" y="96"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="864" y="128"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="864" y="160"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="864" y="192"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="864" y="224"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="864" y="256"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="864" y="288"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="864" y="320"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="864" y="352"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="864" y="384"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="864" y="416"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="864" y="448"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="864" y="480"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="864" y="512"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="864" y="544"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="864" y="576"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="864" y="608"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="864" y="640"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="864" y="672"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="864" y="704"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="864" y="736"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="864" y="768"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="896" y="0"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="896" y="32"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="896" y="64"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="896" y="96"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="896" y="128"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="896" y="160"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="896" y="192"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="896" y="224"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="896" y="256"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="896" y="288"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="896" y="320"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="896" y="352"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="896" y="384"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="896" y="416"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="896" y="448"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="896" y="480"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="896" y="512"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="896" y="544"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="896" y="576"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="896" y="608"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="896" y="640"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="896" y="672"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="896" y="704"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="896" y="736"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="896" y="768"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="928" y="0"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="928" y="32"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="928" y="64"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="928" y="96"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="928" y="128"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="928" y="160"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="928" y="192"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="928" y="224"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="928" y="256"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="928" y="288"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="928" y="320"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="928" y="352"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="928" y="384"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="928" y="416"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="928" y="448"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="928" y="480"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="928" y="512"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="928" y="544"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="928" y="576"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="928" y="608"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="928" y="640"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="928" y="672"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="928" y="704"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="928" y="736"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="928" y="768"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="960" y="0"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="960" y="32"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="960" y="64"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="960" y="96"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="960" y="128"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="960" y="160"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="960" y="192"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="960" y="224"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="960" y="256"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="960" y="288"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="960" y="320"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="960" y="352"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="960" y="384"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="960" y="416"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="960" y="448"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="960" y="480"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="960" y="512"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="960" y="544"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="960" y="576"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="960" y="608"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="960" y="640"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="960" y="672"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="960" y="704"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="960" y="736"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="960" y="768"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="992" y="0"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="992" y="32"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="992" y="64"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="992" y="96"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="992" y="128"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="992" y="160"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="992" y="192"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="992" y="224"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="992" y="256"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="992" y="288"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="992" y="320"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="992" y="352"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="992" y="384"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="992" y="416"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="992" y="448"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="992" y="480"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="992" y="512"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="992" y="544"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="992" y="576"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="992" y="608"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="992" y="640"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="992" y="672"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="992" y="704"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="992" y="736"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="992" y="768"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1024" y="0"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1024" y="32"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1024" y="64"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1024" y="96"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1024" y="128"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1024" y="160"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1024" y="192"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1024" y="224"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1024" y="256"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1024" y="288"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1024" y="320"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1024" y="352"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1024" y="384"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1024" y="416"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1024" y="448"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1024" y="480"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1024" y="512"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1024" y="544"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1024" y="576"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1024" y="608"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1024" y="640"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1024" y="672"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1024" y="704"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1024" y="736"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1024" y="768"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1056" y="0"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1056" y="32"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1056" y="64"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1056" y="96"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1056" y="128"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1056" y="160"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1056" y="192"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1056" y="224"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1056" y="256"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1056" y="288"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1056" y="320"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1056" y="352"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1056" y="384"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1056" y="416"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1056" y="448"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1056" y="480"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1056" y="512"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1056" y="544"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1056" y="576"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1056" y="608"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1056" y="640"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1056" y="672"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1056" y="704"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1056" y="736"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1056" y="768"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1088" y="0"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1088" y="32"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1088" y="64"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1088" y="96"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1088" y="128"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1088" y="160"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1088" y="192"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1088" y="224"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1088" y="256"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1088" y="288"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1088" y="320"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1088" y="352"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1088" y="384"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1088" y="416"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1088" y="448"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1088" y="480"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1088" y="512"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1088" y="544"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1088" y="576"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1088" y="608"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1088" y="640"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1088" y="672"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1088" y="704"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1088" y="736"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1088" y="768"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1120" y="0"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1120" y="32"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1120" y="64"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1120" y="96"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1120" y="128"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1120" y="160"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1120" y="192"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1120" y="224"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1120" y="256"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1120" y="288"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1120" y="320"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1120" y="352"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1120" y="384"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1120" y="416"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1120" y="448"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1120" y="480"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1120" y="512"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1120" y="544"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1120" y="576"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1120" y="608"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1120" y="640"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1120" y="672"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1120" y="704"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1120" y="736"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1120" y="768"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1152" y="0"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1152" y="32"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1152" y="64"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1152" y="96"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1152" y="128"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1152" y="160"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1152" y="192"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1152" y="224"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1152" y="256"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1152" y="288"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1152" y="320"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1152" y="352"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1152" y="384"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1152" y="416"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1152" y="448"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1152" y="480"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1152" y="512"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1152" y="544"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1152" y="576"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1152" y="608"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1152" y="640"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1152" y="672"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1152" y="704"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1152" y="736"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1152" y="768"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1184" y="0"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1184" y="32"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1184" y="64"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1184" y="96"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1184" y="128"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1184" y="160"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1184" y="192"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1184" y="224"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1184" y="256"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1184" y="288"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1184" y="320"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1184" y="352"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1184" y="384"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1184" y="416"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1184" y="448"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1184" y="480"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1184" y="512"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1184" y="544"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1184" y="576"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1184" y="608"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1184" y="640"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1184" y="672"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1184" y="704"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1184" y="736"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1184" y="768"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1216" y="0"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1216" y="32"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1216" y="64"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1216" y="96"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1216" y="128"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1216" y="160"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1216" y="192"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1216" y="224"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1216" y="256"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1216" y="288"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1216" y="320"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1216" y="352"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1216" y="384"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1216" y="416"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1216" y="448"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1216" y="480"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1216" y="512"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1216" y="544"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1216" y="576"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1216" y="608"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1216" y="640"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1216" y="672"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1216" y="704"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1216" y="736"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1216" y="768"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1248" y="0"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1248" y="32"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1248" y="64"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1248" y="96"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1248" y="128"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1248" y="160"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1248" y="192"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1248" y="224"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1248" y="256"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1248" y="288"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1248" y="320"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1248" y="352"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1248" y="384"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1248" y="416"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1248" y="448"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1248" y="480"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1248" y="512"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1248" y="544"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1248" y="576"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1248" y="608"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1248" y="640"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1248" y="672"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1248" y="704"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1248" y="736"/>
+  <object height="32" name="darkness" type="darkness" width="32" x="1248" y="768"/>
+ </objectgroup>
+</map>
