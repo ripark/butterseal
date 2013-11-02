@@ -497,12 +497,52 @@ public class Seal implements ApplicationListener
 	
 	public void ActivateBeacon()
 	{
-		for(int i = 0; i < darkness.length ; i ++) {
+		Tile tempTile = new Tile();
+		int tempTileX = currentTileX;
+		int tempTileY = currentTileY;
+		tempTile.tileId = currentTile0.tileId;
+		//west
+		while((tiledMap.getTileProperty(tempTile.tileId, "wall") == null))
+		{
+			darkness[tempTileY][tempTileX] = null;
+			tempTile.tileId = tiledMap.layers.get(0).tiles[tempTileY][tempTileX-1];
+			tempTileX--;
+		}
+		//east
+		tempTileX = currentTileX;
+		tempTile.tileId = currentTile0.tileId;		
+		while((tiledMap.getTileProperty(tempTile.tileId, "wall") == null))
+		{
+			darkness[tempTileY][tempTileX] = null;
+			tempTile.tileId = tiledMap.layers.get(0).tiles[tempTileY][tempTileX+1];
+			tempTileX++;
+		}
+		//north
+		tempTileX = currentTileX;
+		tempTile.tileId = currentTile0.tileId;		
+		while((tiledMap.getTileProperty(tempTile.tileId, "wall") == null))
+		{
+			darkness[tempTileY][tempTileX] = null;
+			tempTile.tileId = tiledMap.layers.get(0).tiles[tempTileY-1][tempTileX];
+			tempTileY--;
+		}
+		//south
+		tempTileY = currentTileY;
+		tempTile.tileId = currentTile0.tileId;		
+		while((tiledMap.getTileProperty(tempTile.tileId, "wall") == null))
+		{
+			darkness[tempTileY][tempTileX] = null;
+			tempTile.tileId = tiledMap.layers.get(0).tiles[tempTileY+1][tempTileX];
+			tempTileY++;
+		}
+		
+		
+		/*for(int i = 0; i < darkness.length ; i ++) {
 			darkness[i][currentTileX] = null;
 		}
 		for(int i = 0; i < darkness[0].length; i++) {
 			darkness[currentTileY][i] = null;
-		}
+		}*/
 		//tiledMap.layers.get(0).tiles[currentTileX][currentTileY] = 0;
 	}
 
