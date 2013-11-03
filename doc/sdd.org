@@ -20,7 +20,7 @@ It is unknown whether each map corresponds to one puzzle;
 Their purpose needs to be entirely plot-oriented and
   thus their existence is, at this stage, impromptu.
 
-See the [[file:~/github/vermiculus/butterseal/src/ButterSeal-android/assets/maps/map-descriptions.org][map description file]] for detailed information on each map.
+See the [[file:../src/ButterSeal-android/assets/maps/map-descriptions.org][map description file]] for detailed information on each map.
 
 * Implementation
 ** User Interface
