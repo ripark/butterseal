@@ -11,9 +11,30 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class ButterSeal implements ApplicationListener {
+	/**
+	 * The means by which the map is viewed.
+	 * 
+	 * <p>
+	 * <em>so many bad syntactic structures!!</em>
+	 */
 	private OrthographicCamera camera;
+	
+	/**
+	 * The collection of images used in the game.
+	 * Each {@link Sprite} made is <em>automatically</em> added (?) to this batch.
+	 * Each {@link Sprite} is effected by creating it based on a {@link TextureRegion}. 
+	 */
 	private SpriteBatch batch;
+	
+	/**
+	 * A single image to be used in a {@link Sprite}, in this case {@link #sprite}.
+	 */
 	private Texture texture;
+	
+	/**
+	 * A single @{Sprite}.
+	 * This is the object you actually place on the screen.
+	 */
 	private Sprite sprite;
 	
 	@Override
