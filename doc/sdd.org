@@ -62,7 +62,7 @@ The entire world is internally represented as a directed graph,
   where each map corresponds to a node in the graph.
 Each and every map is a /Tiled/-created map.
 A design description of each map is fully described
-  in the [[file:~/github/vermiculus/butterseal/src/ButterSeal-android/assets/maps/map-descriptions.org][map description document]].
+  in the [[file:../src/ButterSeal-android/assets/maps/map-descriptions.org][map description document]].
 *** /Tiled/ Property Descriptions
 /Tiled/ allows you to set properties for tiles of tile-sets used in its maps.
 These allow for easy handling in the program logic, since you don't have to have pre-knowledge of how the map is laid out in advance.
