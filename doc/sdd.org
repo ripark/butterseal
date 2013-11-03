@@ -1,0 +1,27 @@
+#+Title: Software Design Document
+#+Author: Sean Allred
+#+Date: [2013-11-02 Sat]
+#+Description: This document details the design of the game internals drawing from the description of the game itself.
+
+* Functional Requirements
+** User Interface
+The game has an interface consisting of
+- a directional pad
+- an action button
+- a way to choose a power
+- a way to use the chosen power
+
+A simplistic design would be as follows:
+
+:   .                                                   .
+:   .                                                   .
+:   |                                                   |
+:   | +---------+     ...     +------+---------+------+ |
+:   | |         |             |      |         |      | |
+:   | |    D    |     ...     | <--- | Current | ---> | |
+:   | |   Pad   |     ...     | <--- |  Power  | ---> | |
+:   | |         |             |      |         |      | |
+:   | +---------+     ...     +------+---------+------+ |
+:   +---------------------------------------------------+
+
+
