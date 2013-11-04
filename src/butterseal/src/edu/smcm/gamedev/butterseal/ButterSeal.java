@@ -71,7 +71,7 @@ public class ButterSeal implements ApplicationListener {
 
 		map = assetManager.get(AssetInfo.ICE_CAVE.assetPath);
 
-		renderer = new IsometricTiledMapRenderer(map, 1f/64f);
+		renderer = new IsometricTiledMapRenderer(map, 1f/50f);
 	}
 
 	@Override
