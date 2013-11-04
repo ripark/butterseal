@@ -2,74 +2,93 @@ package edu.smcm.gamedev.butterseal;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.Texture.TextureFilter;
-import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 
 public class ButterSeal implements ApplicationListener {
-	/**
-	 * The means by which the map is viewed.
-	 * 
-	 * <p>
-	 * <em>so many bad syntactic structures!!</em>
-	 */
+	public static enum AssetInfo {
+		TITLE(718, 546, ""), // flame
+		ICE_CAVE(-1, -1, "data/maps/ice-cave.tmx");
+		
+		/**
+		 * Intended height of this sprite in pixels 
+		 */
+		private final int height;
+		/**
+		 * Intended width of this sprite in pixels
+		 */
+		private final int width;
+		/**
+		 * file path of the sprite
+		 */
+		private final String assetPath;
+		
+		/**
+		 * Creates a new SpriteDimension
+		 * @param height the intended height of this sprite in pixels
+		 * @param width the intended width of this sprite in pixels
+		 */
+		AssetInfo(int width, int height, String assetPath) {
+			this.height = height;
+			this.width = width;
+			this.assetPath = assetPath;
+		}
+	}
+	
 	private OrthographicCamera camera;
-	
-	/**
-	 * The collection of images used in the game.
-	 * Each {@link Sprite} made is <em>automatically</em> added (?) to this batch.
-	 * Each {@link Sprite} is effected by creating it based on a {@link TextureRegion}. 
-	 */
+	private AssetManager assetManager;
+	private BitmapFont font;
 	private SpriteBatch batch;
-	
-	/**
-	 * A single image to be used in a {@link Sprite}, in this case {@link #sprite}.
-	 */
-	private Texture texture;
-	
-	/**
-	 * A single @{Sprite}.
-	 * This is the object you actually place on the screen.
-	 */
-	private Sprite sprite;
+	private TiledMap map;
+	private TiledMapRenderer renderer;
 	
 	@Override
 	public void create() {		
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
 		
-		camera = new OrthographicCamera(1, h/w);
+		camera = new OrthographicCamera();
+		assetManager = new AssetManager();
 		batch = new SpriteBatch();
+		font = new BitmapFont();
 		
-		texture = new Texture(Gdx.files.internal("data/libgdx.png"));
-		texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		camera.setToOrtho(false, (w / h) * 10, 10);
+		camera.update();
 		
-		TextureRegion region = new TextureRegion(texture, 0, 0, 512, 275);
-		
-		sprite = new Sprite(region);
-		sprite.setSize(0.9f, 0.9f * sprite.getHeight() / sprite.getWidth());
-		sprite.setOrigin(sprite.getWidth()/2, sprite.getHeight()/2);
-		sprite.setPosition(-sprite.getWidth()/2, -sprite.getHeight()/2);
+		assetManager.setLoader(TiledMap.class,
+				new TmxMapLoader(
+						new InternalFileHandleResolver()));
+		assetManager.load(AssetInfo.ICE_CAVE.assetPath, TiledMap.class);
+		assetManager.finishLoading();
+
+		map = assetManager.get(AssetInfo.ICE_CAVE.assetPath);
+
+		renderer = new IsometricTiledMapRenderer(map, 1f/64f);
 	}
 
 	@Override
 	public void dispose() {
 		batch.dispose();
-		texture.dispose();
+		assetManager.dispose();
 	}
 
 	@Override
 	public void render() {		
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		
-		batch.setProjectionMatrix(camera.combined);
+		camera.update();
+		renderer.setView(camera);
+		renderer.render();
 		batch.begin();
-		sprite.draw(batch);
+		font.draw(batch, "Hello, World", 20, Gdx.graphics.getHeight()-20);
 		batch.end();
 	}
 
