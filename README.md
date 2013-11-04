@@ -1,4 +1,4 @@
 butterseal
 ==========
 
-A Game Development Project! With music! And birds! And a seal!
+A Game Development Project! With music! And a seal!
