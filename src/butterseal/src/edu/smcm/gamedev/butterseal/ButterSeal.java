@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 public class ButterSeal implements ApplicationListener {
 	public static enum AssetInfo {
@@ -71,7 +71,7 @@ public class ButterSeal implements ApplicationListener {
 
 		map = assetManager.get(AssetInfo.ICE_CAVE.assetPath);
 
-		renderer = new IsometricTiledMapRenderer(map, 1f/50f);
+		renderer = new OrthogonalTiledMapRenderer(map, 1f/50f);
 	}
 
 	@Override
