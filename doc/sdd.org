@@ -22,6 +22,21 @@ Their purpose needs to be entirely plot-oriented and
 
 See the [[file:../src/ButterSeal-android/assets/maps/map-descriptions.org][map description file]] for detailed information on each map.
 
+** Meeting on [2013-11-06 Wed 15:55]
+- load map
+- load objects / object properties
+- transition
+- save state?
+  - positions
+  - starting point
+  - item statuses
+- interactions
+- recognize current map / which map to move to
+- render map
+- obtain tile properties - perhaps load them into a 2D array
+- render objects
+
+other thought -- have a 'facing tile' object to see collisions before they happen
 * Implementation
 ** User Interface
 A simplistic design would be as follows:
