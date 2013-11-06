@@ -43,6 +43,7 @@ The "small powers" are scaled-down icons of each usable power (hereforth "abilit
   to be represented as a radial-symmetric star or similar).
 Each ability can be selected by use of
   the arrows on either side of the large icon.
+Tapping the large icon in the center will use that ability.
 Selecting each ability highlights the corresponding icon above the control.
 (This presumably aids in ability navigation.)
 As a unit, this control satisfies the remaining user interface requirements.
