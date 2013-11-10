@@ -14,9 +14,11 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 public class ButterSeal implements ApplicationListener {
+	public static String _asset(String p) { return String.format("data/../../../assets/%s", p); }
+	
 	public static enum AssetInfo {
 		TITLE(718, 546, ""), // flame
-		ICE_CAVE(-1, -1, "data/maps/ice-cave.tmx");
+		ICE_CAVE(-1, -1, _asset("data/maps/ice-cave.tmx"));
 		
 		/**
 		 * Intended height of this sprite in pixels 
@@ -72,6 +74,13 @@ public class ButterSeal implements ApplicationListener {
 		map = assetManager.get(AssetInfo.ICE_CAVE.assetPath);
 
 		renderer = new OrthogonalTiledMapRenderer(map, 1f/50f);
+	}
+	
+	/**
+	 * Sets all the loaders needed for the {@link #assetManager}.
+	 */
+	private void SetAssetLoaderLoaders() {
+		
 	}
 
 	@Override
