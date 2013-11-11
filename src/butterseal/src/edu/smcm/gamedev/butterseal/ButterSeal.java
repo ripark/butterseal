@@ -66,14 +66,11 @@ public class ButterSeal implements ApplicationListener {
 		camera.setToOrtho(false, (w / h) * 10, 10);
 		camera.update();
 		
-		assetManager.setLoader(TiledMap.class,
-				new TmxMapLoader(
-						new InternalFileHandleResolver()));
-		assetManager.load(AssetInfo.ICE_CAVE.assetPath, TiledMap.class);
-		assetManager.finishLoading();
+		SetAssetLoaderLoaders();
+		LoadAssets();
 
 		map = assetManager.get(AssetInfo.ICE_CAVE.assetPath);
-
+		
 		renderer = new OrthogonalTiledMapRenderer(map, 1f/100f);
 	}
 	
@@ -81,7 +78,17 @@ public class ButterSeal implements ApplicationListener {
 	 * Sets all the loaders needed for the {@link #assetManager}.
 	 */
 	private void SetAssetLoaderLoaders() {
-		
+		assetManager.setLoader(TiledMap.class,
+				new TmxMapLoader(
+						new InternalFileHandleResolver()));
+	}
+	
+	/**
+	 * Loads all game assets
+	 */
+	private void LoadAssets() {
+		assetManager.load(AssetInfo.ICE_CAVE.assetPath, TiledMap.class);
+		assetManager.finishLoading();
 	}
 
 	@Override
@@ -98,7 +105,9 @@ public class ButterSeal implements ApplicationListener {
 		renderer.setView(camera);
 		renderer.render();
 		batch.begin();
-		font.draw(batch, "Hello, World", 20, Gdx.graphics.getHeight()-20);
+		font.draw(batch,
+				String.format("FPS: %d", Gdx.graphics.getFramesPerSecond()),
+				20, Gdx.graphics.getHeight()-20);
 		batch.end();
 	}
 
