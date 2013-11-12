@@ -1,7 +1,7 @@
 package edu.smcm.gamedev.butterseal;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.assets.AssetManager;
@@ -23,13 +23,13 @@ public class BSInterface {
 	BSSession session;
 	SpriteBatch batch;
 	AssetManager assets;
-	Set<Rectangle> activeRegions;
+	Map<Rectangle, Runnable> activeRegions;
 	
 	public BSInterface(BSSession session, SpriteBatch batch, AssetManager assets) {
 		this.session = session;
 		this.batch = batch;
 		this.assets = assets;
-		this.activeRegions = new HashSet<Rectangle>();
+		this.activeRegions = new HashMap<Rectangle, Runnable>();
 	}
 	
 	/**
