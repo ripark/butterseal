@@ -1,8 +1,12 @@
 package edu.smcm.gamedev.butterseal;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 
 /**
  * Contains program logic for the user interface.
@@ -19,11 +23,13 @@ public class BSInterface {
 	BSSession session;
 	SpriteBatch batch;
 	AssetManager assets;
+	Set<Rectangle> activeRegions;
 	
 	public BSInterface(BSSession session, SpriteBatch batch, AssetManager assets) {
 		this.session = session;
 		this.batch = batch;
 		this.assets = assets;
+		this.activeRegions = new HashSet<Rectangle>();
 	}
 	
 	/**
