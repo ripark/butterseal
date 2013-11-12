@@ -1,5 +1,6 @@
 package edu.smcm.gamedev.butterseal;
 
+@SuppressWarnings("serial")
 public class BSException extends Exception {
 
 	public BSException(String message) {
