@@ -53,6 +53,8 @@ public class ButterSeal implements ApplicationListener {
 	private TiledMap map;
 	private TiledMapRenderer renderer;
 	
+	BSSession session;
+	
 	@Override
 	public void create() {		
 		float w = Gdx.graphics.getWidth();

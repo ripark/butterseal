@@ -11,4 +11,5 @@ public class BSSession {
 	boolean isInGame;
 	boolean isPaused;
 	BSGameState state;
+	BSWorld world;
 }
