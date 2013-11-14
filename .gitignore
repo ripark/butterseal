@@ -23,5 +23,5 @@ auto/*
 src/adt-*/
 src/butterseal-ios/*
 
-*/bin/*
+bin/
 *.apk
