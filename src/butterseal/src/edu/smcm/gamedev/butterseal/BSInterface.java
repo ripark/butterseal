@@ -29,7 +29,16 @@ public class BSInterface {
 		this.session = session;
 		this.batch = batch;
 		this.assets = assets;
-		this.activeRegions = new HashMap<Rectangle, Runnable>();
+		this.activeRegions = new HashMap<Rectangle, BSGameStateActor>();
+		
+		// test active region
+		activeRegions.put(new Rectangle().set(0, 0, 100, 100), new BSGameStateActor() {
+			@Override
+			public void act(BSPlayer player) {
+				// TODO Auto-generated method stub
+				System.out.println("test");
+			}
+		});
 	}
 	
 	/**
@@ -38,7 +47,24 @@ public class BSInterface {
 	 * @param input
 	 */
 	public void poll(Input input) {
-		
+		for(Rectangle r : activeRegions.keySet()){
+			if (isTouchingInside(input, r)){
+				activeRegions.get(r).act(player);
+			}
+		}
+	}
+	
+	/**
+	 * 
+	 * @param input
+	 * @param region
+	 * @return true if input is being touched within the given region, false otherwise
+	 */
+	public boolean isTouchingInside(Input input, Rectangle region) {
+		int x = input.getX();
+		int y = input.getY();
+		return region.x < x && x < region.width
+			&& region.y < x && x < region.height;
 	}
 	
 	/**
