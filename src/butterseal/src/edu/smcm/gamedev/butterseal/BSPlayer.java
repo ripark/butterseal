@@ -13,13 +13,34 @@ public class BSPlayer {
 	BSGameState state;
 	AssetManager assets;
 	SpriteBatch batch;
+
+	private static class BSAnimation {
+		Animation animation;
+		Texture spritesheet;
+		TextureRegion frames;
+        }
+
+	BSAnimation walkUp, walkDown, walkRight, walkLeft, idle;
+	TextureRegion currentFrame;
 	
 	/**
 	 * Draws the player on the screen.
 	 */
-	public void draw() {
+	public void draw(Matrix4 matrix) {
 		// TODO: idea: have a timer event that is done every 250ms...
 		// that sets the current sprite from the batch 
+
+		// TODO: it's possible that we don't need to set the
+		// project matrix and begin/end here; since this.batch is
+		// is supposed to be the same sprite batch as the main
+		// activity, it should already have its projection matrix
+		// set appropriately AND it should be begun/ended on a
+		// higher level than this.  For science.
+
+		this.batch.setProjectMatrix(matrix);
+		this.batch.begin();
+		this.batch.draw(this.currentFrame, this.x, this.y);
+		this.batch.end();
 	}
 	
 	/**
