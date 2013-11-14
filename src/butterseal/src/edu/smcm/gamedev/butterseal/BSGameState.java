@@ -9,7 +9,8 @@ package edu.smcm.gamedev.butterseal;
 public class BSGameState {
 	BSPower selectedPower;
 	BSDirection facing;
-	
+
+	BSWorld world;
 	BSMap currentMap;
 	BSTile currentTile;
 	Boolean isMoving;
@@ -26,9 +27,22 @@ public class BSGameState {
 	 * @param slot
 	 */
 	public BSGameState(int slot) {
+		/*
+		 * Set the slot and try to load it.
+		 * If loading returns false,
+		 * that means the slot doesn't exist, so make a new one.
+		 */
 		this.slot = slot;
+		if(!load(slot)) {
+			this.world = new BSWorld();
+			world.addRoute(BSMap.HOME, BSMap.ICE_CAVE, null);
+		}
 	}
 	
+	public boolean load(int slot) {
+		return false;
+	}
+
 	/**
 	 * Saves this game to the slot it was opened with.
 	 * @throws BSException throws an exception if a save is attempted while in motion; see {@link #isMoving}.

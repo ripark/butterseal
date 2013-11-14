@@ -12,7 +12,7 @@ import java.util.Set;
  */
 public class BSWorld {
 	/**
-	 * This class represents one route between two mapsm the {@link #source} and
+	 * This class represents one route between two maps the {@link #source} and
 	 * {@link #destination}. The route also carries with it an arbitrary
 	 * {@link Object} of {@link #data}.
 	 * 
@@ -60,11 +60,7 @@ public class BSWorld {
 	 * @param data The route data.
 	 * @throws BSException Neither source nor destination can be null.
 	 */
-	public void addRoute(BSMap source, BSMap destination, Object data)
-			throws BSException {
-		if (source == null || destination == null) {
-			throw new BSException("Neither source nor destination can be null.");
-		}
+	public void addRoute(BSMap source, BSMap destination, Object data) {
 		routes.add(new Route(source, destination, data));
 	}
 

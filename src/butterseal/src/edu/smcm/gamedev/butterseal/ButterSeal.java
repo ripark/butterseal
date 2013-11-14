@@ -14,38 +14,6 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 public class ButterSeal implements ApplicationListener {
-
-	public static String _asset(String p) { return String.format("data/../../../assets/%s", p); }
-
-	public static enum AssetInfo {
-		TITLE(718, 546, ""), // flame
-		ICE_CAVE(-1, -1, _asset("data/maps/ice-cave.tmx"));
-
-		/**
-		 * Intended height of this sprite in pixels 
-		 */
-		private final int height;
-		/**
-		 * Intended width of this sprite in pixels
-		 */
-		private final int width;
-		/**
-		 * file path of the sprite
-		 */
-		private final String assetPath;
-
-		/**
-		 * Creates a new SpriteDimension
-		 * @param height the intended height of this sprite in pixels
-		 * @param width the intended width of this sprite in pixels
-		 */
-		AssetInfo(int width, int height, String assetPath) {
-			this.height = height;
-			this.width = width;
-			this.assetPath = assetPath;
-		}
-	}
-
 	private OrthographicCamera camera;
 	private AssetManager assetManager;
 	private BitmapFont font;
@@ -60,18 +28,21 @@ public class ButterSeal implements ApplicationListener {
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
 		
+		session = new BSSession();
+		session.start(0);
+		
 		camera = new OrthographicCamera();
 		assetManager = new AssetManager();
 		batch = new SpriteBatch();
 		font = new BitmapFont();
 		
-		camera.setToOrtho(false, (w / h) * 10, 10);
+		camera.setToOrtho(false, w * 2, h * 2);
 		camera.update();
 		
 		SetAssetLoaderLoaders();
 		LoadAssets();
 
-		map = assetManager.get(AssetInfo.ICE_CAVE.assetPath);
+		map = assetManager.get(BSAssets.HOUSE.getAssetPath());
 		
 		renderer = new OrthogonalTiledMapRenderer(map, 1f/100f);
 	}
@@ -89,7 +60,8 @@ public class ButterSeal implements ApplicationListener {
 	 * Loads all game assets
 	 */
 	private void LoadAssets() {
-		assetManager.load(AssetInfo.ICE_CAVE.assetPath, TiledMap.class);
+		//assetManager.load(BSAssets.ICE_CAVE.getAssetPath(), TiledMap.class);
+		assetManager.load(BSAssets.HOUSE.getAssetPath(), TiledMap.class);
 		assetManager.finishLoading();
 	}
 
