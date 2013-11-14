@@ -24,3 +24,4 @@ src/adt-*/
 src/butterseal-ios/*
 
 */bin/*
+*.apk
