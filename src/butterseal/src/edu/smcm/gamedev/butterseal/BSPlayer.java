@@ -50,21 +50,25 @@ public class BSPlayer {
 	 * @return a tile describing the one we're facing
 	 */
 	public BSTile getFacingTile() {
-		BSTile facing = new BSTile(state.currentTile);
-		switch(state.facing) {
+		return this.getAdjacentTile(state.facing);
+	}
+	
+	public BSTile getAdjacentTile(BSDirection direction) {
+		BSTile adj = new BSTile(state.currentTile);
+		switch(direction) {
 		case NORTH:
-			facing.y += 1;
+			adj.y += 1;
 			break;
 		case SOUTH:
-			facing.y -= 1;
+			adj.y -= 1;
 			break;
 		case EAST:
-			facing.x -= 1;
+			adj.x -= 1;
 			break;
 		case WEST:
-			facing.x += 1;
+			adj.x += 1;
 			break;
 		}
-		return facing;
+		return adj;
 	}
 }
