@@ -1,5 +1,9 @@
 package edu.smcm.gamedev.butterseal;
 
+import java.util.Map;
+
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 public enum BSMap {
 	HOME(null,null, new Runnable() {
 		public void run() {
@@ -21,5 +25,18 @@ public enum BSMap {
 
 	BSMap(String asset, String key, Runnable action) {
 		// TODO Auto-generated constructor stub
+	}
+	
+	void draw(SpriteBatch batch) {
+		
+	}
+
+	public Map<String, String> getTileProperties(BSTile tile) {
+		return null;
+	}
+
+	public void draw() {
+		// TODO Auto-generated method stub
+		
 	}
 }

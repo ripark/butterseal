@@ -23,7 +23,8 @@ public class BSInterface {
 	BSSession session;
 	SpriteBatch batch;
 	AssetManager assets;
-	Map<Rectangle, Runnable> activeRegions;
+	Map<Rectangle, BSGameStateActor> activeRegions;
+	BSPlayer player;
 	
 	public BSInterface(BSSession session, SpriteBatch batch, AssetManager assets) {
 		this.session = session;
@@ -82,7 +83,7 @@ public class BSInterface {
 			MakePowerSelector();
 			MakeDirectionalPad();
 			MakePauseButton();
-
+			session.state.currentMap.draw();
 			if (session.isPaused) {
 				MakePauseScreen();
 			}
