@@ -19,5 +19,6 @@ public class BSSession {
 	
 	public void start(int slot) {
 		state = new BSGameState(slot);
+		state.begin();
 	}
 }

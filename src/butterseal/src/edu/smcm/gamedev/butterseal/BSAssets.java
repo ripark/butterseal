@@ -3,12 +3,13 @@ package edu.smcm.gamedev.butterseal;
 import com.badlogic.gdx.Gdx;
 
 public enum BSAssets {
-	TITLE(718, 546, "assets/data/flame.png"), // flame
-	HOUSE(-1, -1, ("assets/data/maps/house.tmx")),
-	ICE_CAVE(-1, -1, ("assets/data/maps/ice-cave.tmx"));
+	TITLE(718, 546, _asset("data/flame.png")), // flame
+	HOUSE(-1, -1, _asset("data/maps/house.tmx")),
+	ICE_CAVE(-1, -1, _asset("data/maps/ice-cave.tmx"));
 	
 	private static String _asset(String p) {
-		return String.format("data/../../../assets/%s", p);
+		return p;
+		//return String.format("data/../../../assets/%s", p);
 	}
 	
 	/**

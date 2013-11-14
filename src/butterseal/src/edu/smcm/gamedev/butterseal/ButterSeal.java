@@ -36,7 +36,7 @@ public class ButterSeal implements ApplicationListener {
 		batch = new SpriteBatch();
 		font = new BitmapFont();
 		
-		camera.setToOrtho(false, w * 2, h * 2);
+		camera.setToOrtho(false, w/h * 10, 10);
 		camera.update();
 		
 		SetAssetLoaderLoaders();
@@ -44,7 +44,7 @@ public class ButterSeal implements ApplicationListener {
 
 		map = assetManager.get(BSAssets.HOUSE.getAssetPath());
 		
-		renderer = new OrthogonalTiledMapRenderer(map, 1f/100f);
+		renderer = new OrthogonalTiledMapRenderer(map, 1f/64f);
 	}
 	
 	/**
@@ -60,7 +60,7 @@ public class ButterSeal implements ApplicationListener {
 	 * Loads all game assets
 	 */
 	private void LoadAssets() {
-		//assetManager.load(BSAssets.ICE_CAVE.getAssetPath(), TiledMap.class);
+		assetManager.load(BSAssets.ICE_CAVE.getAssetPath(), TiledMap.class);
 		assetManager.load(BSAssets.HOUSE.getAssetPath(), TiledMap.class);
 		assetManager.finishLoading();
 	}
