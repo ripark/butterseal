@@ -45,6 +45,12 @@ public class BSPlayer {
 		}
 	}
 	
+	private boolean canMove(BSDirection direction) {
+		BSTile target = this.getAdjacentTile(direction);
+		state.currentMap.getTileProperties(target);
+		return true;
+	}
+
 	/**
 	 * 
 	 * @return a tile describing the one we're facing
