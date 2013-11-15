@@ -133,4 +133,9 @@ public class BSPlayer {
 		}
 		return adj;
 	}
+
+    public void translate(float x, float y) {
+	this.x += x;
+	this.y += y;
+    }
 }
