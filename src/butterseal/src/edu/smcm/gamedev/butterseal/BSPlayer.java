@@ -10,6 +10,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  *
  */
 public class BSPlayer {
+	private static final int FRAME_ROWS = 2;
+	private static final int FRAME_COLS = 2;
+
 	BSGameState state;
 	AssetManager assets;
 	SpriteBatch batch;
@@ -18,29 +21,36 @@ public class BSPlayer {
 		Animation animation;
 		Texture spritesheet;
 		TextureRegion frames;
+		float time;
+
+            public void setAnimations() {
+                TextureRegion[][] tmp =
+                    TextureRegion.split(this.spritesheet,
+                                        this.spritesheet.getWidth() / FRAME_COLS,
+                                        this.spritesheet.getHeight() / FRAME_ROWS);
+                this.frames = new TextureRegion[FRAME_COLS * FRAME_ROWS];
+                int index = 0;
+                for (int i = 0; i < FRAME_ROWS; i++) {
+                    for (int j = 0; j < FRAME_COLS; j++) {
+                        this.frames[index] = tmp[i][j];
+                        index += 1;
+                    }
+                }
+                this.animation = new Animation(0.25f, frames);
+                this.time = 0f;
+            }
         }
 
 	BSAnimation walkUp, walkDown, walkRight, walkLeft, idle;
 	TextureRegion currentFrame;
+
+	float x, y;
 	
 	/**
 	 * Draws the player on the screen.
 	 */
-	public void draw(Matrix4 matrix) {
-		// TODO: idea: have a timer event that is done every 250ms...
-		// that sets the current sprite from the batch 
-
-		// TODO: it's possible that we don't need to set the
-		// project matrix and begin/end here; since this.batch is
-		// is supposed to be the same sprite batch as the main
-		// activity, it should already have its projection matrix
-		// set appropriately AND it should be begun/ended on a
-		// higher level than this.  For science.
-
-		this.batch.setProjectMatrix(matrix);
-		this.batch.begin();
+	public void draw() {
 		this.batch.draw(this.currentFrame, this.x, this.y);
-		this.batch.end();
 	}
 	
 	/**
