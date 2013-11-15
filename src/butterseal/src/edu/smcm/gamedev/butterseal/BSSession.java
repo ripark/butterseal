@@ -8,17 +8,21 @@ package edu.smcm.gamedev.butterseal;
  *
  */
 public class BSSession {
-	boolean isInGame;
-	boolean isPaused;
-	BSGameState state;
+    boolean isInGame;
+    boolean isPaused;
+    BSGameState state;
 	
-	public BSSession() {
-		isInGame = false;
-		isPaused = true;
-	}
+    public BSSession() {
+        isInGame = false;
+        isPaused = true;
+    }
 	
-	public void start(int slot) {
-		state = new BSGameState(slot);
-		state.begin();
-	}
+    public void start(int slot) {
+        state = new BSGameState(slot);
+        state.begin();
+    }
 }
+
+// Local Variables:
+// indent-tabs-mode: nil
+// End:
