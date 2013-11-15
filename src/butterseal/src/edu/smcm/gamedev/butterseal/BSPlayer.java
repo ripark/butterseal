@@ -49,6 +49,17 @@ public class BSPlayer {
 	BSAnimation walkUp, walkDown, walkRight, walkLeft, idle;
 	TextureRegion currentFrame;
 
+    public BSPlayer(float x, float y) {
+	walkUp    = new BSAnimation(assetManager.load(AssetInfo.PLAYER_WALK_UP.getAssetPath()));
+	walkDown  = new BSAnimation(assetManager.load(AssetInfo.PLAYER_WALK_DOWN.getAssetPath()));
+	walkRight = new BSAnimation(assetManager.load(AssetInfo.PLAYER_WALK_RIGHT.getAssetPath()));
+	walkLeft  = new BSAnimation(assetManager.load(AssetInfo.PLAYER_WALK_LEFT.getAssetPath()));
+	idle      = new BSAnimation(assetManager.load(AssetInfo.PLAYER_IDLE.getAssetPath()));
+
+	this.x = x - 16;
+	this.y = y - 16;
+    }
+
 	float x, y;
 	
 	/**
