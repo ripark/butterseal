@@ -80,16 +80,25 @@ public class BSPlayer {
 	 * @param direction the direction in which to move
 	 */
 	public void move(BSDirection direction) {
-		switch(state.facing) {
-		case NORTH:
-			break;
-		case SOUTH:
-			break;
-		case EAST:
-			break;
-		case WEST:
-			break;
-		}
+	    BSAnimation target;
+	    switch(state.facing) {
+	    case NORTH:
+		target = walkUp;
+		break;
+	    case SOUTH:
+		target = walkDown;
+		break;
+	    case EAST:
+		target = walkRight
+		break;
+	    case WEST:
+		target = walkLeft;
+		break;
+	    default:
+		target = idle;
+	    }
+	    target.time += Gdx.graphics.getDeltaTime();
+	    this.currentFrame = target.animation.getKeyFrame(target.time, true);
 	}
 	
 	private boolean canMove(BSDirection direction) {
