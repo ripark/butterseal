@@ -23,6 +23,11 @@ public class BSPlayer {
 		TextureRegion frames;
 		float time;
 
+	    public BSAnimation(String spritesheet) {
+		this.spritesheet = new Texture(spritesheet);
+		this.setAnimations();
+	    }
+
             public void setAnimations() {
                 TextureRegion[][] tmp =
                     TextureRegion.split(this.spritesheet,
