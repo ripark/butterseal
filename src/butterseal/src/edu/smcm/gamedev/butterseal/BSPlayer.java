@@ -49,7 +49,10 @@ public class BSPlayer {
     BSAnimation walkUp, walkDown, walkRight, walkLeft, idle;
     TextureRegion currentFrame;
 
-    public BSPlayer(float x, float y) {
+    public BSPlayer(float x, float y,
+                    BSGameState state,
+                    BSAssetManager assets,
+                    SpriteBatch batch) {
         walkUp    = new BSAnimation(assetManager.load(AssetInfo.PLAYER_WALK_UP.getAssetPath()));
         walkDown  = new BSAnimation(assetManager.load(AssetInfo.PLAYER_WALK_DOWN.getAssetPath()));
         walkRight = new BSAnimation(assetManager.load(AssetInfo.PLAYER_WALK_RIGHT.getAssetPath()));
@@ -58,6 +61,9 @@ public class BSPlayer {
 
         this.x = x - 16;
         this.y = y - 16;
+        this.state = state;
+        this.batch = batch;
+        this.assets = assets;
     }
 
     float x, y;

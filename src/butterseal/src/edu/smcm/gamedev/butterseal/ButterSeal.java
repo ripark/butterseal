@@ -22,6 +22,8 @@ public class ButterSeal implements ApplicationListener {
     private TiledMapRenderer renderer;
 	
     BSSession session;
+    BSPlayer player;
+    BSInterface gui;
 	
     @Override
     public void create() {		
@@ -30,7 +32,8 @@ public class ButterSeal implements ApplicationListener {
 		
         session = new BSSession();
         session.start(0);
-		
+
+
         camera = new OrthographicCamera();
         assetManager = new AssetManager();
         batch = new SpriteBatch();
@@ -42,8 +45,12 @@ public class ButterSeal implements ApplicationListener {
         SetAssetLoaderLoaders();
         LoadAssets();
 
+        // TODO: insert real values here
+        player = new BSPlayer(0, 0, this.session.state, this.batch, this.assetManager);
+        gui = new BSInterface(session, this.batch, this.assetManager);
+
         map = assetManager.get(BSAssets.HOUSE.getAssetPath());
-		
+
         renderer = new OrthogonalTiledMapRenderer(map, 1f/64f);
     }
 	
@@ -53,7 +60,7 @@ public class ButterSeal implements ApplicationListener {
     private void SetAssetLoaderLoaders() {
         assetManager.setLoader(TiledMap.class,
                                new TmxMapLoader(
-						new InternalFileHandleResolver()));
+                                 new InternalFileHandleResolver()));
     }
 	
     /**
@@ -62,6 +69,7 @@ public class ButterSeal implements ApplicationListener {
     private void LoadAssets() {
         assetManager.load(BSAssets.ICE_CAVE.getAssetPath(), TiledMap.class);
         assetManager.load(BSAssets.HOUSE.getAssetPath(), TiledMap.class);
+        // TODO: load player assets, load interface assets
         assetManager.finishLoading();
     }
 
@@ -79,6 +87,10 @@ public class ButterSeal implements ApplicationListener {
         renderer.setView(camera);
         renderer.render();
         batch.begin();
+
+        this.gui.draw();
+        this.player.draw();
+
         font.draw(batch,
                   String.format("FPS: %d", Gdx.graphics.getFramesPerSecond()),
                   20, Gdx.graphics.getHeight()-20);
