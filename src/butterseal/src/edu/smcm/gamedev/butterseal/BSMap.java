@@ -20,6 +20,8 @@ public enum BSMap {
                 // game logic
             }
 	});
+
+    const static final float PIXELS_PER_TILE = 32;
 	
     BSGameState state;
     TiledMap map;
@@ -32,7 +34,7 @@ public enum BSMap {
         this.atlas = new TileAtlas(this.map, Gdx.files.internal(asset.getAssetPath()));
         this.renderer = new OrthogonalTiledMapRenderer(this.map, this.atlas, 12, 12);
         // TODO: or (from https://code.google.com/p/libgdx/wiki/GraphicsTileMaps#Map_Renderer)
-        this.renderer = new OrthogonalTiledMapRenderer(this.map, 1/16f);
+        this.renderer = new OrthogonalTiledMapRenderer(this.map, 1/BSMap.PIXELS_PER_TILE);
     }
 
     void draw(OrthographicCamera camera) {
