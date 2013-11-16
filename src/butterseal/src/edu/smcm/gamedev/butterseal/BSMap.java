@@ -46,8 +46,9 @@ public enum BSMap {
             Cell cell = layer.getCell(player.currentTile.x, player.currentTile.y);
             TiledMapTile tile = cell.getTile();
             // TODO: this function returns `MapProperties`, but what exactly is that?
-            ret.add(tile.getProperties();
+            ret.add(tile.getProperties());
         }
+        return ret;
     }
 
     public void draw() {
