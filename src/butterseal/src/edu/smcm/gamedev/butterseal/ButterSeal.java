@@ -46,7 +46,7 @@ public class ButterSeal implements ApplicationListener {
         LoadAssets();
 
         // TODO: insert real values here
-        player = new BSPlayer(0, 0, this.session.state, this.batch, this.assetManager);
+        player = new BSPlayer(0, 0, this.session.state, this.assetManager, this.batch);
         gui = new BSInterface(session, this.batch, this.assetManager);
 
         map = assetManager.get(BSAssets.HOUSE.getAssetPath());

@@ -5,7 +5,12 @@ import com.badlogic.gdx.Gdx;
 public enum BSAssets {
     TITLE(718, 546, _asset("data/flame.png")), // flame
     HOUSE(-1, -1, _asset("data/maps/house.tmx")),
-    ICE_CAVE(-1, -1, _asset("data/maps/ice-cave.tmx"));
+    ICE_CAVE(-1, -1, _asset("data/maps/ice-cave.tmx")),
+    PLAYER_WALK_UP(-1, -1, _asset("")),
+    PLAYER_WALK_DOWN(-1, -1, _asset("")),
+    PLAYER_WALK_LEFT(-1, -1, _asset("")),
+    PLAYER_WALK_RIGHT(-1, -1, _asset("")),
+    PLAYER_IDLE(-1, -1, _asset(""));
 	
     private static String _asset(String p) {
         return p;

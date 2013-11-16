@@ -1,7 +1,11 @@
 package edu.smcm.gamedev.butterseal;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
  * Handles player state and movement on-screen.
@@ -20,11 +24,11 @@ public class BSPlayer {
     private static class BSAnimation {
         Animation animation;
         Texture spritesheet;
-        TextureRegion frames;
+        TextureRegion[] frames;
         float time;
 
-        public BSAnimation(String spritesheet) {
-            this.spritesheet = new Texture(spritesheet);
+        public BSAnimation(AssetManager assets, String spritesheet) {
+            this.spritesheet = new Texture(Gdx.files.internal(spritesheet));
             this.setAnimations();
         }
 
@@ -51,13 +55,13 @@ public class BSPlayer {
 
     public BSPlayer(float x, float y,
                     BSGameState state,
-                    BSAssetManager assets,
+                    AssetManager assets,
                     SpriteBatch batch) {
-        walkUp    = new BSAnimation(assetManager.load(AssetInfo.PLAYER_WALK_UP.getAssetPath()));
-        walkDown  = new BSAnimation(assetManager.load(AssetInfo.PLAYER_WALK_DOWN.getAssetPath()));
-        walkRight = new BSAnimation(assetManager.load(AssetInfo.PLAYER_WALK_RIGHT.getAssetPath()));
-        walkLeft  = new BSAnimation(assetManager.load(AssetInfo.PLAYER_WALK_LEFT.getAssetPath()));
-        idle      = new BSAnimation(assetManager.load(AssetInfo.PLAYER_IDLE.getAssetPath()));
+        walkUp    = new BSAnimation(assets, BSAssets.PLAYER_WALK_UP.getAssetPath());
+        walkDown  = new BSAnimation(assets, BSAssets.PLAYER_WALK_DOWN.getAssetPath());
+        walkRight = new BSAnimation(assets, BSAssets.PLAYER_WALK_RIGHT.getAssetPath());
+        walkLeft  = new BSAnimation(assets, BSAssets.PLAYER_WALK_LEFT.getAssetPath());
+        idle      = new BSAnimation(assets, BSAssets.PLAYER_IDLE.getAssetPath());
 
         this.x = x - 16;
         this.y = y - 16;
@@ -95,8 +99,8 @@ public class BSPlayer {
             target = walkDown;
             break;
         case EAST:
-            target = walkRight
-                break;
+            target = walkRight;
+            break;
         case WEST:
             target = walkLeft;
             break;
