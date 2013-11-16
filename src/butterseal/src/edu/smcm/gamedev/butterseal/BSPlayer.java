@@ -110,8 +110,7 @@ public class BSPlayer {
     }
         
     private boolean canMove(BSDirection direction) {
-        BSTile target = this.getAdjacentTile(direction);
-        state.currentMap.getTileProperties(target);
+        state.currentMap.getTileProperties(this);
         return true;
     }
 
