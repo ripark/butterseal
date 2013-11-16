@@ -18,7 +18,6 @@ public class BSPlayer {
     private static final int FRAME_COLS = 2;
 
     BSGameState state;
-    AssetManager assets;
     SpriteBatch batch;
 
     private static class BSAnimation {
@@ -27,7 +26,7 @@ public class BSPlayer {
         TextureRegion[] frames;
         float time;
 
-        public BSAnimation(AssetManager assets, String spritesheet) {
+        public BSAnimation(String spritesheet) {
             this.spritesheet = new Texture(Gdx.files.internal(spritesheet));
             this.setAnimations();
         }
@@ -55,19 +54,17 @@ public class BSPlayer {
 
     public BSPlayer(float x, float y,
                     BSGameState state,
-                    AssetManager assets,
                     SpriteBatch batch) {
-        walkUp    = new BSAnimation(assets, BSAssets.PLAYER_WALK_UP.getAssetPath());
-        walkDown  = new BSAnimation(assets, BSAssets.PLAYER_WALK_DOWN.getAssetPath());
-        walkRight = new BSAnimation(assets, BSAssets.PLAYER_WALK_RIGHT.getAssetPath());
-        walkLeft  = new BSAnimation(assets, BSAssets.PLAYER_WALK_LEFT.getAssetPath());
-        idle      = new BSAnimation(assets, BSAssets.PLAYER_IDLE.getAssetPath());
+        walkUp    = new BSAnimation(BSAssets.PLAYER_WALK_UP.getAssetPath());
+        walkDown  = new BSAnimation(BSAssets.PLAYER_WALK_DOWN.getAssetPath());
+        walkRight = new BSAnimation(BSAssets.PLAYER_WALK_RIGHT.getAssetPath());
+        walkLeft  = new BSAnimation(BSAssets.PLAYER_WALK_LEFT.getAssetPath());
+        idle      = new BSAnimation(BSAssets.PLAYER_IDLE.getAssetPath());
 
         this.x = x - 16;
         this.y = y - 16;
         this.state = state;
         this.batch = batch;
-        this.assets = assets;
     }
 
     float x, y;
