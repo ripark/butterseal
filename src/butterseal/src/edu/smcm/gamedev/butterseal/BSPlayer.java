@@ -67,6 +67,8 @@ public class BSPlayer {
     }
 
     float x, y;
+
+    BSTile currentTile;
         
     /**
      * Draws the player on the screen.
