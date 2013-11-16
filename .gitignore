@@ -1,19 +1,14 @@
-*.class
-
 # Package Files #
-#*.jar
 *.war
 *.ear
+*.apk
 
-# TeX Auxiliaries #
+# TeX auxiliary files
 *.aux
 *.el
 *.toc
 *.pdf
 *.log
-
-# Object files
-*.o
 
 # emacs stuff #
 *~
@@ -21,7 +16,9 @@ auto/*
 
 # ADT stuff (you should download this yourself; it's too big for GitHub)
 src/adt-*/
+
+# unneeded project
 src/butterseal-ios/*
 
+# ANY bin directory; these should be compiled to be created
 bin/
-*.apk
