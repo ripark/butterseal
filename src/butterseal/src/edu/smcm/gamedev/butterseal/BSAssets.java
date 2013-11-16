@@ -1,16 +1,14 @@
 package edu.smcm.gamedev.butterseal;
 
-import com.badlogic.gdx.Gdx;
-
 public enum BSAssets {
-    TITLE(718, 546, _asset("data/flame.png")), // flame
+    TITLE(718, 546, _asset("data/images/flame.png")), // flame
     HOUSE(-1, -1, _asset("data/maps/house.tmx")),
     ICE_CAVE(-1, -1, _asset("data/maps/ice-cave.tmx")),
-    PLAYER_WALK_UP(-1, -1, _asset("")),
-    PLAYER_WALK_DOWN(-1, -1, _asset("")),
-    PLAYER_WALK_LEFT(-1, -1, _asset("")),
-    PLAYER_WALK_RIGHT(-1, -1, _asset("")),
-    PLAYER_IDLE(-1, -1, _asset(""));
+    PLAYER_WALK_UP   (64, 64, _asset("data/spritesheets/player_walk_up")),
+    PLAYER_WALK_DOWN (64, 64, _asset("data/spritesheets/player_walk_down")),
+    PLAYER_WALK_LEFT (64, 64, _asset("data/spritesheets/player_walk_left")),
+    PLAYER_WALK_RIGHT(64, 64, _asset("data/spritesheets/player_walk_right")),
+    PLAYER_IDLE_STATE(64, 64, _asset("data/spritesheets/player_idle_state"));
 	
     private static String _asset(String p) {
         return p;

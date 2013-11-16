@@ -1,7 +1,6 @@
 package edu.smcm.gamedev.butterseal;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -26,8 +25,8 @@ public class BSPlayer {
         TextureRegion[] frames;
         float time;
 
-        public BSAnimation(String spritesheet) {
-            this.spritesheet = new Texture(Gdx.files.internal(spritesheet));
+        public BSAnimation(BSAssets asset) {
+            this.spritesheet = new Texture(Gdx.files.internal(asset.getAssetPath()));
             this.setAnimations();
         }
 
@@ -55,11 +54,11 @@ public class BSPlayer {
     public BSPlayer(float x, float y,
                     BSGameState state,
                     SpriteBatch batch) {
-        walkUp    = new BSAnimation(BSAssets.PLAYER_WALK_UP.getAssetPath());
-        walkDown  = new BSAnimation(BSAssets.PLAYER_WALK_DOWN.getAssetPath());
-        walkRight = new BSAnimation(BSAssets.PLAYER_WALK_RIGHT.getAssetPath());
-        walkLeft  = new BSAnimation(BSAssets.PLAYER_WALK_LEFT.getAssetPath());
-        idle      = new BSAnimation(BSAssets.PLAYER_IDLE.getAssetPath());
+        walkUp    = new BSAnimation(BSAssets.PLAYER_WALK_UP);
+        walkDown  = new BSAnimation(BSAssets.PLAYER_WALK_DOWN);
+        walkRight = new BSAnimation(BSAssets.PLAYER_WALK_RIGHT);
+        walkLeft  = new BSAnimation(BSAssets.PLAYER_WALK_LEFT);
+        idle      = new BSAnimation(BSAssets.PLAYER_IDLE_STATE);
 
         this.x = x - 16;
         this.y = y - 16;
