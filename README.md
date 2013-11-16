@@ -12,7 +12,8 @@ Butterseal is the name of the puzzle-based RPG herein.
 The basic idea is literally saving the world through music.
 Music brings warmth, and this is what thaws a silent, frozen world.
 Throughout the game, you acquire certain spring-related powers (to combat the theme of winter).
-These powers help you through subsequent levels, and culminate in the final boss level against a *secret imposter*.
+These powers help you through subsequent levels,
+  and culminate in the final boss level against a *secret imposter*.
 
 Oh, and puns.
 
