@@ -30,7 +30,7 @@ public enum BSMap {
         this.map = TiledLoader.createMap(Gdx.files.internal(asset.getAssetPath()));
         // TODO: compare with L148 of @9a50ff1735; possibly incorrect syntax
         this.atlas = new TileAtlas(this.map, Gdx.files.internal(asset.getAssetPath()));
-        this.renderer = new TileMapRenderer(this.map, this.atlas, 12, 12);
+        this.renderer = new OthogonalTileMapRenderer(this.map, this.atlas, 12, 12);
     }
 
     void draw(OrthographicCamera camera) {
