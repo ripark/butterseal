@@ -1,21 +1,16 @@
 package edu.smcm.gamedev.butterseal;
 
 public enum BSAssets {
-    TITLE(718, 546, _asset("data/images/flame.png")), // flame
-    HOUSE(-1, -1, _asset("data/maps/house.tmx")),
-    ICE_CAVE(-1, -1, _asset("data/maps/ice-cave.tmx")),
-    PLAYER_WALK_UP   (64, 64, _asset("data/spritesheets/player_walk_up.png")),
-    PLAYER_WALK_DOWN (64, 64, _asset("data/spritesheets/player_walk_down.png")),
-    PLAYER_WALK_LEFT (64, 64, _asset("data/spritesheets/player_walk_left.png")),
-    PLAYER_WALK_RIGHT(64, 64, _asset("data/spritesheets/player_walk_right.png")),
-    PLAYER_IDLE_STATE(64, 64, _asset("data/spritesheets/player_idle_state.png")),
-    ICE_CAVE_ENTRY(-1, -1, _asset("data/maps/ice-cave-entry.tmx"));
-	
-    private static String _asset(String p) {
-        return p;
-        //return String.format("data/../../../assets/%s", p);
-    }
-	
+    TITLE(718, 546, "data/images/flame.png"),
+    HOUSE(-1, -1, "data/maps/house.tmx"),
+    ICE_CAVE(-1, -1, "data/maps/ice-cave.tmx"),
+    PLAYER_WALK_UP   (64, 64, "data/spritesheets/player_walk_up.png"),
+    PLAYER_WALK_DOWN (64, 64, "data/spritesheets/player_walk_down.png"),
+    PLAYER_WALK_LEFT (64, 64, "data/spritesheets/player_walk_left.png"),
+    PLAYER_WALK_RIGHT(64, 64, "data/spritesheets/player_walk_right.png"),
+    PLAYER_IDLE_STATE(64, 64, "data/spritesheets/player_idle_state.png"),
+    ICE_CAVE_ENTRY(-1, -1, "data/maps/ice-cave-entry.tmx");
+
     /**
      * Intended height of this sprite in pixels 
      */
