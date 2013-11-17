@@ -18,12 +18,12 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 public enum BSMap {
-    HOME(null,null, new Runnable() {
+    HOME(BSAssets.HOUSE, "house", new Runnable() {
             public void run() {
                 // game logic
             }
 	}),
-    ICE_CAVE_ENTRY(null,null, new Runnable() {
+    ICE_CAVE_ENTRY(BSAssets.ICE_CAVE_ENTRY, null, new Runnable() {
             public void run() {
                 // game logic
             }
