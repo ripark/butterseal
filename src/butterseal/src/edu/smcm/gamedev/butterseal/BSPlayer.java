@@ -74,6 +74,9 @@ public class BSPlayer {
      * Draws the player on the screen.
      */
     public void draw() {
+        if(!state.isMoving) {
+            move(null);
+        }
         this.batch.draw(this.currentFrame, this.x, this.y);
     }
         
@@ -110,6 +113,12 @@ public class BSPlayer {
     }
         
     private boolean canMove(BSDirection direction) {
+        // If we are already moving,
+        //   we should not be able to move again until we finish.
+        if(state.isMoving) {
+            return false;
+        }
+        
         state.currentMap.getTileProperties(this);
         return true;
     }
