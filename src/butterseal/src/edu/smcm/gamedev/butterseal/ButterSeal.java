@@ -89,7 +89,7 @@ public class ButterSeal implements ApplicationListener {
         batch.begin();
 
         this.gui.draw();
-        this.player.draw();
+        //this.player.draw();
 
         font.draw(batch,
                   String.format("FPS: %d", Gdx.graphics.getFramesPerSecond()),
