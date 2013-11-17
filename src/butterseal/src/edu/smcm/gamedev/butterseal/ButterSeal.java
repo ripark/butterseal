@@ -49,7 +49,7 @@ public class ButterSeal implements ApplicationListener {
         player = new BSPlayer(0, 0, this.session.state, this.batch);
         gui = new BSInterface(session, this.batch, this.assetManager);
 
-        map = assetManager.get(BSAssets.HOUSE.getAssetPath());
+        map = assetManager.get(BSAssets.ICE_CAVE.getAssetPath());
 
         renderer = new OrthogonalTiledMapRenderer(map, 1f/64f);
     }
@@ -88,6 +88,7 @@ public class ButterSeal implements ApplicationListener {
         renderer.render();
         batch.begin();
 
+        this.gui.poll(Gdx.input);
         this.gui.draw();
         //this.player.draw();
 

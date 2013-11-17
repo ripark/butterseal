@@ -64,22 +64,24 @@ public class BSPlayer {
         this.y = y - 16;
         this.state = state;
         this.batch = batch;
+        this.state.facing = BSDirection.NORTH;
+        this.state.selectedPower = BSPower.ACTION;
     }
 
     float x, y;
 
     BSTile currentTile;
-        
+
     /**
      * Draws the player on the screen.
      */
     public void draw() {
         if(!state.isMoving) {
-            move(null);
+            move(BSDirection.IDLE);
         }
         this.batch.draw(this.currentFrame, this.x, this.y);
     }
-        
+
     /**
      * Moves in the given direction.
      * 
@@ -91,8 +93,10 @@ public class BSPlayer {
      * @param direction the direction in which to move
      */
     public void move(BSDirection direction) {
+        if(direction != state.facing)
+            System.out.println("Moving " + direction);
         BSAnimation target;
-        switch(state.facing) {
+        switch(direction) {
         case NORTH:
             target = walkUp;
             break;
@@ -105,13 +109,16 @@ public class BSPlayer {
         case WEST:
             target = walkLeft;
             break;
+        case IDLE:
         default:
             target = idle;
+            break;
         }
         target.time += Gdx.graphics.getDeltaTime();
         this.currentFrame = target.animation.getKeyFrame(target.time, true);
+        this.state.facing = direction;
     }
-        
+
     private boolean canMove(BSDirection direction) {
         // If we are already moving,
         //   we should not be able to move again until we finish.
@@ -130,7 +137,7 @@ public class BSPlayer {
     public BSTile getFacingTile() {
         return this.getAdjacentTile(state.facing);
     }
-        
+
     public BSTile getAdjacentTile(BSDirection direction) {
         BSTile adj = new BSTile(state.currentTile);
         switch(direction) {
@@ -146,6 +153,8 @@ public class BSPlayer {
         case WEST:
             adj.x += 1;
             break;
+        default:
+            break;
         }
         return adj;
     }
@@ -153,6 +162,32 @@ public class BSPlayer {
     public void translate(float x, float y) {
         this.x += x;
         this.y += y;
+    }
+
+    public void setPower(int i) {
+        // TODO May be error-prone
+        int l = BSPower.values().length;
+        int o = this.state.selectedPower.ordinal();
+        int current = o + l;
+        int next = (current + i) % l;
+        this.setPower(BSPower.values()[next]);
+    }
+
+    public void setPower(BSPower power) {
+        if(this.state.selectedPower != power) {
+            this.state.isSelectingPower = true;
+            System.out.println("Setting power to " + power);
+            this.state.selectedPower = power;
+        }
+    }
+
+    public void usePower() {
+        // TODO Auto-generated method stub
+        if(!state.isUsingPower) {
+            System.out.println("Using power " + this.state.selectedPower);
+        }
+        this.state.isSelectingPower = false;
+        this.state.isUsingPower = false;
     }
 }
 

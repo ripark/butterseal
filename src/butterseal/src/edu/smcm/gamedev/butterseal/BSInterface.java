@@ -31,13 +31,14 @@ public class BSInterface {
         this.batch = batch;
         this.assets = assets;
         this.activeRegions = new HashMap<Rectangle, BSGameStateActor>();
+        this.player = new BSPlayer(0, 0, this.session.state, this.batch);
 		
         // test active region
         activeRegions.put(new Rectangle().set(0, 0, 100, 100), new BSGameStateActor() {
                 @Override
                 public void act(BSPlayer player) {
                     // TODO Auto-generated method stub
-                    System.out.println("test");
+                    System.out.println("test active region");
                 }
             });
     }
@@ -62,19 +63,34 @@ public class BSInterface {
      * @param input an input stream to analyze
      */
     private void pollKeyboard(Input input) {
-        BSDirection toMove;
-        if(input.isKeyPressed(Input.Keys.RIGHT)) {
-            toMove = BSDirection.EAST;
-        } else if(input.isKeyPressed(Input.Keys.UP)) {
-            toMove = BSDirection.NORTH;
-        } else if(input.isKeyPressed(Input.Keys.LEFT)) {
-            toMove = BSDirection.WEST;
-        } else if(input.isKeyPressed(Input.Keys.DOWN)) {
-            toMove = BSDirection.SOUTH;
-        } else {
-            toMove = null;
+        if(!player.state.isMoving) {
+            // poll for movement
+            BSDirection toMove;
+            if(input.isKeyPressed(Input.Keys.RIGHT)) {
+                toMove = BSDirection.EAST;
+            } else if(input.isKeyPressed(Input.Keys.UP)) {
+                toMove = BSDirection.NORTH;
+            } else if(input.isKeyPressed(Input.Keys.LEFT)) {
+                toMove = BSDirection.WEST;
+            } else if(input.isKeyPressed(Input.Keys.DOWN)) {
+                toMove = BSDirection.SOUTH;
+            } else {
+                toMove = BSDirection.IDLE;
+            }
+            player.move(toMove);
         }
-        this.player.move(toMove);
+
+        if(!player.state.isSelectingPower) {
+            // poll for power chooser
+            if(input.isKeyPressed(Input.Keys.Z)) {
+                player.setPower(-1);
+            } else if (input.isKeyPressed(Input.Keys.C)) {
+                player.setPower(1);
+            }
+        }
+        if (input.isKeyPressed(Input.Keys.X)) {
+            player.usePower();
+        }
     }
 
     /**
@@ -101,11 +117,11 @@ public class BSInterface {
          */
 		
         if (session.isInGame) {
+            session.state.currentMap.draw();
             MakePowerBar();
             MakePowerSelector();
             MakeDirectionalPad();
             MakePauseButton();
-            session.state.currentMap.draw();
             if (session.isPaused) {
                 MakePauseScreen();
             }
