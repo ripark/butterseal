@@ -4,7 +4,7 @@
   <image source="../tilesets/test.png" trans="ffffff" width="256" height="512"/>
   <tile id="75">
    <properties>
-    <property name="player" value="ice-cave"/>
+    <property name="player" value="ice-cave-entry"/>
    </properties>
   </tile>
   <tile id="85">

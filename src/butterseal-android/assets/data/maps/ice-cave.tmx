@@ -24,7 +24,7 @@
   </tile>
   <tile id="45" terrain="6,6,6,6">
    <properties>
-    <property name="door" value="1"/>
+    <property name="player" value="house"/>
    </properties>
   </tile>
   <tile id="61" terrain="3,3,3,3">
