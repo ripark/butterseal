@@ -65,7 +65,7 @@ public class BSInterface {
         int x = input.getX();
         int y = input.getY();
         return region.x < x && x < region.width
-            && region.y < x && x < region.height;
+            && region.y < y && y < region.height;
     }
 	
     /**
