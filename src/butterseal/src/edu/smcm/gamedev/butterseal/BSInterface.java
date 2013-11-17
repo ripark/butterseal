@@ -44,10 +44,12 @@ public class BSInterface {
 	
     /**
      * Polls the given {@link Input} for valid player interaction
-     *   and handles it appropriately. 
+     *   and handles it appropriately.
      * @param input
      */
     public void poll(Input input) {
+        pollKeyboard(input);
+
         for(Rectangle r : activeRegions.keySet()){
             if (isTouchingInside(input, r)){
                 activeRegions.get(r).act(player);
@@ -55,6 +57,26 @@ public class BSInterface {
         }
     }
 	
+    /**
+     * Poll the keyboard for input.
+     * @param input an input stream to analyze
+     */
+    private void pollKeyboard(Input input) {
+        BSDirection toMove;
+        if(input.isKeyPressed(Input.Keys.RIGHT)) {
+            toMove = BSDirection.EAST;
+        } else if(input.isKeyPressed(Input.Keys.UP)) {
+            toMove = BSDirection.NORTH;
+        } else if(input.isKeyPressed(Input.Keys.LEFT)) {
+            toMove = BSDirection.WEST;
+        } else if(input.isKeyPressed(Input.Keys.DOWN)) {
+            toMove = BSDirection.SOUTH;
+        } else {
+            toMove = null;
+        }
+        this.player.move(toMove);
+    }
+
     /**
      * 
      * @param input
