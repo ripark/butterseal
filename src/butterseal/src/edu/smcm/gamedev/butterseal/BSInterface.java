@@ -3,8 +3,10 @@ package edu.smcm.gamedev.butterseal;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
@@ -25,22 +27,33 @@ public class BSInterface {
     AssetManager assets;
     Map<Rectangle, BSGameStateActor> activeRegions;
     BSPlayer player;
+    
+    Texture dpad;
 	
     public BSInterface(BSSession session, SpriteBatch batch, AssetManager assets) {
         this.session = session;
         this.batch = batch;
         this.assets = assets;
         this.activeRegions = new HashMap<Rectangle, BSGameStateActor>();
-        this.player = new BSPlayer(0, 0, this.session.state, this.batch);
+        this.player = new BSPlayer(0, 0, this.session.state);
+        
+        this.dpad = assets.get(BSAsset.DIRECTIONAL_PAD.assetPath);
 		
         // test active region
         activeRegions.put(new Rectangle().set(0, 0, 100, 100), new BSGameStateActor() {
-                @Override
-                public void act(BSPlayer player) {
-                    // TODO Auto-generated method stub
-                    System.out.println("test active region");
-                }
-            });
+            @Override
+            public void act(BSPlayer player) {
+                // TODO Auto-generated method stub
+                System.out.println("test active region 1");
+            }
+        });
+        activeRegions.put(new Rectangle().set(100, 100, 200, 200), new BSGameStateActor() {
+            @Override
+            public void act(BSPlayer player) {
+                // TODO Auto-generated method stub
+                System.out.println("test active region 2");
+            }
+        });
     }
 	
     /**
@@ -100,6 +113,8 @@ public class BSInterface {
      * @return true if input is being touched within the given region, false otherwise
      */
     public boolean isTouchingInside(Input input, Rectangle region) {
+        if (!input.isTouched())
+            return false;
         int x = input.getX();
         int y = input.getY();
         return region.x < x && x < region.width
@@ -139,9 +154,29 @@ public class BSInterface {
     }
 	
     private void MakeDirectionalPad() {
-		
+		this.drawScaled(batch, this.dpad, 0.5, 100, 50, BSAsset.DIRECTIONAL_PAD);
     }
 	
+    /**
+     * Draws a scaled version of the texture to the batch at the given coordinates.
+     * Remember that it is anchored to the bottom-left.
+     * @param batch
+     * @param texture
+     * @param scale
+     * @param x
+     * @param y
+     * @param asset
+     */
+    private void drawScaled(SpriteBatch batch, Texture texture, double scale, int x, int y, BSAsset asset) {
+        batch.draw(texture, x, y,
+                (int)(asset.width * scale),
+                (int)(asset.height * scale),
+                0, 0,
+                asset.width,
+                asset.height,
+                false, false);
+    }
+
     /**
      * Dims the screen and displays the pause menu
      */
@@ -155,6 +190,7 @@ public class BSInterface {
 	
     private void MakeTitleScreen() {
         //batch.draw(region, x, y, originX, originY, width, height, scaleX, scaleY, rotation)
+        //this.drawScaled(batch, `, scale, x, y, asset)
     }
 }
 

@@ -6,6 +6,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -38,6 +39,8 @@ public class ButterSeal implements ApplicationListener {
         assetManager = new AssetManager();
         batch = new SpriteBatch();
         font = new BitmapFont();
+        
+        
 		
         camera.setToOrtho(false, w/h * 10, 10);
         camera.update();
@@ -45,11 +48,12 @@ public class ButterSeal implements ApplicationListener {
         SetAssetLoaderLoaders();
         LoadAssets();
 
-        // TODO: insert real values here
-        player = new BSPlayer(0, 0, this.session.state, this.batch);
+        BSPlayer.batch = this.batch;
+        BSPlayer.assets = this.assetManager;
+        player = new BSPlayer(0, 0, this.session.state);
         gui = new BSInterface(session, this.batch, this.assetManager);
 
-        map = assetManager.get(BSAssets.ICE_CAVE.getAssetPath());
+        map = assetManager.get(BSAsset.ICE_CAVE.assetPath);
 
         renderer = new OrthogonalTiledMapRenderer(map, 1f/64f);
     }
@@ -61,15 +65,23 @@ public class ButterSeal implements ApplicationListener {
         assetManager.setLoader(TiledMap.class,
                                new TmxMapLoader(
                                  new InternalFileHandleResolver()));
+        
     }
 	
     /**
      * Loads all game assets
      */
     private void LoadAssets() {
-        assetManager.load(BSAssets.ICE_CAVE.getAssetPath(), TiledMap.class);
-        assetManager.load(BSAssets.HOUSE.getAssetPath(), TiledMap.class);
-        // TODO: load player assets, load interface assets
+        for(BSAsset asset : BSAsset.values()) {
+            if(asset.assetPath.endsWith(".png")) {
+                assetManager.load(asset.assetPath, Texture.class);
+            } else if (asset.assetPath.endsWith(".tmx")) {
+                assetManager.load(asset.assetPath, TiledMap.class);
+            } else {
+                System.err.print("No loader found for " + asset.assetPath);
+                System.exit(1);
+            }
+        }
         assetManager.finishLoading();
     }
 
@@ -90,7 +102,7 @@ public class ButterSeal implements ApplicationListener {
 
         this.gui.poll(Gdx.input);
         this.gui.draw();
-        //this.player.draw();
+        this.player.draw();
 
         font.draw(batch,
                   String.format("FPS: %d", Gdx.graphics.getFramesPerSecond()),

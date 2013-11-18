@@ -13,8 +13,8 @@ public class BSSession {
     BSGameState state;
 	
     public BSSession() {
-        isInGame = false;
-        isPaused = true;
+        isInGame = true;
+        isPaused = false;
     }
 	
     public void start(int slot) {
