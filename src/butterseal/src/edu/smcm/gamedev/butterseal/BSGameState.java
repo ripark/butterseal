@@ -13,7 +13,9 @@ public class BSGameState {
     BSWorld world;
     BSMap currentMap;
     BSTile currentTile;
-    Boolean isMoving;
+    boolean isMoving;
+    boolean isSelectingPower;
+    boolean isUsingPower;
 	
     /**
      * The save slot.  The session manager will have arbitrarily many of these available.

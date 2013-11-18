@@ -4,7 +4,8 @@ public enum BSDirection {
     NORTH,
     SOUTH,
     EAST,
-    WEST
+    WEST,
+    IDLE
 }
 
 // Local Variables:

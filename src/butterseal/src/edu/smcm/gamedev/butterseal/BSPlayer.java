@@ -1,6 +1,7 @@
 package edu.smcm.gamedev.butterseal;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -17,7 +18,8 @@ public class BSPlayer {
     private static final int FRAME_COLS = 2;
 
     BSGameState state;
-    SpriteBatch batch;
+    static SpriteBatch batch;
+    static AssetManager assets;
 
     private static class BSAnimation {
         Animation animation;
@@ -25,8 +27,8 @@ public class BSPlayer {
         TextureRegion[] frames;
         float time;
 
-        public BSAnimation(BSAssets asset) {
-            this.spritesheet = new Texture(Gdx.files.internal(asset.getAssetPath()));
+        public BSAnimation(BSAsset asset) {
+            this.spritesheet = assets.get(asset.assetPath);
             this.setAnimations();
         }
 
@@ -52,31 +54,87 @@ public class BSPlayer {
     TextureRegion currentFrame;
 
     public BSPlayer(float x, float y,
-                    BSGameState state,
-                    SpriteBatch batch) {
-        walkUp    = new BSAnimation(BSAssets.PLAYER_WALK_UP);
-        walkDown  = new BSAnimation(BSAssets.PLAYER_WALK_DOWN);
-        walkRight = new BSAnimation(BSAssets.PLAYER_WALK_RIGHT);
-        walkLeft  = new BSAnimation(BSAssets.PLAYER_WALK_LEFT);
-        idle      = new BSAnimation(BSAssets.PLAYER_IDLE_STATE);
+                    BSGameState state) {
+        walkUp    = new BSAnimation(BSAsset.PLAYER_WALK_UP);
+        walkDown  = new BSAnimation(BSAsset.PLAYER_WALK_DOWN);
+        walkRight = new BSAnimation(BSAsset.PLAYER_WALK_RIGHT);
+        walkLeft  = new BSAnimation(BSAsset.PLAYER_WALK_LEFT);
+        idle      = new BSAnimation(BSAsset.PLAYER_IDLE_STATE);
 
-        this.x = x - 16;
-        this.y = y - 16;
+        // TODO I got these from your old code --- what is the purpose?
+        this.x = x;// - BSMap.PIXELS_PER_TILE ;
+        this.y = y;// - BSMap.PIXELS_PER_TILE ;
         this.state = state;
-        this.batch = batch;
+        this.state.facing = BSDirection.NORTH;
+        this.state.selectedPower = BSPower.ACTION;
+        
+        System.out.println(this);
     }
 
     float x, y;
+    
+    /**
+     * The pixels yet to move
+     */
+    float dx, dy;
 
     BSTile currentTile;
-        
+    
+    /**
+     * take sixteen frames per move
+     */
+    private static final int SPEED = (int)(BSMap.PIXELS_PER_TILE / 16);
+
     /**
      * Draws the player on the screen.
      */
     public void draw() {
-        this.batch.draw(this.currentFrame, this.x, this.y);
-    }
+        if(!state.isMoving) {
+            move(BSDirection.IDLE);
+        }
+
+        // TODO this code can be simplified [made more expressive], I'm just brain-fried right now
+        if(dx > 0) {
+            if(dx >= SPEED) {
+                dx -= SPEED;
+                x += SPEED;
+            } else {
+                x += dx;
+                dx = 0;
+            }
+        } else if(dx < 0) {
+            if(dx <= SPEED) {
+                dx += SPEED;
+                x -= SPEED;
+            } else {
+                x += dx;
+                dx = 0;
+            }
+        }
+        if(dy > 0) {
+            if(dy >= SPEED) {
+                dy -= SPEED;
+                y += SPEED;
+            } else {
+                y += dy;
+                dy = 0;
+            }
+        } else if (dy < 0) {
+            if(dy <= SPEED) {
+                dy += SPEED;
+                y -= SPEED;
+            } else {
+                y += dy;
+                dy = 0;
+            }
+        }
         
+        // update moving state based on whether we have more to move
+        this.state.isMoving = dy != 0 || dx != 0;
+        
+        batch.draw(this.currentFrame, x, y, 64, 64);
+    }
+
     /**
      * Moves in the given direction.
      * 
@@ -88,29 +146,48 @@ public class BSPlayer {
      * @param direction the direction in which to move
      */
     public void move(BSDirection direction) {
+        this.state.isMoving = true;
+        if(direction != state.facing) {
+            System.out.println("Moving " + direction);
+        }
         BSAnimation target;
-        switch(state.facing) {
+        switch(direction) {
         case NORTH:
             target = walkUp;
+            dy += 50;//BSMap.PIXELS_PER_TILE/2;
             break;
         case SOUTH:
             target = walkDown;
+            dy -= 50;//BSMap.PIXELS_PER_TILE/2;
             break;
         case EAST:
             target = walkRight;
+            dx += 50;//BSMap.PIXELS_PER_TILE/2;
             break;
         case WEST:
             target = walkLeft;
+            dx -= 50;//BSMap.PIXELS_PER_TILE/2;
             break;
+        case IDLE:
         default:
             target = idle;
+            this.state.isMoving = false;
+            break;
         }
         target.time += Gdx.graphics.getDeltaTime();
         this.currentFrame = target.animation.getKeyFrame(target.time, true);
+        this.state.facing = direction;
     }
-        
+
     private boolean canMove(BSDirection direction) {
+        // If we are already moving,
+        //   we should not be able to move again until we finish.
+        if(state.isMoving) {
+            return false;
+        }
+
         state.currentMap.getTileProperties(this);
+
         return true;
     }
 
@@ -121,7 +198,7 @@ public class BSPlayer {
     public BSTile getFacingTile() {
         return this.getAdjacentTile(state.facing);
     }
-        
+
     public BSTile getAdjacentTile(BSDirection direction) {
         BSTile adj = new BSTile(state.currentTile);
         switch(direction) {
@@ -137,6 +214,8 @@ public class BSPlayer {
         case WEST:
             adj.x += 1;
             break;
+        default:
+            break;
         }
         return adj;
     }
@@ -144,6 +223,32 @@ public class BSPlayer {
     public void translate(float x, float y) {
         this.x += x;
         this.y += y;
+    }
+
+    public void setPower(int i) {
+        // TODO May be error-prone
+        int l = BSPower.values().length;
+        int o = this.state.selectedPower.ordinal();
+        int current = o + l;
+        int next = (current + i) % l;
+        this.setPower(BSPower.values()[next]);
+    }
+
+    public void setPower(BSPower power) {
+        if(this.state.selectedPower != power) {
+            this.state.isSelectingPower = true;
+            System.out.println("Setting power to " + power);
+            this.state.selectedPower = power;
+        }
+    }
+
+    public void usePower() {
+        // TODO Auto-generated method stub
+        if(!state.isUsingPower) {
+            System.out.println("Using power " + this.state.selectedPower);
+        }
+        this.state.isSelectingPower = false;
+        this.state.isUsingPower = false;
     }
 }
 

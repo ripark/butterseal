@@ -18,31 +18,31 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 public enum BSMap {
-    HOME(BSAssets.HOUSE, "house", new Runnable() {
+    HOME(BSAsset.HOUSE, "house", new Runnable() {
             public void run() {
                 // game logic
             }
 	}),
-    ICE_CAVE_ENTRY(BSAssets.ICE_CAVE_ENTRY, null, new Runnable() {
+    ICE_CAVE_ENTRY(BSAsset.ICE_CAVE_ENTRY, null, new Runnable() {
             public void run() {
                 // game logic
             }
 	}),
-    ICE_CAVE(BSAssets.ICE_CAVE, "ice-cave", new Runnable() {
+    ICE_CAVE(BSAsset.ICE_CAVE, "ice-cave", new Runnable() {
             public void run() {
                 // game logic
             }
 	});
 
-    static final float PIXELS_PER_TILE = 32;
+    static final float PIXELS_PER_TILE = 64;
 	
     BSGameState state;
     TiledMap map;
     //TileAtlas atlas;
     OrthogonalTiledMapRenderer renderer;
 
-    BSMap(BSAssets asset, String key, Runnable action) {
-        this.map = new TmxMapLoader().load(asset.getAssetPath());
+    BSMap(BSAsset asset, String key, Runnable action) {
+        this.map = new TmxMapLoader().load(asset.assetPath);
         this.renderer = new OrthogonalTiledMapRenderer(this.map, 1/BSMap.PIXELS_PER_TILE);
     }
 

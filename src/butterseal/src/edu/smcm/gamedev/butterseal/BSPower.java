@@ -1,12 +1,14 @@
 package edu.smcm.gamedev.butterseal;
 
+// TODO give each of these runnable attributes
 public enum BSPower {
+    ACTION,
     FIRE,
     LIGHT,
     GROWTH,
     JUMP,
     STRENGTH,
-    SWIMMING
+    SWIMMING;
 }
 
 // Local Variables:
