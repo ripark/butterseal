@@ -51,7 +51,7 @@ public class ButterSeal implements ApplicationListener {
         BSPlayer.batch = this.batch;
         BSPlayer.assets = this.assetManager;
         player = new BSPlayer(0, 0, this.session.state);
-        gui = new BSInterface(session, this.batch, this.assetManager);
+        gui = new BSInterface(session, this.batch, this.assetManager, this.player);
 
         map = assetManager.get(BSAsset.ICE_CAVE.assetPath);
 

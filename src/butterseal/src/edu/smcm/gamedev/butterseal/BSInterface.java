@@ -30,12 +30,12 @@ public class BSInterface {
     
     Texture dpad;
 	
-    public BSInterface(BSSession session, SpriteBatch batch, AssetManager assets) {
+    public BSInterface(BSSession session, SpriteBatch batch, AssetManager assets, BSPlayer player) {
         this.session = session;
         this.batch = batch;
         this.assets = assets;
         this.activeRegions = new HashMap<Rectangle, BSGameStateActor>();
-        this.player = new BSPlayer(0, 0, this.session.state);
+        this.player = player;
         
         this.dpad = assets.get(BSAsset.DIRECTIONAL_PAD.assetPath);
 		

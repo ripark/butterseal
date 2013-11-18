@@ -66,6 +66,8 @@ public class BSPlayer {
         this.state = state;
         this.state.facing = BSDirection.NORTH;
         this.state.selectedPower = BSPower.ACTION;
+        
+        System.out.println(this);
     }
 
     float x, y;
@@ -79,7 +81,7 @@ public class BSPlayer {
         if(!state.isMoving) {
             move(BSDirection.IDLE);
         }
-        batch.draw(this.currentFrame, 50, 50, 128, 128);
+        batch.draw(this.currentFrame, x, y, 128, 128);
     }
 
     /**
@@ -93,21 +95,26 @@ public class BSPlayer {
      * @param direction the direction in which to move
      */
     public void move(BSDirection direction) {
-        if(direction != state.facing)
+        if(direction != state.facing) {
             System.out.println("Moving " + direction);
+        }
         BSAnimation target;
         switch(direction) {
         case NORTH:
             target = walkUp;
+            y += BSMap.PIXELS_PER_TILE;
             break;
         case SOUTH:
             target = walkDown;
+            y -= BSMap.PIXELS_PER_TILE;
             break;
         case EAST:
             target = walkRight;
+            x += BSMap.PIXELS_PER_TILE;
             break;
         case WEST:
             target = walkLeft;
+            x -= BSMap.PIXELS_PER_TILE;
             break;
         case IDLE:
         default:
