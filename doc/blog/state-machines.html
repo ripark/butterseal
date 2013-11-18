@@ -1,0 +1,64 @@
+<p>
+At the core of the new design is a state object that is shared between the multiple helper objects in the system.
+This separation of state and function enables coherency throughout the entire system,
+  a coherency that was not possible in the first design.
+While every piece of software is what we call a state machine (including the first design),
+  the realization and exploitation of this fundamental nature of the system empowers the designers
+  to more fully understand and more effectively implement the functional requirements of the system.
+</p>
+<p>
+But what is a state machine? Defined by Wikipedia's article:
+<blockquote>
+A finite-state machine (FSM) or finite-state automaton (plural: automata), or simply a <b>state machine</b>,
+  is a mathematical model of computation used to design both computer programs and sequential logic circuits.
+It is conceived as an abstract machine that can be in one of a finite number of states.
+The machine is in only one state at a time; the state it is in at any given time is called the current state.
+It can change from one state to another when initiated by a triggering event or condition; this is called a transition.
+A particular FSM is defined by a list of its states, and the triggering condition for each transition.
+</blockquote>
+In simpler words, a state machine is a conceptual device composed of distinct states and transitions between those states.
+As an example, consider an ATM: simplified, it has quite a few states:
+<dl>
+<dt>logged out</dt>
+<dd>Nobody is using this ATM</dd>
+<dt>logged in</dt>
+<dd>Someone has logged in</dd>
+<dt>card-check</dt>
+<dd>Somebody has put in their card</dd>
+<dt>transaction in place</dt>
+<dd>The user has requested a transaction</dd>
+</dl>
+These are all potential states the ATM can be in, but it can only be in one at a time.
+It is the interaction with the ATM that constitutes the transitions between these states:
+<ul>
+<li>When logged out, enter card-check upon a user putting in their card</li>
+<li>When in card-check, enter logged-in upon credential confirmation</li>
+<li>Upon appropriate input, enter transaction in place as appropriate</li>
+<li>When logged in, enter logged out upon appropriate input</li>
+</ul>
+Additionally, each of these states causes the ATM to exhibit certain behaviors:
+<dl>
+<dt>logged out</dt>
+<dd>display advertisements</dd>
+<dt>logged in</dt>
+<dd>display possible transactions</dd>
+<dt>card-check</dt>
+<dd>display progress bar</dd>
+<dt>transaction in place</dt>
+<dd>display progress bar</dd>
+</dl>
+State machines are all around you—you need only look around.
+</p>
+<p>
+Our game is now <em>very</em> similar.
+While every piece of software is a state machine in the end,
+  coherent pieces of software usually have some sort of state the the explicitly keep in some custom data structure.
+We now have <a href="https://github.com/vermiculus/butterseal/blob/refactor/src/butterseal/src/edu/smcm/gamedev/butterseal/BSGameState.java">exactly this</a>;
+  our implementation keeps track of many different states of the game
+  (while DFAs are one-state only, equivalent NFAs allow multiple concurrent states),
+  such as which way the player is facing, what power they've selected,
+  what map their on in the world,
+  their current position on the map, etc.
+By sharing this state object between the interface and the player,
+  we can keep consistency in the design and keep the code clear.
+</p>
