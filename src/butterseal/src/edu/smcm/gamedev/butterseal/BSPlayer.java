@@ -94,7 +94,6 @@ public class BSPlayer {
         }
 
         // TODO this code can be simplified [made more expressive], I'm just brain-fried right now
-        // TODO add logic that handles non-divisor fram rates (e.g. 16 divides 64, but 10 does not; what if the value were 10?)
         if(dx > 0) {
             if(dx >= SPEED) {
                 dx -= SPEED;
