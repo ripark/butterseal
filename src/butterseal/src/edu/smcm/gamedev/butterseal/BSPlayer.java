@@ -92,22 +92,42 @@ public class BSPlayer {
         if(!state.isMoving) {
             move(BSDirection.IDLE);
         }
-      
+
         // TODO this code can be simplified [made more expressive], I'm just brain-fried right now
         // TODO add logic that handles non-divisor fram rates (e.g. 16 divides 64, but 10 does not; what if the value were 10?)
         if(dx > 0) {
-            dx -= SPEED;
-            x += SPEED;
+            if(dx >= SPEED) {
+                dx -= SPEED;
+                x += SPEED;
+            } else {
+                x += dx;
+                dx = 0;
+            }
         } else if(dx < 0) {
-            dx += SPEED;
-            x -= SPEED;
+            if(dx <= SPEED) {
+                dx += SPEED;
+                x -= SPEED;
+            } else {
+                x += dx;
+                dx = 0;
+            }
         }
         if(dy > 0) {
-            dy -= SPEED;
-            y += SPEED;
+            if(dy >= SPEED) {
+                dy -= SPEED;
+                y += SPEED;
+            } else {
+                y += dy;
+                dy = 0;
+            }
         } else if (dy < 0) {
-            dy += SPEED;
-            y -= SPEED;
+            if(dy <= SPEED) {
+                dy += SPEED;
+                y -= SPEED;
+            } else {
+                y += dy;
+                dy = 0;
+            }
         }
         
         // update moving state based on whether we have more to move
@@ -135,19 +155,19 @@ public class BSPlayer {
         switch(direction) {
         case NORTH:
             target = walkUp;
-            dy += BSMap.PIXELS_PER_TILE;
+            dy += 50;//BSMap.PIXELS_PER_TILE/2;
             break;
         case SOUTH:
             target = walkDown;
-            dy -= BSMap.PIXELS_PER_TILE;
+            dy -= 50;//BSMap.PIXELS_PER_TILE/2;
             break;
         case EAST:
             target = walkRight;
-            dx += BSMap.PIXELS_PER_TILE;
+            dx += 50;//BSMap.PIXELS_PER_TILE/2;
             break;
         case WEST:
             target = walkLeft;
-            dx -= BSMap.PIXELS_PER_TILE;
+            dx -= 50;//BSMap.PIXELS_PER_TILE/2;
             break;
         case IDLE:
         default:
