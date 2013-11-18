@@ -102,7 +102,6 @@ public class ButterSeal implements ApplicationListener {
 
         this.gui.poll(Gdx.input);
         this.gui.draw();
-        this.player.draw();
 
         font.draw(batch,
                   String.format("FPS: %d", Gdx.graphics.getFramesPerSecond()),

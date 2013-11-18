@@ -133,6 +133,7 @@ public class BSInterface {
 		
         if (session.isInGame) {
             session.state.currentMap.draw();
+            player.draw();
             MakePowerBar();
             MakePowerSelector();
             MakeDirectionalPad();
@@ -154,7 +155,7 @@ public class BSInterface {
     }
 	
     private void MakeDirectionalPad() {
-		this.drawScaled(batch, this.dpad, 0.5, 100, 50, BSAsset.DIRECTIONAL_PAD);
+		this.drawScaled(batch, this.dpad, 0.5, 0, 0, BSAsset.DIRECTIONAL_PAD);
     }
 	
     /**

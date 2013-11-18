@@ -61,8 +61,9 @@ public class BSPlayer {
         walkLeft  = new BSAnimation(BSAsset.PLAYER_WALK_LEFT);
         idle      = new BSAnimation(BSAsset.PLAYER_IDLE_STATE);
 
-        this.x = x - 16;
-        this.y = y - 16;
+        // TODO I got these from your old code --- what is the purpose?
+        this.x = x;// - BSMap.PIXELS_PER_TILE ;
+        this.y = y;// - BSMap.PIXELS_PER_TILE ;
         this.state = state;
         this.state.facing = BSDirection.NORTH;
         this.state.selectedPower = BSPower.ACTION;
@@ -71,8 +72,18 @@ public class BSPlayer {
     }
 
     float x, y;
+    
+    /**
+     * The pixels yet to move
+     */
+    float dx, dy;
 
     BSTile currentTile;
+    
+    /**
+     * take sixteen frames per move
+     */
+    private static final int SPEED = (int)(BSMap.PIXELS_PER_TILE / 16);
 
     /**
      * Draws the player on the screen.
@@ -81,7 +92,28 @@ public class BSPlayer {
         if(!state.isMoving) {
             move(BSDirection.IDLE);
         }
-        batch.draw(this.currentFrame, x, y, 128, 128);
+      
+        // TODO this code can be simplified [made more expressive], I'm just brain-fried right now
+        // TODO add logic that handles non-divisor fram rates (e.g. 16 divides 64, but 10 does not; what if the value were 10?)
+        if(dx > 0) {
+            dx -= SPEED;
+            x += SPEED;
+        } else if(dx < 0) {
+            dx += SPEED;
+            x -= SPEED;
+        }
+        if(dy > 0) {
+            dy -= SPEED;
+            y += SPEED;
+        } else if (dy < 0) {
+            dy += SPEED;
+            y -= SPEED;
+        }
+        
+        // update moving state based on whether we have more to move
+        this.state.isMoving = dy != 0 || dx != 0;
+        
+        batch.draw(this.currentFrame, x, y, 64, 64);
     }
 
     /**
@@ -95,6 +127,7 @@ public class BSPlayer {
      * @param direction the direction in which to move
      */
     public void move(BSDirection direction) {
+        this.state.isMoving = true;
         if(direction != state.facing) {
             System.out.println("Moving " + direction);
         }
@@ -102,23 +135,24 @@ public class BSPlayer {
         switch(direction) {
         case NORTH:
             target = walkUp;
-            y += BSMap.PIXELS_PER_TILE;
+            dy += BSMap.PIXELS_PER_TILE;
             break;
         case SOUTH:
             target = walkDown;
-            y -= BSMap.PIXELS_PER_TILE;
+            dy -= BSMap.PIXELS_PER_TILE;
             break;
         case EAST:
             target = walkRight;
-            x += BSMap.PIXELS_PER_TILE;
+            dx += BSMap.PIXELS_PER_TILE;
             break;
         case WEST:
             target = walkLeft;
-            x -= BSMap.PIXELS_PER_TILE;
+            dx -= BSMap.PIXELS_PER_TILE;
             break;
         case IDLE:
         default:
             target = idle;
+            this.state.isMoving = false;
             break;
         }
         target.time += Gdx.graphics.getDeltaTime();
@@ -132,8 +166,9 @@ public class BSPlayer {
         if(state.isMoving) {
             return false;
         }
-        
+
         state.currentMap.getTileProperties(this);
+
         return true;
     }
 
