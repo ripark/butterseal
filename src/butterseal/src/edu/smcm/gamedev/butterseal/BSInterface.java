@@ -6,6 +6,7 @@ import java.util.Map;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
@@ -104,6 +105,9 @@ public class BSInterface {
         if (input.isKeyPressed(Input.Keys.X)) {
             player.usePower();
         }
+        
+        if (input.isKeyPressed(Input.Keys.ESCAPE))
+            Gdx.app.exit();
     }
 
     /**

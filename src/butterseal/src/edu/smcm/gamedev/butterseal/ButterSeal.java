@@ -44,13 +44,15 @@ public class ButterSeal implements ApplicationListener {
 		
         camera.setToOrtho(false, w/h * 10, 10);
         camera.update();
+        
+        batch.setProjectionMatrix(camera.combined);
 		
         SetAssetLoaderLoaders();
         LoadAssets();
 
         BSPlayer.batch = this.batch;
         BSPlayer.assets = this.assetManager;
-        player = new BSPlayer(0, 0, this.session.state);
+        player = new BSPlayer(0, 0, this.session.state, this.camera);
         gui = new BSInterface(session, this.batch, this.assetManager, this.player);
 
         map = assetManager.get(BSAsset.ICE_CAVE.assetPath);

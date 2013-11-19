@@ -2,10 +2,13 @@ package edu.smcm.gamedev.butterseal;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 
 /**
  * Handles player state and movement on-screen.
@@ -52,9 +55,11 @@ public class BSPlayer {
 
     BSAnimation walkUp, walkDown, walkRight, walkLeft, idle;
     TextureRegion currentFrame;
+    OrthographicCamera camera;
 
     public BSPlayer(float x, float y,
-                    BSGameState state) {
+                    BSGameState state,
+                    OrthographicCamera camera) {
         walkUp    = new BSAnimation(BSAsset.PLAYER_WALK_UP);
         walkDown  = new BSAnimation(BSAsset.PLAYER_WALK_DOWN);
         walkRight = new BSAnimation(BSAsset.PLAYER_WALK_RIGHT);
@@ -67,6 +72,9 @@ public class BSPlayer {
         this.state = state;
         this.state.facing = BSDirection.NORTH;
         this.state.selectedPower = BSPower.ACTION;
+        
+        this.camera = camera;
+        
         
         System.out.println(this);
     }
@@ -93,46 +101,68 @@ public class BSPlayer {
             move(BSDirection.IDLE);
         }
 
+        this.doTranslate();
+        
+        // update moving state based on whether we have more to move
+        this.state.isMoving = dy != 0 || dx != 0;
+        
+        Sprite s = new Sprite(currentFrame);
+        s.setPosition(-50, -50);
+        s.setScale(2f);
+        
+        s.draw(batch);
+        
+        //batch.draw(this.currentFrame, x, y, 64, 64);
+    }
+
+    private Vector2 doTranslate() {
         // TODO this code can be simplified [made more expressive], I'm just brain-fried right now
+        float ddx = 0, ddy = 0; // Deedee!  What are you doing in my laboratory!?
         if(dx > 0) {
             if(dx >= SPEED) {
+                ddx = SPEED;
                 dx -= SPEED;
                 x += SPEED;
             } else {
+                ddx = dx;
                 x += dx;
                 dx = 0;
             }
         } else if(dx < 0) {
             if(dx <= SPEED) {
+                ddx = -SPEED;
                 dx += SPEED;
                 x -= SPEED;
             } else {
+                ddx = dx;
                 x += dx;
                 dx = 0;
             }
         }
         if(dy > 0) {
             if(dy >= SPEED) {
+                ddy = SPEED;
                 dy -= SPEED;
                 y += SPEED;
             } else {
+                ddy = dy;
                 y += dy;
                 dy = 0;
             }
         } else if (dy < 0) {
             if(dy <= SPEED) {
+                ddy = -SPEED;
                 dy += SPEED;
                 y -= SPEED;
             } else {
+                ddy = dy;
                 y += dy;
                 dy = 0;
             }
         }
-        
-        // update moving state based on whether we have more to move
-        this.state.isMoving = dy != 0 || dx != 0;
-        
-        batch.draw(this.currentFrame, x, y, 64, 64);
+        camera.translate(Math.signum(ddx) / BSMap.PIXELS_PER_TILE * camera.zoom,
+                         Math.signum(ddy) / BSMap.PIXELS_PER_TILE * camera.zoom);
+        return new Vector2(ddx, ddy);
     }
 
     /**
