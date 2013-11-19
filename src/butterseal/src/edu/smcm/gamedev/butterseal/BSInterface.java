@@ -6,9 +6,14 @@ import java.util.Map;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Rectangle;
 
 /**
@@ -23,35 +28,51 @@ import com.badlogic.gdx.math.Rectangle;
  *
  */
 public class BSInterface {
+    static final boolean DEBUG_MODE = true;
+    
     BSSession session;
+    BSPlayer player;
+    
     SpriteBatch batch;
     AssetManager assets;
+    OrthographicCamera camera;
+    BitmapFont font;
+    
     Map<Rectangle, BSGameStateActor> activeRegions;
-    BSPlayer player;
     
     Texture dpad;
 	
-    public BSInterface(BSSession session, SpriteBatch batch, AssetManager assets, BSPlayer player) {
-        this.session = session;
-        this.batch = batch;
-        this.assets = assets;
-        this.activeRegions = new HashMap<Rectangle, BSGameStateActor>();
-        this.player = player;
+    public BSInterface(BSSession session) {
+        font = new BitmapFont();
+        assets = new AssetManager();
+        batch = new SpriteBatch();
+        camera = new OrthographicCamera();
+        SetAssetLoaders();
+        LoadAssets();
         
-        this.dpad = assets.get(BSAsset.DIRECTIONAL_PAD.assetPath);
+        BSPlayer.assets = assets;
+        BSPlayer.batch = batch;
+        
+        this.session = session;
+        this.player = new BSPlayer(session.state, 0, 0);
+        
+        camera.setToOrtho(false, Gdx.graphics.getWidth() / Gdx.graphics.getHeight() * 10, 10);
+        batch.setProjectionMatrix(camera.combined);
 		
-        // test active region
+        activeRegions = new HashMap<Rectangle, BSGameStateActor>();
+        LoadTestRegions();
+    }
+
+    private void LoadTestRegions() {
         activeRegions.put(new Rectangle().set(0, 0, 100, 100), new BSGameStateActor() {
             @Override
-            public void act(BSPlayer player) {
-                // TODO Auto-generated method stub
+            public void act(BSInterface gui) {
                 System.out.println("test active region 1");
             }
         });
         activeRegions.put(new Rectangle().set(100, 100, 200, 200), new BSGameStateActor() {
             @Override
-            public void act(BSPlayer player) {
-                // TODO Auto-generated method stub
+            public void act(BSInterface gui) {
                 System.out.println("test active region 2");
             }
         });
@@ -67,7 +88,7 @@ public class BSInterface {
 
         for(Rectangle r : activeRegions.keySet()){
             if (isTouchingInside(input, r)){
-                activeRegions.get(r).act(player);
+                activeRegions.get(r).act(this);
             }
         }
     }
@@ -134,10 +155,10 @@ public class BSInterface {
          * 
          * If we are not in a game, then draw the title screen.
          */
-		
+		batch.begin();
         if (session.isInGame) {
-            session.state.currentMap.draw();
-            player.draw();
+            session.state.currentMap.draw(camera);
+            player.draw(camera);
             MakePowerBar();
             MakePowerSelector();
             MakeDirectionalPad();
@@ -148,6 +169,13 @@ public class BSInterface {
         } else {
             MakeTitleScreen();
         }
+        
+        if(DEBUG_MODE) {
+            font.draw(batch,
+                    String.format("FPS: %d", Gdx.graphics.getFramesPerSecond()),
+                    1, Gdx.graphics.getHeight()-1);
+        }
+        batch.end();
     }
 
     private void MakePowerBar() {
@@ -173,13 +201,17 @@ public class BSInterface {
      * @param asset
      */
     private void drawScaled(SpriteBatch batch, Texture texture, double scale, int x, int y, BSAsset asset) {
-        batch.draw(texture, x, y,
-                (int)(asset.width * scale),
-                (int)(asset.height * scale),
-                0, 0,
-                asset.width,
-                asset.height,
-                false, false);
+        //batch.draw(texture, x, y,
+        //        (int)(asset.width * scale),
+        //        (int)(asset.height * scale),
+        //        0, 0,
+        //        asset.width,
+        //        asset.height,
+        //        false, false);
+        Sprite s = new Sprite(texture);
+        s.setPosition(x, y);
+        
+        s.draw(batch);
     }
 
     /**
@@ -196,6 +228,42 @@ public class BSInterface {
     private void MakeTitleScreen() {
         //batch.draw(region, x, y, originX, originY, width, height, scaleX, scaleY, rotation)
         //this.drawScaled(batch, `, scale, x, y, asset)
+    }
+    
+    /**
+     * Sets all the loaders needed for the {@link #assetManager}.
+     */
+    private void SetAssetLoaders() {
+        assets.setLoader(TiledMap.class,
+                               new TmxMapLoader(
+                                 new InternalFileHandleResolver()));
+        
+    }
+    
+    /**
+     * Loads all game assets
+     */
+    private void LoadAssets() {
+        for(BSAsset asset : BSAsset.values()) {
+            if(asset.assetPath.endsWith(".png")) {
+                assets.load(asset.assetPath, Texture.class);
+            } else if (asset.assetPath.endsWith(".tmx")) {
+                assets.load(asset.assetPath, TiledMap.class);
+            } else {
+                System.err.print("No loader found for " + asset.assetPath);
+                System.exit(1);
+            }
+        }
+        assets.finishLoading();
+        
+        dpad = assets.get(BSAsset.DIRECTIONAL_PAD.assetPath);
+    }
+
+    
+    public void dispose() {
+        // TODO Auto-generated method stub
+        batch.dispose();
+        assets.dispose();
     }
 }
 

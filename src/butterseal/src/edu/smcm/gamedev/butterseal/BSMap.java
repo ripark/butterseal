@@ -6,9 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
@@ -34,11 +32,9 @@ public enum BSMap {
             }
 	});
 
-    static final float PIXELS_PER_TILE = 64;
+    static final float PIXELS_PER_TILE = 32;
 	
-    BSGameState state;
     TiledMap map;
-    //TileAtlas atlas;
     OrthogonalTiledMapRenderer renderer;
 
     BSMap(BSAsset asset, String key, Runnable action) {
@@ -67,10 +63,6 @@ public enum BSMap {
             ret.add(this_map);
         }
         return ret;
-    }
-
-    public void draw() {
-        // TODO Auto-generated method stub
     }
 }
 

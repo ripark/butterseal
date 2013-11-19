@@ -19,11 +19,7 @@ import com.badlogic.gdx.math.Vector2;
 public class BSPlayer {
     private static final int FRAME_ROWS = 2;
     private static final int FRAME_COLS = 2;
-
-    BSGameState state;
-    static SpriteBatch batch;
-    static AssetManager assets;
-
+    
     private static class BSAnimation {
         Animation animation;
         Texture spritesheet;
@@ -53,32 +49,26 @@ public class BSPlayer {
         }
     }
 
+
+    BSGameState state;
+    static SpriteBatch batch;
+    static AssetManager assets;
     BSAnimation walkUp, walkDown, walkRight, walkLeft, idle;
     TextureRegion currentFrame;
-    OrthographicCamera camera;
 
-    public BSPlayer(float x, float y,
-                    BSGameState state,
-                    OrthographicCamera camera) {
+    public BSPlayer(BSGameState state,
+                    float x, float y) {
         walkUp    = new BSAnimation(BSAsset.PLAYER_WALK_UP);
         walkDown  = new BSAnimation(BSAsset.PLAYER_WALK_DOWN);
         walkRight = new BSAnimation(BSAsset.PLAYER_WALK_RIGHT);
         walkLeft  = new BSAnimation(BSAsset.PLAYER_WALK_LEFT);
         idle      = new BSAnimation(BSAsset.PLAYER_IDLE_STATE);
 
-        // TODO I got these from your old code --- what is the purpose?
-        //position.x = x;// - BSMap.PIXELS_PER_TILE ;
-        //position.y = y;// - BSMap.PIXELS_PER_TILE ;
         this.position = new Vector2(x, y);
         this.displacement = new Vector2();
         this.state = state;
         this.state.facing = BSDirection.NORTH;
         this.state.selectedPower = BSPower.ACTION;
-        
-        this.camera = camera;
-        
-        
-        System.out.println(this);
     }
 
     Vector2 position;
@@ -93,33 +83,34 @@ public class BSPlayer {
     BSTile currentTile;
     
     /**
-     * take sixteen frames per move
+     * Frames to take per move
      */
-    private static final int SPEED = (int)(BSMap.PIXELS_PER_TILE / 32);
+    private static final int SPEED = 8;
 
     /**
      * Draws the player on the screen.
      */
-    public void draw() {
+    public void draw(OrthographicCamera camera) {
         if(!state.isMoving) {
             move(BSDirection.IDLE);
         }
 
-        this.doTranslate();
+        this.doTranslate(camera);
         
         // update moving state based on whether we have more to move
         this.state.isMoving = displacement.x != 0 || displacement.y != 0;
         
         Sprite s = new Sprite(currentFrame);
-        s.setPosition(-50, -50);
-        s.setScale(2f);
+        s.setPosition(0, 0);
+        s.setScale(.025f);
         
         //s.draw(batch);
         
-        batch.draw(this.currentFrame, position.x, position.y, 64, 64);
+        batch.draw(this.currentFrame, position.x, position.y, 0, 0, 1, 1, 1, 1, 0);
+        //batch.draw(this.currentFrame, position.x, position.y, 64, 64);
     }
 
-    private Vector2 doTranslate() {
+    private void doTranslate(OrthographicCamera camera) {
         // TODO this code can be simplified [made more expressive], I'm just brain-fried right now
         float ddx = 0, ddy = 0; // Deedee!  What are you doing in my laboratory!?
         if(displacement.x > 0) {
@@ -164,9 +155,8 @@ public class BSPlayer {
                 displacement.y = 0;
             }
         }
-        camera.translate(Math.signum(ddx) / BSMap.PIXELS_PER_TILE * camera.zoom,
-                         Math.signum(ddy) / BSMap.PIXELS_PER_TILE * camera.zoom);
-        return new Vector2(ddx, ddy);
+        camera.translate(Math.signum(ddx) * BSMap.PIXELS_PER_TILE,
+                         Math.signum(ddy) * BSMap.PIXELS_PER_TILE);
     }
 
     /**
@@ -220,6 +210,7 @@ public class BSPlayer {
             return false;
         }
 
+        // TODO do this
         state.currentMap.getTileProperties(this);
 
         return true;
