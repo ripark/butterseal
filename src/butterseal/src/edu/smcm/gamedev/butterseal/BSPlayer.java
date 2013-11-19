@@ -67,8 +67,10 @@ public class BSPlayer {
         idle      = new BSAnimation(BSAsset.PLAYER_IDLE_STATE);
 
         // TODO I got these from your old code --- what is the purpose?
-        this.x = x;// - BSMap.PIXELS_PER_TILE ;
-        this.y = y;// - BSMap.PIXELS_PER_TILE ;
+        //position.x = x;// - BSMap.PIXELS_PER_TILE ;
+        //position.y = y;// - BSMap.PIXELS_PER_TILE ;
+        this.position = new Vector2(x, y);
+        this.displacement = new Vector2();
         this.state = state;
         this.state.facing = BSDirection.NORTH;
         this.state.selectedPower = BSPower.ACTION;
@@ -79,19 +81,21 @@ public class BSPlayer {
         System.out.println(this);
     }
 
-    float x, y;
+    Vector2 position;
+    //float x, y;
     
     /**
      * The pixels yet to move
      */
-    float dx, dy;
+    Vector2 displacement;
+    //float dx, dy;
 
     BSTile currentTile;
     
     /**
      * take sixteen frames per move
      */
-    private static final int SPEED = (int)(BSMap.PIXELS_PER_TILE / 16);
+    private static final int SPEED = (int)(BSMap.PIXELS_PER_TILE / 32);
 
     /**
      * Draws the player on the screen.
@@ -104,60 +108,60 @@ public class BSPlayer {
         this.doTranslate();
         
         // update moving state based on whether we have more to move
-        this.state.isMoving = dy != 0 || dx != 0;
+        this.state.isMoving = displacement.x != 0 || displacement.y != 0;
         
         Sprite s = new Sprite(currentFrame);
         s.setPosition(-50, -50);
         s.setScale(2f);
         
-        s.draw(batch);
+        //s.draw(batch);
         
-        //batch.draw(this.currentFrame, x, y, 64, 64);
+        batch.draw(this.currentFrame, position.x, position.y, 64, 64);
     }
 
     private Vector2 doTranslate() {
         // TODO this code can be simplified [made more expressive], I'm just brain-fried right now
         float ddx = 0, ddy = 0; // Deedee!  What are you doing in my laboratory!?
-        if(dx > 0) {
-            if(dx >= SPEED) {
+        if(displacement.x > 0) {
+            if(displacement.x >= SPEED) {
                 ddx = SPEED;
-                dx -= SPEED;
-                x += SPEED;
+                displacement.x -= SPEED;
+                position.x += SPEED;
             } else {
-                ddx = dx;
-                x += dx;
-                dx = 0;
+                ddx = displacement.x;
+                position.x += displacement.x;
+                displacement.x = 0;
             }
-        } else if(dx < 0) {
-            if(dx <= SPEED) {
+        } else if(displacement.x < 0) {
+            if(displacement.x <= SPEED) {
                 ddx = -SPEED;
-                dx += SPEED;
-                x -= SPEED;
+                displacement.x += SPEED;
+                position.x -= SPEED;
             } else {
-                ddx = dx;
-                x += dx;
-                dx = 0;
+                ddx = displacement.x;
+                position.x += displacement.x;
+                displacement.x = 0;
             }
         }
-        if(dy > 0) {
-            if(dy >= SPEED) {
+        if(displacement.y > 0) {
+            if(displacement.y >= SPEED) {
                 ddy = SPEED;
-                dy -= SPEED;
-                y += SPEED;
+                displacement.y -= SPEED;
+                position.y += SPEED;
             } else {
-                ddy = dy;
-                y += dy;
-                dy = 0;
+                ddy = displacement.y;
+                position.y += displacement.y;
+                displacement.y = 0;
             }
-        } else if (dy < 0) {
-            if(dy <= SPEED) {
+        } else if (displacement.y < 0) {
+            if(displacement.y <= SPEED) {
                 ddy = -SPEED;
-                dy += SPEED;
-                y -= SPEED;
+                displacement.y += SPEED;
+                position.y -= SPEED;
             } else {
-                ddy = dy;
-                y += dy;
-                dy = 0;
+                ddy = displacement.y;
+                position.y += displacement.y;
+                displacement.y = 0;
             }
         }
         camera.translate(Math.signum(ddx) / BSMap.PIXELS_PER_TILE * camera.zoom,
@@ -184,19 +188,19 @@ public class BSPlayer {
         switch(direction) {
         case NORTH:
             target = walkUp;
-            dy += 50;//BSMap.PIXELS_PER_TILE/2;
+            displacement.y += BSMap.PIXELS_PER_TILE;
             break;
         case SOUTH:
             target = walkDown;
-            dy -= 50;//BSMap.PIXELS_PER_TILE/2;
+            displacement.y -= BSMap.PIXELS_PER_TILE;
             break;
         case EAST:
             target = walkRight;
-            dx += 50;//BSMap.PIXELS_PER_TILE/2;
+            displacement.x += BSMap.PIXELS_PER_TILE;
             break;
         case WEST:
             target = walkLeft;
-            dx -= 50;//BSMap.PIXELS_PER_TILE/2;
+            displacement.x -= BSMap.PIXELS_PER_TILE;
             break;
         case IDLE:
         default:
@@ -248,11 +252,6 @@ public class BSPlayer {
             break;
         }
         return adj;
-    }
-
-    public void translate(float x, float y) {
-        this.x += x;
-        this.y += y;
     }
 
     public void setPower(int i) {

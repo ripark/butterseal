@@ -98,7 +98,9 @@ public class ButterSeal implements ApplicationListener {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
         camera.update();
+        
         renderer.setView(camera);
+
         renderer.render();
         batch.begin();
 
