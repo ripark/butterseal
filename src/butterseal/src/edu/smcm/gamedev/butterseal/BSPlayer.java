@@ -72,13 +72,11 @@ public class BSPlayer {
     }
 
     Vector2 position;
-    //float x, y;
     
     /**
      * The pixels yet to move
      */
     Vector2 displacement;
-    //float dx, dy;
 
     BSTile currentTile;
     
@@ -98,16 +96,17 @@ public class BSPlayer {
         this.doTranslate(camera);
         
         // update moving state based on whether we have more to move
-        this.state.isMoving = displacement.x != 0 || displacement.y != 0;
+        this.state.isMoving = displacement.x != 0 ||
+                              displacement.y != 0;
         
-        Sprite s = new Sprite(currentFrame);
-        s.setPosition(0, 0);
-        s.setScale(.025f);
+//        Sprite s = new Sprite(currentFrame);
+//        s.setPosition(position.x, position.y);
+//        s.setScale(.1f);
+//        
+//        s.draw(batch);
         
-        //s.draw(batch);
-        
-        batch.draw(this.currentFrame, position.x, position.y, 0, 0, 1, 1, 1, 1, 0);
-        //batch.draw(this.currentFrame, position.x, position.y, 64, 64);
+        //batch.draw(this.currentFrame, position.x, position.y, 0, 0, 1, 1, 1, 1, 0);
+        batch.draw(this.currentFrame, position.x, position.y, 64, 64);
     }
 
     private void doTranslate(OrthographicCamera camera) {

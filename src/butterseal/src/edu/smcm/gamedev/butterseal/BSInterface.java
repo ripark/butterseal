@@ -7,11 +7,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
+import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Rectangle;
@@ -41,6 +44,7 @@ public class BSInterface {
     Map<Rectangle, BSGameStateActor> activeRegions;
     
     Texture dpad;
+    Sprite sdpad;
 	
     public BSInterface(BSSession session) {
         font = new BitmapFont();
@@ -56,8 +60,19 @@ public class BSInterface {
         this.session = session;
         this.player = new BSPlayer(session.state, 0, 0);
         
-        camera.setToOrtho(false, Gdx.graphics.getWidth() / Gdx.graphics.getHeight() * 10, 10);
-        batch.setProjectionMatrix(camera.combined);
+        dpad = assets.get(BSAsset.DIRECTIONAL_PAD.assetPath);
+        dpad.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        
+        TextureRegion region = new TextureRegion(dpad, 0,0,256,256);
+        
+        sdpad = new Sprite(region);
+        sdpad.setSize(0.9f, 0.9f*sdpad.getHeight()/sdpad.getWidth());
+        sdpad.setOrigin(sdpad.getWidth()/2, sdpad.getHeight()/2);
+        sdpad.setPosition(-sdpad.getWidth()/2, -sdpad.getHeight()/2);
+        
+        
+        //camera.setToOrtho(false, Gdx.graphics.getWidth() / Gdx.graphics.getHeight() * 10, 10);
+        //batch.setProjectionMatrix(camera.combined);
 		
         activeRegions = new HashMap<Rectangle, BSGameStateActor>();
         LoadTestRegions();
@@ -153,9 +168,13 @@ public class BSInterface {
          * 
          * If we are not in a game, then draw the title screen.
          */
-		batch.begin();
+        batch.setProjectionMatrix(camera.combined);
+		//batch.begin();
+		//sdpad.draw(batch);
         if (session.isInGame) {
             session.state.currentMap.draw(camera);
+            batch.begin();
+            sdpad.draw(batch);
             player.draw(camera);
             MakePowerBar();
             MakePowerSelector();
@@ -164,30 +183,34 @@ public class BSInterface {
             if (session.isPaused) {
                 MakePauseScreen();
             }
+            batch.end();
         } else {
+            batch.begin();
             MakeTitleScreen();
+            batch.end();
         }
-        
+
         if(DEBUG_MODE) {
+            batch.begin();
             font.draw(batch,
                     String.format("FPS: %d", Gdx.graphics.getFramesPerSecond()),
                     1, Gdx.graphics.getHeight()-1);
+            batch.end();
         }
-        batch.end();
+        //camera.update();
+        //camera.apply(Gdx.graphics.getGL10());
     }
 
     private void MakePowerBar() {
 		
     }
-	
     private void MakePowerSelector() {
 		
     }
-	
     private void MakeDirectionalPad() {
 		this.drawScaled(batch, this.dpad, 0.5, 0, 0, BSAsset.DIRECTIONAL_PAD);
     }
-	
+
     /**
      * Draws a scaled version of the texture to the batch at the given coordinates.
      * Remember that it is anchored to the bottom-left.
@@ -218,16 +241,13 @@ public class BSInterface {
     private void MakePauseButton() {
 		
     }
-	
     private void MakePauseScreen() {
 		
     }
-	
     private void MakeTitleScreen() {
         //batch.draw(region, x, y, originX, originY, width, height, scaleX, scaleY, rotation)
         //this.drawScaled(batch, `, scale, x, y, asset)
     }
-    
     /**
      * Sets all the loaders needed for the {@link #assetManager}.
      */
@@ -237,7 +257,6 @@ public class BSInterface {
                                  new InternalFileHandleResolver()));
         
     }
-    
     /**
      * Loads all game assets
      */
@@ -256,8 +275,6 @@ public class BSInterface {
         
         dpad = assets.get(BSAsset.DIRECTIONAL_PAD.assetPath);
     }
-
-    
     public void dispose() {
         // TODO Auto-generated method stub
         batch.dispose();

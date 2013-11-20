@@ -8,6 +8,8 @@ import java.util.Map;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapLayers;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -39,8 +41,41 @@ public enum BSMap {
 
     BSMap(BSAsset asset, String key, Runnable action) {
         this.map = new TmxMapLoader().load(asset.assetPath);
-        this.renderer = new OrthogonalTiledMapRenderer(this.map, 1/BSMap.PIXELS_PER_TILE);
+        this.renderer = new OrthogonalTiledMapRenderer(this.map, 1f/BSMap.PIXELS_PER_TILE);
+                
+        for(MapLayer layer : map.getLayers()) {
+            TiledMapTileLayer tlayer = (TiledMapTileLayer) layer;
+            System.out.printf("Analyzing %s:%s%n", asset.assetPath, tlayer.getName());
+
+            for(int col = 0; col < tlayer.getWidth(); col++) {
+                for(int row = 0; row < tlayer.getHeight(); row++) {
+                    try{
+                        Cell c = tlayer.getCell(0, 0);
+                        TiledMapTile t = c.getTile();
+                        MapProperties prop = t.getProperties();
+                        for(Iterator<String> i = prop.getKeys(); i.hasNext();) {
+                            String mykey = i.next();
+                            //System.out.printf("%s=%s%n", mykey, prop.get(mykey));
+                        }
+                        int tileid = t.getId();
+                        //System.out.println(tileid);
+                        MapProperties tprop = map.getTileSets().getTile(t.getId()).getProperties();
+                        for(Iterator<String> i = tprop.getKeys(); i.hasNext();) {
+                            String mykey = i.next();
+                            //System.out.printf("%s=%s%n", mykey, tprop.get(mykey));
+                        }
+                        if(tprop.containsKey("player")) {
+                            System.out.printf("Found player=%s%n", prop.get("player", String.class));
+                        }
+                    } catch (Exception e) {
+
+                    }
+                }
+            }
+        }
+        //for( )
     }
+    
 
     void draw(OrthographicCamera camera) {
         this.renderer.setView(camera);

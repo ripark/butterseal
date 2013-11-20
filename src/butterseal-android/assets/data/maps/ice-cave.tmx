@@ -13,8 +13,8 @@
   </terraintypes>
   <tile id="3" terrain="2,2,2,2">
    <properties>
-    <property name="unchangeable" value="1"/>
-    <property name="wall" value="1"/>
+    <property name="unchangeable" value="true"/>
+    <property name="wall" value="false"/>
    </properties>
   </tile>
   <tile id="4" terrain="4,4,4,4">
@@ -34,12 +34,12 @@
   </tile>
   <tile id="69" terrain="0,0,0,0">
    <properties>
-    <property name="Beacon" value="1"/>
+    <property name="Beacon" value="true"/>
    </properties>
   </tile>
   <tile id="85" terrain="5,5,5,5">
    <properties>
-    <property name="spawn" value="1"/>
+    <property name="player" value="ice-cave-entry"/>
    </properties>
   </tile>
   <tile id="93" terrain="1,1,1,1"/>
