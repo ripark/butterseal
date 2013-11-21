@@ -58,10 +58,12 @@ public class BSPlayer {
      */
     Vector2 displacement;
     BSTile currentTile;
+    private static final float SCALE = 3;
     /**
      * Frames to take per move
      */
-    private static final int SPEED = 4;
+    private static final float SPEED = 3;
+    private static final float NORMSPEED = SPEED / BSMap.PIXELS_PER_TILE;
 
     public BSPlayer(BSGameState state,
                     float x, float y) {
@@ -72,6 +74,8 @@ public class BSPlayer {
         idle      = new BSAnimation(BSAsset.PLAYER_IDLE_STATE);
         
         this.currentFrame = new Sprite(idle.frames[0]);
+        this.currentFrame.setOrigin(0, 0);
+        this.currentFrame.setScale(SCALE / BSMap.PIXELS_PER_TILE);
         this.displacement = new Vector2();
         this.state = state;
         this.state.facing = BSDirection.NORTH;
@@ -99,13 +103,13 @@ public class BSPlayer {
         float ddx = 0, ddy = 0;
 
         if(displacement.x != 0) {
-            ddx = Math.abs(displacement.x) < SPEED ?
-                    displacement.x : Math.signum(displacement.x) * SPEED;
+            ddx = Math.abs(displacement.x) < NORMSPEED ?
+                    displacement.x : Math.signum(displacement.x) * NORMSPEED;
         }
 
         if (displacement.y != 0) {
-            ddy = Math.abs(displacement.y) < SPEED ?
-                    displacement.y : Math.signum(displacement.y) * SPEED;
+            ddy = Math.abs(displacement.y) < NORMSPEED ?
+                    displacement.y : Math.signum(displacement.y) * NORMSPEED;
         }
 
         displacement.sub(ddx, ddy);
@@ -131,19 +135,19 @@ public class BSPlayer {
         switch(direction) {
         case NORTH:
             target = walkUp;
-            displacement.y += BSMap.PIXELS_PER_TILE;
+            displacement.y += BSMap.PIXELS_PER_TILE * currentFrame.getScaleX() / SCALE;
             break;
         case SOUTH:
             target = walkDown;
-            displacement.y -= BSMap.PIXELS_PER_TILE;
+            displacement.y -= BSMap.PIXELS_PER_TILE * currentFrame.getScaleX() / SCALE;
             break;
         case EAST:
             target = walkRight;
-            displacement.x += BSMap.PIXELS_PER_TILE;
+            displacement.x += BSMap.PIXELS_PER_TILE * currentFrame.getScaleX() / SCALE;
             break;
         case WEST:
             target = walkLeft;
-            displacement.x -= BSMap.PIXELS_PER_TILE;
+            displacement.x -= BSMap.PIXELS_PER_TILE * currentFrame.getScaleX() / SCALE;
             break;
         case IDLE:
         default:

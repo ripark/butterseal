@@ -62,6 +62,7 @@ public class BSInterface {
 
         final int TILE_HEIGHT=20, TILE_WIDTH=30;
         camera.setToOrtho(false, Gdx.graphics.getWidth() / Gdx.graphics.getHeight() * TILE_WIDTH, TILE_HEIGHT);
+        camera.position.set(10, 10, 20);
 
         activeRegions = new HashMap<Rectangle, BSGameStateActor>();
         LoadTestRegions();
@@ -161,7 +162,9 @@ public class BSInterface {
             session.state.currentMap.draw(camera);
             batch.begin();
             player.draw();
-            //camera.lookAt(player.position.x/64f, player.position.y/64f, 0);
+            //camera.rotate(0.1f);
+            //camera.position.set(player.currentFrame.getX(), player.currentFrame.getY(), 0);
+            //camera.lookAt(player.currentFrame.getX(), player.currentFrame.getY(), 0);
             MakePowerBar();
             MakePowerSelector();
             MakeDirectionalPad();
@@ -184,6 +187,7 @@ public class BSInterface {
             batch.end();
         }
         camera.update();
+        batch.setProjectionMatrix(camera.combined);
     }
 
     private void MakePowerBar() {
