@@ -38,7 +38,7 @@ public class BSGameState {
         if(!load(slot)) {
             this.world = new BSWorld();
             world.addRoute(BSMap.HOME, BSMap.ICE_CAVE, null);
-            currentMap = BSMap.ICE_CAVE;
+            currentMap = BSMap.HOME;
         }
     }
 

@@ -63,7 +63,6 @@ public class BSPlayer {
      * The pixels yet to move
      */
     Vector2 displacement;
-    BSTile currentTile;
     private static final float SCALE = 2.5f;
     /**
      * Frames to take per move
@@ -272,11 +271,11 @@ public class BSPlayer {
     }
 
     /**
-     * Places the player on a tile in the current map where player=key
-     * @param key
+     * Places the player on a tile in the current map where player=map.key
      */
-    public void place(String key) {
-        currentTile = new BSTile(0,0);
+    public void place(String oldkey) {
+        state.currentTile = state.currentMap.getPlayer(oldkey);
+        place(state.currentTile.x, state.currentTile.y);
     }
 
     /**
@@ -293,8 +292,9 @@ public class BSPlayer {
         x -= .3f * SCALE;
         y -= .3f * SCALE;
 
-        // center on tile
-        // ???
+        // TODO center on tile
+
+        camera.position.set(x, y, 1);
 
         this.currentFrame.setPosition(x, y);
     }

@@ -66,7 +66,7 @@ public class BSInterface {
         camera.setToOrtho(false, Gdx.graphics.getWidth() / Gdx.graphics.getHeight() * TILE_WIDTH, TILE_HEIGHT);
 
         camera.position.set(player.getV2().add(0, 8), 1);
-        player.place(1, 2);
+        player.place("gamestart");
 
         activeRegions = new HashMap<Rectangle, BSGameStateActor>();
         LoadTestRegions();
