@@ -1,5 +1,8 @@
 package edu.smcm.gamedev.butterseal;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -171,6 +174,9 @@ public class BSPlayer {
         target.time += Gdx.graphics.getDeltaTime();
         this.currentFrame.setRegion(target.animation.getKeyFrame(target.time, true));
         this.state.facing = direction;
+        if(direction != BSDirection.IDLE) {
+            Map<String, HashMap<String, String>> f = this.currentTile.getProperties(state.currentMap);
+        }
     }
 
     @SuppressWarnings("unused")
