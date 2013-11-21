@@ -1,7 +1,6 @@
 package edu.smcm.gamedev.butterseal;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
@@ -82,11 +81,11 @@ public class BSPlayer {
         this.currentFrame = new Sprite(idle.frames[0]);
         this.currentFrame.setOrigin(0, 0);
         this.currentFrame.setScale(SCALE / BSMap.PIXELS_PER_TILE);
-        this.currentTile = new BSTile(0,0);
         this.displacement = new Vector2();
         this.state = state;
         this.state.facing = BSDirection.NORTH;
         this.state.selectedPower = BSPower.ACTION;
+        this.state.currentTile = new BSTile(0,0);
     }
 
     /**
@@ -94,7 +93,7 @@ public class BSPlayer {
      */
     public Vector2 draw() {
         if(!state.isMoving) {
-            move(BSDirection.IDLE);
+            changeSprite(null);
         }
 
         Vector2 ret = this.doTranslate();
@@ -139,47 +138,60 @@ public class BSPlayer {
      * @param direction the direction in which to move
      */
     public void move(BSDirection direction) {
+        if(direction == null) {
+            return;
+        }
+        this.state.facing = direction;
+        changeSprite(state.facing);
+        if(!canMove(this.state.facing) && direction == state.facing) {
+            return;
+        }
         this.state.isMoving = true;
         if(direction != state.facing) {
             System.out.println("Moving " + direction);
         }
-        BSAnimation target;
         switch(direction) {
         case NORTH:
-            target = walkUp;
-            currentTile.y += 1;
-            displacement.y += BSMap.PIXELS_PER_TILE * currentFrame.getScaleX() / SCALE;
+            state.currentTile.y += 1;
+            displacement.y += BSMap.PIXELS_PER_TILE * currentFrame.getScaleY() / SCALE;
             break;
         case SOUTH:
-            target = walkDown;
-            currentTile.y -= 1;
-            displacement.y -= BSMap.PIXELS_PER_TILE * currentFrame.getScaleX() / SCALE;
+            state.currentTile.y -= 1;
+            displacement.y -= BSMap.PIXELS_PER_TILE * currentFrame.getScaleY() / SCALE;
             break;
         case EAST:
-            target = walkRight;
-            currentTile.x += 1;
+            state.currentTile.x += 1;
             displacement.x += BSMap.PIXELS_PER_TILE * currentFrame.getScaleX() / SCALE;
             break;
         case WEST:
-            target = walkLeft;
-            currentTile.x -= 1;
+            state.currentTile.x -= 1;
             displacement.x -= BSMap.PIXELS_PER_TILE * currentFrame.getScaleX() / SCALE;
             break;
-        case IDLE:
-        default:
-            target = idle;
-            this.state.isMoving = false;
-            break;
-        }
-        target.time += Gdx.graphics.getDeltaTime();
-        this.currentFrame.setRegion(target.animation.getKeyFrame(target.time, true));
-        this.state.facing = direction;
-        if(direction != BSDirection.IDLE) {
-            Map<String, HashMap<String, String>> f = this.currentTile.getProperties(state.currentMap);
         }
     }
 
-    @SuppressWarnings("unused")
+    private void changeSprite(BSDirection direction) {
+        BSAnimation target = idle;
+        if(direction != null) {
+            switch(direction) {
+            case EAST:
+                target = walkRight;
+                break;
+            case NORTH:
+                target = walkUp;
+                break;
+            case SOUTH:
+                target = walkDown;
+                break;
+            case WEST:
+                target = walkLeft;
+                break;
+            }
+        }
+        target.time += Gdx.graphics.getDeltaTime();
+        this.currentFrame.setRegion(target.animation.getKeyFrame(target.time, true));
+    }
+
     private boolean canMove(BSDirection direction) {
         // If we are already moving,
         //   we should not be able to move again until we finish.
@@ -187,8 +199,16 @@ public class BSPlayer {
             return false;
         }
 
-        // TODO do this
-        state.currentMap.getTileProperties(this);
+        BSTile adj = getAdjacentTile(direction);
+        if(!adj.isContainedIn(state.currentMap)) {
+            return false;
+        }
+
+        HashMap<String, String> playerLevelProperties = adj.getProperties(state.currentMap)
+                                                           .get("player");
+        if (BSUtil.any(playerLevelProperties, "true", "wall")) {
+            return false;
+        }
 
         return true;
     }
@@ -211,10 +231,10 @@ public class BSPlayer {
             adj.y -= 1;
             break;
         case EAST:
-            adj.x -= 1;
+            adj.x += 1;
             break;
         case WEST:
-            adj.x += 1;
+            adj.x -= 1;
             break;
         default:
             break;

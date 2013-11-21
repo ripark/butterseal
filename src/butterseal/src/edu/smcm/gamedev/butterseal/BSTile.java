@@ -21,6 +21,9 @@ public class BSTile {
     }
 
     public Map<String, HashMap<String, String>> getProperties(BSMap map) {
+        return getProperties(map, false);
+    }
+    public Map<String, HashMap<String, String>> getProperties(BSMap map, boolean debug) {
         Map<String, HashMap<String, String>> ret = new HashMap<String, HashMap<String, String>>();
 
         for(MapLayer mlayer : map.map.getLayers()) {
@@ -30,10 +33,15 @@ public class BSTile {
                 Cell c = layer.getCell(x, y);
                 TiledMapTile t = c.getTile();
                 MapProperties prop = t.getProperties();
+                HashMap<String, String> thislayer = new HashMap<String, String>();
                 for(Iterator<String> i = prop.getKeys(); i.hasNext();) {
                     String mykey = i.next();
-                    System.out.printf("%s:%s::%d,%d:%s=%s%n", map.asset.assetPath, layer.getName(), x, y, mykey, prop.get(mykey));
+                    if(debug) {
+                        System.out.printf("%s:%s::%d,%d:%s=%s%n", map.asset.assetPath, layer.getName(), x, y, mykey, prop.get(mykey));
+                    }
+                    thislayer.put(mykey, prop.get(mykey).toString());
                 }
+                ret.put(layer.getName(), thislayer);
             } catch (Exception e) {
                 System.err.printf("Error retrieving property for %s:%s::%d,%d%n",
                             map.asset.assetPath, layer.getName(), x, y);
@@ -41,6 +49,10 @@ public class BSTile {
         }
 
         return ret;
+    }
+    public boolean isContainedIn(BSMap map) {
+        TiledMapTileLayer t = (TiledMapTileLayer) map.map.getLayers().get("player");
+        return 0 <= x && x < t.getWidth() && 0 <= y && y < t.getHeight();
     }
 }
 

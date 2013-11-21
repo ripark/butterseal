@@ -73,11 +73,13 @@ public class BSInterface {
 
     private void LoadTestRegions() {
         activeRegions.put(new Rectangle().set(0, 0, 100, 100), new BSGameStateActor() {
+            @Override
             public void act(BSInterface gui) {
                 System.out.println("test active region 1");
             }
         });
         activeRegions.put(new Rectangle().set(100, 100, 200, 200), new BSGameStateActor() {
+            @Override
             public void act(BSInterface gui) {
                 System.out.println("test active region 2");
             }
@@ -116,7 +118,7 @@ public class BSInterface {
             } else if(input.isKeyPressed(Input.Keys.DOWN)) {
                 toMove = BSDirection.SOUTH;
             } else {
-                toMove = BSDirection.IDLE;
+                toMove = null;
             }
             player.move(toMove);
         }
