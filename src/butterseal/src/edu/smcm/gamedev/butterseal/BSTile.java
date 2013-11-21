@@ -45,6 +45,7 @@ public class BSTile {
             } catch (Exception e) {
                 System.err.printf("Error retrieving property for %s:%s::%d,%d%n",
                             map.asset.assetPath, layer.getName(), x, y);
+                e.printStackTrace();
             }
         }
 
