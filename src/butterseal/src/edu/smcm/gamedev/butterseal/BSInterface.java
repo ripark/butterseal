@@ -71,7 +71,7 @@ public class BSInterface {
         sdpad.setPosition(-sdpad.getWidth()/2, -sdpad.getHeight()/2);
         
         
-        //camera.setToOrtho(false, Gdx.graphics.getWidth() / Gdx.graphics.getHeight() * 10, 10);
+        camera.setToOrtho(false, Gdx.graphics.getWidth() / Gdx.graphics.getHeight() * 10, 10);
         //batch.setProjectionMatrix(camera.combined);
 		
         activeRegions = new HashMap<Rectangle, BSGameStateActor>();
@@ -168,7 +168,7 @@ public class BSInterface {
          * 
          * If we are not in a game, then draw the title screen.
          */
-        batch.setProjectionMatrix(camera.combined);
+        //batch.setProjectionMatrix(camera.combined);
 		//batch.begin();
 		//sdpad.draw(batch);
         if (session.isInGame) {
