@@ -40,10 +40,16 @@ public enum BSMap {
 
     TiledMap map;
     OrthogonalTiledMapRenderer renderer;
+    BSAsset asset;
+    String key;
+    Runnable action;
 
     BSMap(BSAsset asset, String key, Runnable action) {
         this.map = new TmxMapLoader().load(asset.assetPath);
         this.renderer = new OrthogonalTiledMapRenderer(this.map, 1f/BSMap.PIXELS_PER_TILE);
+        this.asset = asset;
+        this.key = key;
+        this.action = action;
 
         for(MapLayer layer : map.getLayers()) {
             TiledMapTileLayer tlayer = (TiledMapTileLayer) layer;
@@ -75,7 +81,6 @@ public enum BSMap {
                 }
             }
         }
-        //for( )
     }
 
 
