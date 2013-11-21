@@ -88,10 +88,10 @@ public class BSPlayer {
      */
     public void draw(OrthographicCamera cam) {
         if(!state.isMoving) {
-            move(BSDirection.IDLE, cam);
+            move(BSDirection.IDLE);
         }
 
-        this.doTranslate();
+        this.doTranslate(cam);
         
         // update moving state based on whether we have more to move
         this.state.isMoving = displacement.x != 0 ||
@@ -100,7 +100,7 @@ public class BSPlayer {
         this.currentFrame.draw(batch);
     }
 
-    private void doTranslate() {
+    private void doTranslate(OrthographicCamera cam) {
         float ddx = 0, ddy = 0;
 
         if(displacement.x != 0) {
@@ -115,6 +115,9 @@ public class BSPlayer {
 
         displacement.sub(ddx, ddy);
         currentFrame.translate(ddx,ddy);
+        float mystery = currentFrame.getScaleX() * BSMap.PIXELS_PER_TILE;
+        System.out.println(mystery);
+        cam.translate(ddx, ddy);
     }
 
     /**
@@ -127,7 +130,7 @@ public class BSPlayer {
      * 
      * @param direction the direction in which to move
      */
-    public void move(BSDirection direction, OrthographicCamera cam) {
+    public void move(BSDirection direction) {
         this.state.isMoving = true;
         if(direction != state.facing) {
             System.out.println("Moving " + direction);
@@ -137,22 +140,18 @@ public class BSPlayer {
         case NORTH:
             target = walkUp;
             displacement.y += BSMap.PIXELS_PER_TILE * currentFrame.getScaleX() / SCALE;
-            cam.translate(0, 1);
             break;
         case SOUTH:
             target = walkDown;
             displacement.y -= BSMap.PIXELS_PER_TILE * currentFrame.getScaleX() / SCALE;
-            cam.translate(0, -1);
             break;
         case EAST:
             target = walkRight;
             displacement.x += BSMap.PIXELS_PER_TILE * currentFrame.getScaleX() / SCALE;
-            cam.translate(1, 0);
             break;
         case WEST:
             target = walkLeft;
             displacement.x -= BSMap.PIXELS_PER_TILE * currentFrame.getScaleX() / SCALE;
-            cam.translate(-1, 0);
             break;
         case IDLE:
         default:
@@ -230,6 +229,10 @@ public class BSPlayer {
         }
         this.state.isSelectingPower = false;
         this.state.isUsingPower = false;
+    }
+
+    public Vector2 getV2() {
+        return new Vector2(currentFrame.getX(), currentFrame.getY());
     }
 }
 
