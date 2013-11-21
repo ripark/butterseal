@@ -84,17 +84,17 @@ public class BSPlayer {
     /**
      * Frames to take per move
      */
-    private static final int SPEED = 8;
+    private static final int SPEED = 16;
 
     /**
      * Draws the player on the screen.
      */
-    public void draw(OrthographicCamera camera) {
+    public void draw() {
         if(!state.isMoving) {
             move(BSDirection.IDLE);
         }
 
-        this.doTranslate(camera);
+        this.doTranslate();
         
         // update moving state based on whether we have more to move
         this.state.isMoving = displacement.x != 0 ||
@@ -104,52 +104,19 @@ public class BSPlayer {
         this.currentFrame.draw(batch);
     }
 
-    private void doTranslate(OrthographicCamera camera) {
-        // TODO this code can be simplified [made more expressive], I'm just brain-fried right now
-        float ddx = 0, ddy = 0; // Deedee!  What are you doing in my laboratory!?
-        if(displacement.x > 0) {
-            if(displacement.x >= SPEED) {
-                ddx = SPEED;
-                displacement.x -= SPEED;
-                position.x += SPEED;
-            } else {
-                ddx = displacement.x;
-                position.x += displacement.x;
-                displacement.x = 0;
-            }
-        } else if(displacement.x < 0) {
-            if(displacement.x <= SPEED) {
-                ddx = -SPEED;
-                displacement.x += SPEED;
-                position.x -= SPEED;
-            } else {
-                ddx = displacement.x;
-                position.x += displacement.x;
-                displacement.x = 0;
-            }
-        }
-        if(displacement.y > 0) {
-            if(displacement.y >= SPEED) {
-                ddy = SPEED;
-                displacement.y -= SPEED;
-                position.y += SPEED;
-            } else {
-                ddy = displacement.y;
-                position.y += displacement.y;
-                displacement.y = 0;
-            }
-        } else if (displacement.y < 0) {
-            if(displacement.y <= SPEED) {
-                ddy = -SPEED;
-                displacement.y += SPEED;
-                position.y -= SPEED;
-            } else {
-                ddy = displacement.y;
-                position.y += displacement.y;
-                displacement.y = 0;
-            }
-        }
-        camera.translate(ddx / 64f, ddy / 64f, 0);
+    private void doTranslate() {
+        float ddx = 0, ddy = 0;
+
+        if(displacement.x != 0)
+            ddx = displacement.x < (displacement.x > 0 ? SPEED : -SPEED) ?
+                    displacement.x : (displacement.x > 0 ? SPEED : -SPEED);
+
+        if (displacement.y != 0)
+            ddy = displacement.y < (displacement.y > 0 ? SPEED : -SPEED) ?
+                    displacement.y : (displacement.y > 0 ? SPEED : -SPEED);
+
+        displacement.add(-ddx,-ddy);
+        position.add(ddx,ddy);
     }
 
     /**

@@ -157,13 +157,11 @@ public class BSInterface {
          * 
          * If we are not in a game, then draw the title screen.
          */
-        camera.update();
         if (session.isInGame) {
             session.state.currentMap.draw(camera);
             batch.begin();
-            player.draw(camera);
-            camera.lookAt(player.position.x, player.position.y, 0);
-            camera.update();
+            player.draw();
+            camera.lookAt(player.position.x/64f, player.position.y/64f, 0);
             MakePowerBar();
             MakePowerSelector();
             MakeDirectionalPad();
@@ -185,6 +183,7 @@ public class BSInterface {
                     1, Gdx.graphics.getHeight()-1);
             batch.end();
         }
+        camera.update();
     }
 
     private void MakePowerBar() {
