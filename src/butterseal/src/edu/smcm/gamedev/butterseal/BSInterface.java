@@ -7,14 +7,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
-import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Rectangle;
@@ -43,8 +40,7 @@ public class BSInterface {
     
     Map<Rectangle, BSGameStateActor> activeRegions;
     
-    Texture dpad;
-    Sprite sdpad;
+    Sprite dpad;
 	
     public BSInterface(BSSession session) {
         font = new BitmapFont();
@@ -60,20 +56,13 @@ public class BSInterface {
         this.session = session;
         this.player = new BSPlayer(session.state, 0, 0);
         
-        dpad = assets.get(BSAsset.DIRECTIONAL_PAD.assetPath);
-        dpad.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-        
-        TextureRegion region = new TextureRegion(dpad, 0,0,256,256);
-        
-        sdpad = new Sprite(region);
-        sdpad.setSize(0.9f, 0.9f*sdpad.getHeight()/sdpad.getWidth());
-        sdpad.setOrigin(sdpad.getWidth()/2, sdpad.getHeight()/2);
-        sdpad.setPosition(-sdpad.getWidth()/2, -sdpad.getHeight()/2);
-        
-        
-        camera.setToOrtho(false, Gdx.graphics.getWidth() / Gdx.graphics.getHeight() * 10, 10);
-        //batch.setProjectionMatrix(camera.combined);
-		
+        dpad = new Sprite(BSAsset.DIRECTIONAL_PAD.getTextureRegion(assets));
+        dpad.setOrigin(0, 0);
+        dpad.setPosition(0, 0);
+
+        final int TILE_HEIGHT=20, TILE_WIDTH=30;
+        camera.setToOrtho(false, Gdx.graphics.getWidth() / Gdx.graphics.getHeight() * TILE_WIDTH, TILE_HEIGHT);
+
         activeRegions = new HashMap<Rectangle, BSGameStateActor>();
         LoadTestRegions();
     }
@@ -168,13 +157,9 @@ public class BSInterface {
          * 
          * If we are not in a game, then draw the title screen.
          */
-        //batch.setProjectionMatrix(camera.combined);
-		//batch.begin();
-		//sdpad.draw(batch);
         if (session.isInGame) {
             session.state.currentMap.draw(camera);
             batch.begin();
-            sdpad.draw(batch);
             player.draw(camera);
             MakePowerBar();
             MakePowerSelector();
@@ -197,8 +182,6 @@ public class BSInterface {
                     1, Gdx.graphics.getHeight()-1);
             batch.end();
         }
-        //camera.update();
-        //camera.apply(Gdx.graphics.getGL10());
     }
 
     private void MakePowerBar() {
@@ -208,45 +191,17 @@ public class BSInterface {
 		
     }
     private void MakeDirectionalPad() {
-		this.drawScaled(batch, this.dpad, 0.5, 0, 0, BSAsset.DIRECTIONAL_PAD);
-    }
-
-    /**
-     * Draws a scaled version of the texture to the batch at the given coordinates.
-     * Remember that it is anchored to the bottom-left.
-     * @param batch
-     * @param texture
-     * @param scale
-     * @param x
-     * @param y
-     * @param asset
-     */
-    private void drawScaled(SpriteBatch batch, Texture texture, double scale, int x, int y, BSAsset asset) {
-        //batch.draw(texture, x, y,
-        //        (int)(asset.width * scale),
-        //        (int)(asset.height * scale),
-        //        0, 0,
-        //        asset.width,
-        //        asset.height,
-        //        false, false);
-        Sprite s = new Sprite(texture);
-        s.setPosition(x, y);
-        
-        s.draw(batch);
+        dpad.draw(batch);
     }
 
     /**
      * Dims the screen and displays the pause menu
      */
     private void MakePauseButton() {
-		
     }
     private void MakePauseScreen() {
-		
     }
     private void MakeTitleScreen() {
-        //batch.draw(region, x, y, originX, originY, width, height, scaleX, scaleY, rotation)
-        //this.drawScaled(batch, `, scale, x, y, asset)
     }
     /**
      * Sets all the loaders needed for the {@link #assetManager}.
@@ -272,8 +227,6 @@ public class BSInterface {
             }
         }
         assets.finishLoading();
-        
-        dpad = assets.get(BSAsset.DIRECTIONAL_PAD.assetPath);
     }
     public void dispose() {
         // TODO Auto-generated method stub

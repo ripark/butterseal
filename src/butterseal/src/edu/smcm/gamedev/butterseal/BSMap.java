@@ -8,7 +8,6 @@ import java.util.Map;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.MapLayer;
-import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
@@ -55,14 +54,14 @@ public enum BSMap {
                         MapProperties prop = t.getProperties();
                         for(Iterator<String> i = prop.getKeys(); i.hasNext();) {
                             String mykey = i.next();
-                            //System.out.printf("%s=%s%n", mykey, prop.get(mykey));
+                            System.out.printf("%s=%s%n", mykey, prop.get(mykey));
                         }
                         int tileid = t.getId();
-                        //System.out.println(tileid);
+                        System.out.println(tileid);
                         MapProperties tprop = map.getTileSets().getTile(t.getId()).getProperties();
                         for(Iterator<String> i = tprop.getKeys(); i.hasNext();) {
                             String mykey = i.next();
-                            //System.out.printf("%s=%s%n", mykey, tprop.get(mykey));
+                            System.out.printf("%s=%s%n", mykey, tprop.get(mykey));
                         }
                         if(tprop.containsKey("player")) {
                             System.out.printf("Found player=%s%n", prop.get("player", String.class));
