@@ -15,7 +15,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 
 /**
  * Contains program logic for the user interface.
@@ -168,8 +167,7 @@ public class BSInterface {
         if (session.isInGame) {
             session.state.currentMap.draw(camera);
             batch.begin();
-            Vector2 displacement = player.draw();
-            camera.translate(displacement);
+            player.draw();
             MakePowerBar();
             MakePowerSelector();
             MakeDirectionalPad();

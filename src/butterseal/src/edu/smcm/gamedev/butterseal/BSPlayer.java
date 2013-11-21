@@ -90,7 +90,7 @@ public class BSPlayer {
     /**
      * Draws the player on the screen.
      */
-    public Vector2 draw() {
+    public void draw() {
         if(!state.isMoving) {
             changeSprite(null);
         }
@@ -103,7 +103,7 @@ public class BSPlayer {
 
         this.currentFrame.draw(batch);
 
-        return ret;
+        camera.translate(ret);
     }
 
     private Vector2 doTranslate() {
