@@ -2,7 +2,6 @@ package edu.smcm.gamedev.butterseal;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -54,7 +53,6 @@ public class BSPlayer {
     static AssetManager assets;
     BSAnimation walkUp, walkDown, walkRight, walkLeft, idle;
     Sprite currentFrame;
-    Vector2 position;
     /**
      * The pixels yet to move
      */
@@ -74,7 +72,6 @@ public class BSPlayer {
         idle      = new BSAnimation(BSAsset.PLAYER_IDLE_STATE);
         
         this.currentFrame = new Sprite(idle.frames[0]);
-        this.position = new Vector2(x, y);
         this.displacement = new Vector2();
         this.state = state;
         this.state.facing = BSDirection.NORTH;
@@ -95,7 +92,6 @@ public class BSPlayer {
         this.state.isMoving = displacement.x != 0 ||
                               displacement.y != 0;
 
-        this.currentFrame.setPosition(position.x, position.y);
         this.currentFrame.draw(batch);
     }
 
@@ -113,7 +109,7 @@ public class BSPlayer {
         }
 
         displacement.add(-ddx,-ddy);
-        position.add(ddx,ddy);
+        currentFrame.translate(ddx,ddy);
     }
 
     /**
@@ -204,7 +200,6 @@ public class BSPlayer {
     }
 
     public void setPower(int i) {
-        // TODO May be error-prone
         int l = BSPower.values().length;
         int o = this.state.selectedPower.ordinal();
         int current = o + l;
@@ -221,7 +216,6 @@ public class BSPlayer {
     }
 
     public void usePower() {
-        // TODO Auto-generated method stub
         if(!state.isUsingPower) {
             System.out.println("Using power " + this.state.selectedPower);
         }
