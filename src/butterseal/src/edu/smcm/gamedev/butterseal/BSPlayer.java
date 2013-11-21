@@ -86,21 +86,23 @@ public class BSPlayer {
     /**
      * Draws the player on the screen.
      */
-    public void draw(OrthographicCamera cam) {
+    public Vector2 draw() {
         if(!state.isMoving) {
             move(BSDirection.IDLE);
         }
 
-        this.doTranslate(cam);
+        Vector2 ret = this.doTranslate();
         
         // update moving state based on whether we have more to move
         this.state.isMoving = displacement.x != 0 ||
                               displacement.y != 0;
 
         this.currentFrame.draw(batch);
+
+        return ret;
     }
 
-    private void doTranslate(OrthographicCamera cam) {
+    private Vector2 doTranslate() {
         float ddx = 0, ddy = 0;
 
         if(displacement.x != 0) {
@@ -115,7 +117,9 @@ public class BSPlayer {
 
         displacement.sub(ddx, ddy);
         currentFrame.translate(ddx,ddy);
-        cam.translate(ddx, ddy);
+        return new Vector2(ddx, ddy);
+        // TODO create cam_displacement vector2 and keep it integer-based
+        // and keep track of, when we come up against the edge of the map
     }
 
     /**
@@ -231,6 +235,26 @@ public class BSPlayer {
 
     public Vector2 getV2() {
         return new Vector2(currentFrame.getX(), currentFrame.getY());
+    }
+
+    /**
+     * Place the player centered on a specific tile.
+     * @param position
+     */
+    public void place(Vector2 position) {
+        this.place(position.x, position.y);
+    }
+
+    public void place(float x, float y) {
+
+        // normalize to bottom-left corner
+        x -= .3f * SCALE;
+        y -= .3f * SCALE;
+
+        // center on tile
+        // ???
+
+        this.currentFrame.setPosition(x, y);
     }
 }
 
