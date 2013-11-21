@@ -2,10 +2,13 @@ package edu.smcm.gamedev.butterseal;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 
 /**
  * Handles player state and movement on-screen.
@@ -16,11 +19,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class BSPlayer {
     private static final int FRAME_ROWS = 2;
     private static final int FRAME_COLS = 2;
-
-    BSGameState state;
-    static SpriteBatch batch;
-    static AssetManager assets;
-
+    
     private static class BSAnimation {
         Animation animation;
         Texture spritesheet;
@@ -50,89 +49,75 @@ public class BSPlayer {
         }
     }
 
+    BSGameState state;
+    static SpriteBatch batch;
+    static AssetManager assets;
     BSAnimation walkUp, walkDown, walkRight, walkLeft, idle;
-    TextureRegion currentFrame;
+    Sprite currentFrame;
+    /**
+     * The pixels yet to move
+     */
+    Vector2 displacement;
+    BSTile currentTile;
+    private static final float SCALE = 3;
+    /**
+     * Frames to take per move
+     */
+    private static final float SPEED = 3;
+    private static final float NORMSPEED = SPEED / BSMap.PIXELS_PER_TILE;
 
-    public BSPlayer(float x, float y,
-                    BSGameState state) {
+    public BSPlayer(BSGameState state,
+                    float x, float y) {
         walkUp    = new BSAnimation(BSAsset.PLAYER_WALK_UP);
         walkDown  = new BSAnimation(BSAsset.PLAYER_WALK_DOWN);
         walkRight = new BSAnimation(BSAsset.PLAYER_WALK_RIGHT);
         walkLeft  = new BSAnimation(BSAsset.PLAYER_WALK_LEFT);
         idle      = new BSAnimation(BSAsset.PLAYER_IDLE_STATE);
-
-        // TODO I got these from your old code --- what is the purpose?
-        this.x = x;// - BSMap.PIXELS_PER_TILE ;
-        this.y = y;// - BSMap.PIXELS_PER_TILE ;
+        
+        this.currentFrame = new Sprite(idle.frames[0]);
+        this.currentFrame.setOrigin(0, 0);
+        this.currentFrame.setScale(SCALE / BSMap.PIXELS_PER_TILE);
+        this.displacement = new Vector2();
         this.state = state;
         this.state.facing = BSDirection.NORTH;
         this.state.selectedPower = BSPower.ACTION;
-        
-        System.out.println(this);
     }
-
-    float x, y;
-    
-    /**
-     * The pixels yet to move
-     */
-    float dx, dy;
-
-    BSTile currentTile;
-    
-    /**
-     * take sixteen frames per move
-     */
-    private static final int SPEED = (int)(BSMap.PIXELS_PER_TILE / 16);
 
     /**
      * Draws the player on the screen.
      */
-    public void draw() {
+    public void draw(OrthographicCamera cam) {
         if(!state.isMoving) {
             move(BSDirection.IDLE);
         }
 
-        // TODO this code can be simplified [made more expressive], I'm just brain-fried right now
-        if(dx > 0) {
-            if(dx >= SPEED) {
-                dx -= SPEED;
-                x += SPEED;
-            } else {
-                x += dx;
-                dx = 0;
-            }
-        } else if(dx < 0) {
-            if(dx <= SPEED) {
-                dx += SPEED;
-                x -= SPEED;
-            } else {
-                x += dx;
-                dx = 0;
-            }
-        }
-        if(dy > 0) {
-            if(dy >= SPEED) {
-                dy -= SPEED;
-                y += SPEED;
-            } else {
-                y += dy;
-                dy = 0;
-            }
-        } else if (dy < 0) {
-            if(dy <= SPEED) {
-                dy += SPEED;
-                y -= SPEED;
-            } else {
-                y += dy;
-                dy = 0;
-            }
-        }
+        this.doTranslate(cam);
         
         // update moving state based on whether we have more to move
-        this.state.isMoving = dy != 0 || dx != 0;
-        
-        batch.draw(this.currentFrame, x, y, 64, 64);
+        this.state.isMoving = displacement.x != 0 ||
+                              displacement.y != 0;
+
+        this.currentFrame.draw(batch);
+    }
+
+    private void doTranslate(OrthographicCamera cam) {
+        float ddx = 0, ddy = 0;
+
+        if(displacement.x != 0) {
+            ddx = Math.abs(displacement.x) < NORMSPEED ?
+                    displacement.x : Math.signum(displacement.x) * NORMSPEED;
+        }
+
+        if (displacement.y != 0) {
+            ddy = Math.abs(displacement.y) < NORMSPEED ?
+                    displacement.y : Math.signum(displacement.y) * NORMSPEED;
+        }
+
+        displacement.sub(ddx, ddy);
+        currentFrame.translate(ddx,ddy);
+        float mystery = currentFrame.getScaleX() * BSMap.PIXELS_PER_TILE;
+        System.out.println(mystery);
+        cam.translate(ddx, ddy);
     }
 
     /**
@@ -154,19 +139,19 @@ public class BSPlayer {
         switch(direction) {
         case NORTH:
             target = walkUp;
-            dy += 50;//BSMap.PIXELS_PER_TILE/2;
+            displacement.y += BSMap.PIXELS_PER_TILE * currentFrame.getScaleX() / SCALE;
             break;
         case SOUTH:
             target = walkDown;
-            dy -= 50;//BSMap.PIXELS_PER_TILE/2;
+            displacement.y -= BSMap.PIXELS_PER_TILE * currentFrame.getScaleX() / SCALE;
             break;
         case EAST:
             target = walkRight;
-            dx += 50;//BSMap.PIXELS_PER_TILE/2;
+            displacement.x += BSMap.PIXELS_PER_TILE * currentFrame.getScaleX() / SCALE;
             break;
         case WEST:
             target = walkLeft;
-            dx -= 50;//BSMap.PIXELS_PER_TILE/2;
+            displacement.x -= BSMap.PIXELS_PER_TILE * currentFrame.getScaleX() / SCALE;
             break;
         case IDLE:
         default:
@@ -175,10 +160,11 @@ public class BSPlayer {
             break;
         }
         target.time += Gdx.graphics.getDeltaTime();
-        this.currentFrame = target.animation.getKeyFrame(target.time, true);
+        this.currentFrame.setRegion(target.animation.getKeyFrame(target.time, true));
         this.state.facing = direction;
     }
 
+    @SuppressWarnings("unused")
     private boolean canMove(BSDirection direction) {
         // If we are already moving,
         //   we should not be able to move again until we finish.
@@ -186,6 +172,7 @@ public class BSPlayer {
             return false;
         }
 
+        // TODO do this
         state.currentMap.getTileProperties(this);
 
         return true;
@@ -220,13 +207,7 @@ public class BSPlayer {
         return adj;
     }
 
-    public void translate(float x, float y) {
-        this.x += x;
-        this.y += y;
-    }
-
     public void setPower(int i) {
-        // TODO May be error-prone
         int l = BSPower.values().length;
         int o = this.state.selectedPower.ordinal();
         int current = o + l;
@@ -243,12 +224,15 @@ public class BSPlayer {
     }
 
     public void usePower() {
-        // TODO Auto-generated method stub
         if(!state.isUsingPower) {
             System.out.println("Using power " + this.state.selectedPower);
         }
         this.state.isSelectingPower = false;
         this.state.isUsingPower = false;
+    }
+
+    public Vector2 getV2() {
+        return new Vector2(currentFrame.getX(), currentFrame.getY());
     }
 }
 

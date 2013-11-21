@@ -6,7 +6,8 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 public class Main {
 	public static void main(String[] args) {
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
-		cfg.title = "butterseal";
+		cfg.x = cfg.y = 0;
+		cfg.title = "ButterSeal";
 		cfg.useGL20 = false;
 		cfg.width = 1280;
 		cfg.height = 800;

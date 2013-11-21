@@ -1,5 +1,9 @@
 package edu.smcm.gamedev.butterseal;
 
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
 public enum BSAsset {
     HOUSE            ( -1,  -1, "data/maps/house.tmx"),
     ICE_CAVE         ( -1,  -1, "data/maps/ice-cave.tmx"),
@@ -26,17 +30,27 @@ public enum BSAsset {
      * file path of the sprite
      */
     final String assetPath;
-
+    
     /**
      * Creates a new SpriteDimension
      * @param width the intended width of this sprite in pixels
      * @param height the intended height of this sprite in pixels
-     * @param <T>
      */
-    <T> BSAsset(int width, int height, String assetPath) {
+    BSAsset(int width, int height, String assetPath) {
         this.height = height;
         this.width = width;
         this.assetPath = assetPath;
+    }
+    
+    /**
+     * Gets a texture region for the asset if appropriate, null if not
+     * @param assets
+     * @return a texture region that covers the full length
+     */
+    TextureRegion getTextureRegion(AssetManager assets) {
+        if(this.assetPath.endsWith(".png"))
+            return new TextureRegion(assets.get(this.assetPath, Texture.class), 0, 0, this.height, this.width);
+        return null;
     }
 }
 // Local Variables:
