@@ -53,6 +53,7 @@ public class BSInterface {
 
         BSPlayer.assets = assets;
         BSPlayer.batch = batch;
+        BSPlayer.camera = camera;
 
         this.session = session;
         this.player = new BSPlayer(session.state, 0, 0);
@@ -65,7 +66,7 @@ public class BSInterface {
         camera.setToOrtho(false, Gdx.graphics.getWidth() / Gdx.graphics.getHeight() * TILE_WIDTH, TILE_HEIGHT);
 
         camera.position.set(player.getV2().add(0, 8), 1);
-        player.place(0, 0, camera.combined);
+        player.place(1, 2);
 
         activeRegions = new HashMap<Rectangle, BSGameStateActor>();
         LoadTestRegions();

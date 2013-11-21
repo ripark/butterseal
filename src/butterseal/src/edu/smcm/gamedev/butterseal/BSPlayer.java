@@ -56,6 +56,7 @@ public class BSPlayer {
     BSGameState state;
     static SpriteBatch batch;
     static AssetManager assets;
+    public static OrthographicCamera camera;
     BSAnimation walkUp, walkDown, walkRight, walkLeft, idle;
     Sprite currentFrame;
     /**
@@ -282,12 +283,12 @@ public class BSPlayer {
      * Place the player centered on a specific tile.
      * @param position
      */
-    public void place(Vector2 position, OrthographicCamera cam) {
-        this.place(position.x, position.y, cam.combined);
+    public void place(Vector2 position) {
+        this.place(position.x, position.y);
     }
 
-    public void place(float x, float y, Matrix4 projection) {
-        projection = new Matrix4(projection);
+    public void place(float x, float y) {
+        Matrix4 projection = new Matrix4(camera.combined);
         // normalize to bottom-left corner
         x -= .3f * SCALE;
         y -= .3f * SCALE;
