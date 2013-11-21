@@ -19,30 +19,30 @@ import com.badlogic.gdx.math.Vector2;
 
 /**
  * Contains program logic for the user interface.
- * 
+ *
  * This class handles such things as
  *   the pause menu,
  *   the directional pad,
  *   and power selection.
- * 
+ *
  * @author Sean
  *
  */
 public class BSInterface {
     static final boolean DEBUG_MODE = true;
-    
+
     BSSession session;
     BSPlayer player;
-    
+
     SpriteBatch batch;
     AssetManager assets;
     OrthographicCamera camera;
     BitmapFont font;
-    
+
     Map<Rectangle, BSGameStateActor> activeRegions;
-    
+
     Sprite dpad;
-	
+
     public BSInterface(BSSession session) {
         font = new BitmapFont();
         assets = new AssetManager();
@@ -50,13 +50,13 @@ public class BSInterface {
         camera = new OrthographicCamera();
         SetAssetLoaders();
         LoadAssets();
-        
+
         BSPlayer.assets = assets;
         BSPlayer.batch = batch;
-        
+
         this.session = session;
         this.player = new BSPlayer(session.state, 0, 0);
-        
+
         dpad = new Sprite(BSAsset.DIRECTIONAL_PAD.getTextureRegion(assets));
         dpad.setOrigin(0, 0);
         dpad.setPosition(0, 0);
@@ -83,7 +83,7 @@ public class BSInterface {
             }
         });
     }
-	
+
     /**
      * Polls the given {@link Input} for valid player interaction
      *   and handles it appropriately.
@@ -98,7 +98,7 @@ public class BSInterface {
             }
         }
     }
-	
+
     /**
      * Poll the keyboard for input.
      * @param input an input stream to analyze
@@ -132,33 +132,35 @@ public class BSInterface {
         if (input.isKeyPressed(Input.Keys.X)) {
             player.usePower();
         }
-        
-        if (input.isKeyPressed(Input.Keys.ESCAPE))
+
+        if (input.isKeyPressed(Input.Keys.ESCAPE)) {
             Gdx.app.exit();
+        }
     }
 
     /**
-     * 
+     *
      * @param input
      * @param region
      * @return true if input is being touched within the given region, false otherwise
      */
     public boolean isTouchingInside(Input input, Rectangle region) {
-        if (!input.isTouched())
+        if (!input.isTouched()) {
             return false;
+        }
         int x = input.getX();
         int y = input.getY();
         return region.x < x && x < region.width
             && region.y < y && y < region.height;
     }
-	
+
     /**
      * Draws the interface on the screen.
      */
     public void draw() {
         /* If the game is in session, make the major interface elements.
          * If the game is additionally paused, handle that as well.
-         * 
+         *
          * If we are not in a game, then draw the title screen.
          */
         if (session.isInGame) {
@@ -192,10 +194,10 @@ public class BSInterface {
     }
 
     private void MakePowerBar() {
-		
+
     }
     private void MakePowerSelector() {
-		
+
     }
     private void MakeDirectionalPad() {
         dpad.draw(batch);
@@ -217,7 +219,7 @@ public class BSInterface {
         assets.setLoader(TiledMap.class,
                                new TmxMapLoader(
                                  new InternalFileHandleResolver()));
-        
+
     }
     /**
      * Loads all game assets

@@ -12,36 +12,39 @@ import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 public enum BSMap {
     HOME(BSAsset.HOUSE, "house", new Runnable() {
+            @Override
             public void run() {
                 // game logic
             }
 	}),
     ICE_CAVE_ENTRY(BSAsset.ICE_CAVE_ENTRY, null, new Runnable() {
+            @Override
             public void run() {
                 // game logic
             }
 	}),
     ICE_CAVE(BSAsset.ICE_CAVE, "ice-cave", new Runnable() {
+            @Override
             public void run() {
                 // game logic
             }
 	});
 
     static final float PIXELS_PER_TILE = 32;
-	
+
     TiledMap map;
     OrthogonalTiledMapRenderer renderer;
 
     BSMap(BSAsset asset, String key, Runnable action) {
         this.map = new TmxMapLoader().load(asset.assetPath);
         this.renderer = new OrthogonalTiledMapRenderer(this.map, 1f/BSMap.PIXELS_PER_TILE);
-                
+
         for(MapLayer layer : map.getLayers()) {
             TiledMapTileLayer tlayer = (TiledMapTileLayer) layer;
             System.out.printf("Analyzing %s:%s%n", asset.assetPath, tlayer.getName());
@@ -74,7 +77,7 @@ public enum BSMap {
         }
         //for( )
     }
-    
+
 
     void draw(OrthographicCamera camera) {
         this.renderer.setView(camera);

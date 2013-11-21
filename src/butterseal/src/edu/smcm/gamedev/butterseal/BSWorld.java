@@ -15,11 +15,11 @@ public class BSWorld {
      * This class represents one route between two maps the {@link #source} and
      * {@link #destination}. The route also carries with it an arbitrary
      * {@link Object} of {@link #data}.
-     * 
+     *
      * This is a helper class for {@link BSWorld}.
-     * 
+     *
      * @author Sean
-     * 
+     *
      */
     private static class Route {
         BSMap source;
@@ -29,7 +29,7 @@ public class BSWorld {
 
         /**
          * Creates a route between two maps.
-         * 
+         *
          * @param source
          *            the source of this route (from)
          * @param destination
@@ -65,28 +65,32 @@ public class BSWorld {
     }
 
     /**
-     * 
+     *
      * @param source
      * @param destination
      * @return True if there is a route from source to destination; false otherwise.
      */
     public boolean isRoute(BSMap source, BSMap destination) {
-        for (Route r : routes)
-            if (r.source == source && r.destination == destination)
+        for (Route r : routes) {
+            if (r.source == source && r.destination == destination) {
                 return true;
+            }
+        }
         return false;
     }
 
     /**
-     *  
+     *
      * @param source
      * @param destination
-     * @return Route data for a route from source to destination if it exists; null if no such route exists 
+     * @return Route data for a route from source to destination if it exists; null if no such route exists
      */
     public Object getRoute(BSMap source, BSMap destination) {
-        for (Route r : routes)
-            if (r.source == source && r.destination == destination)
+        for (Route r : routes) {
+            if (r.source == source && r.destination == destination) {
                 return r.data;
+            }
+        }
         return null;
     }
 
@@ -112,9 +116,11 @@ public class BSWorld {
      */
     public Set<BSMap> getMaps(BSMap source) {
         Set<BSMap> maps = new HashSet<BSMap>();
-        for (Route r : this.routes)
-            if (source == r.source)
+        for (Route r : this.routes) {
+            if (source == r.source) {
                 maps.add(r.destination);
+            }
+        }
         return maps;
     }
 }

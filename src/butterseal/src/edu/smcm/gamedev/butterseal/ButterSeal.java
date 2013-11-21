@@ -7,12 +7,12 @@ import com.badlogic.gdx.graphics.GL10;
 public class ButterSeal implements ApplicationListener {
     BSSession session;
     BSInterface gui;
-    
+
     @Override
     public void create() {
         session = new BSSession();
         session.start(0);
-        
+
         gui = new BSInterface(session);
     }
 
@@ -26,7 +26,7 @@ public class ButterSeal implements ApplicationListener {
     public void render() {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-        
+
         gui.poll(Gdx.input);
         gui.draw();
     }

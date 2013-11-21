@@ -17,20 +17,20 @@ public enum BSAsset {
     DIRECTIONAL_PAD  (256, 256, "data/interface/dpad1.png");
 
     /**
-     * Intended height of this sprite in pixels 
+     * Intended height of this sprite in pixels
      */
     final int height;
-    
+
     /**
      * Intended width of this sprite in pixels
      */
     final int width;
-    
+
     /**
      * file path of the sprite
      */
     final String assetPath;
-    
+
     /**
      * Creates a new SpriteDimension
      * @param width the intended width of this sprite in pixels
@@ -41,15 +41,16 @@ public enum BSAsset {
         this.width = width;
         this.assetPath = assetPath;
     }
-    
+
     /**
      * Gets a texture region for the asset if appropriate, null if not
      * @param assets
      * @return a texture region that covers the full length
      */
     TextureRegion getTextureRegion(AssetManager assets) {
-        if(this.assetPath.endsWith(".png"))
+        if(this.assetPath.endsWith(".png")) {
             return new TextureRegion(assets.get(this.assetPath, Texture.class), 0, 0, this.height, this.width);
+        }
         return null;
     }
 }

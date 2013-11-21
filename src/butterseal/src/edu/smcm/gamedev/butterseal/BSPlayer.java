@@ -14,14 +14,14 @@ import com.badlogic.gdx.math.Vector3;
 
 /**
  * Handles player state and movement on-screen.
- * 
+ *
  * @author Sean
  *
  */
 public class BSPlayer {
     private static final int FRAME_ROWS = 2;
     private static final int FRAME_COLS = 2;
-    
+
     private static class BSAnimation {
         Animation animation;
         Texture spritesheet;
@@ -75,7 +75,7 @@ public class BSPlayer {
         walkRight = new BSAnimation(BSAsset.PLAYER_WALK_RIGHT);
         walkLeft  = new BSAnimation(BSAsset.PLAYER_WALK_LEFT);
         idle      = new BSAnimation(BSAsset.PLAYER_IDLE_STATE);
-        
+
         this.currentFrame = new Sprite(idle.frames[0]);
         this.currentFrame.setOrigin(0, 0);
         this.currentFrame.setScale(SCALE / BSMap.PIXELS_PER_TILE);
@@ -94,7 +94,7 @@ public class BSPlayer {
         }
 
         Vector2 ret = this.doTranslate();
-        
+
         // update moving state based on whether we have more to move
         this.state.isMoving = displacement.x != 0 ||
                               displacement.y != 0;
@@ -126,12 +126,12 @@ public class BSPlayer {
 
     /**
      * Moves in the given direction.
-     * 
+     *
      * If this is not the facing direction,
      *   then the player will turn into that direction, updating
      *   the {@link #state} and {@link #facingTile} appropriately.
      * Otherwise, it's a very simple move.
-     * 
+     *
      * @param direction the direction in which to move
      */
     public void move(BSDirection direction) {
@@ -183,7 +183,7 @@ public class BSPlayer {
     }
 
     /**
-     * 
+     *
      * @return a tile describing the one we're facing
      */
     public BSTile getFacingTile() {

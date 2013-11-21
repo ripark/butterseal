@@ -11,12 +11,12 @@ public class BSSession {
     boolean isInGame;
     boolean isPaused;
     BSGameState state;
-	
+
     public BSSession() {
         isInGame = true;
         isPaused = false;
     }
-	
+
     public void start(int slot) {
         state = new BSGameState(slot);
         state.begin();

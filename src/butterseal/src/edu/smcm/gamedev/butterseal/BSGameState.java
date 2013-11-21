@@ -2,7 +2,7 @@ package edu.smcm.gamedev.butterseal;
 
 /**
  * Maintains the state of the game.
- * 
+ *
  * @author Sean
  *
  */
@@ -16,12 +16,12 @@ public class BSGameState {
     boolean isMoving;
     boolean isSelectingPower;
     boolean isUsingPower;
-	
+
     /**
      * The save slot.  The session manager will have arbitrarily many of these available.
      */
     public final int slot;
-	
+
     /**
      * Opens this game on a particular game slot.
      * If the game does not exist on this slot, it will create a new one upon {@link #save()}.
@@ -41,7 +41,7 @@ public class BSGameState {
             currentMap = BSMap.HOME;
         }
     }
-	
+
     public boolean load(int slot) {
         return false;
     }
@@ -57,7 +57,7 @@ public class BSGameState {
     }
 
     public void begin() {
-		
+
     }
 }
 
