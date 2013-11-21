@@ -108,7 +108,7 @@ public class BSPlayer {
                     displacement.y : Math.signum(displacement.y) * SPEED;
         }
 
-        displacement.add(-ddx,-ddy);
+        displacement.sub(ddx, ddy);
         currentFrame.translate(ddx,ddy);
     }
 
