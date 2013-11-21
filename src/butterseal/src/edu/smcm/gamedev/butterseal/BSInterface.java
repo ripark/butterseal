@@ -161,7 +161,7 @@ public class BSInterface {
             session.state.currentMap.draw(camera);
             batch.begin();
             player.draw();
-            camera.lookAt(player.position.x/64f, player.position.y/64f, 0);
+            //camera.lookAt(player.position.x/64f, player.position.y/64f, 0);
             MakePowerBar();
             MakePowerSelector();
             MakeDirectionalPad();

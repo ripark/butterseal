@@ -49,12 +49,21 @@ public class BSPlayer {
         }
     }
 
-
     BSGameState state;
     static SpriteBatch batch;
     static AssetManager assets;
     BSAnimation walkUp, walkDown, walkRight, walkLeft, idle;
     Sprite currentFrame;
+    Vector2 position;
+    /**
+     * The pixels yet to move
+     */
+    Vector2 displacement;
+    BSTile currentTile;
+    /**
+     * Frames to take per move
+     */
+    private static final int SPEED = 8;
 
     public BSPlayer(BSGameState state,
                     float x, float y) {
@@ -71,20 +80,6 @@ public class BSPlayer {
         this.state.facing = BSDirection.NORTH;
         this.state.selectedPower = BSPower.ACTION;
     }
-
-    Vector2 position;
-    
-    /**
-     * The pixels yet to move
-     */
-    Vector2 displacement;
-
-    BSTile currentTile;
-    
-    /**
-     * Frames to take per move
-     */
-    private static final int SPEED = 16;
 
     /**
      * Draws the player on the screen.
