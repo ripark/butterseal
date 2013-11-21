@@ -157,10 +157,13 @@ public class BSInterface {
          * 
          * If we are not in a game, then draw the title screen.
          */
+        camera.update();
         if (session.isInGame) {
             session.state.currentMap.draw(camera);
             batch.begin();
             player.draw(camera);
+            camera.lookAt(player.position.x, player.position.y, 0);
+            camera.update();
             MakePowerBar();
             MakePowerSelector();
             MakeDirectionalPad();

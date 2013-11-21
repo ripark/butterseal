@@ -5,6 +5,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -53,7 +54,7 @@ public class BSPlayer {
     static SpriteBatch batch;
     static AssetManager assets;
     BSAnimation walkUp, walkDown, walkRight, walkLeft, idle;
-    TextureRegion currentFrame;
+    Sprite currentFrame;
 
     public BSPlayer(BSGameState state,
                     float x, float y) {
@@ -62,7 +63,8 @@ public class BSPlayer {
         walkRight = new BSAnimation(BSAsset.PLAYER_WALK_RIGHT);
         walkLeft  = new BSAnimation(BSAsset.PLAYER_WALK_LEFT);
         idle      = new BSAnimation(BSAsset.PLAYER_IDLE_STATE);
-
+        
+        this.currentFrame = new Sprite(idle.frames[0]);
         this.position = new Vector2(x, y);
         this.displacement = new Vector2();
         this.state = state;
@@ -97,15 +99,9 @@ public class BSPlayer {
         // update moving state based on whether we have more to move
         this.state.isMoving = displacement.x != 0 ||
                               displacement.y != 0;
-        
-//        Sprite s = new Sprite(currentFrame);
-//        s.setPosition(position.x, position.y);
-//        s.setScale(.1f);
-//        
-//        s.draw(batch);
-        
-        //batch.draw(this.currentFrame, position.x, position.y, 0, 0, 1, 1, 1, 1, 0);
-        batch.draw(this.currentFrame, position.x, position.y, 64, 64);
+
+        this.currentFrame.setPosition(position.x, position.y);
+        this.currentFrame.draw(batch);
     }
 
     private void doTranslate(OrthographicCamera camera) {
@@ -153,8 +149,7 @@ public class BSPlayer {
                 displacement.y = 0;
             }
         }
-        camera.translate(Math.signum(ddx) * BSMap.PIXELS_PER_TILE,
-                         Math.signum(ddy) * BSMap.PIXELS_PER_TILE);
+        camera.translate(ddx / 64f, ddy / 64f, 0);
     }
 
     /**
@@ -197,7 +192,7 @@ public class BSPlayer {
             break;
         }
         target.time += Gdx.graphics.getDeltaTime();
-        this.currentFrame = target.animation.getKeyFrame(target.time, true);
+        this.currentFrame.setRegion(target.animation.getKeyFrame(target.time, true));
         this.state.facing = direction;
     }
 
