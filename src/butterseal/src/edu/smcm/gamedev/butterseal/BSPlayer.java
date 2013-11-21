@@ -286,7 +286,8 @@ public class BSPlayer {
     }
 
     public void place(float x, float y) {
-        camera.position.set(x, y, 1);
+        // TODO make this less trial-and-error-y
+        camera.position.set(x, y+5, 1);
         Matrix4 projection = new Matrix4(camera.combined);
         // normalize to bottom-left corner
         x -= .3f * SCALE;
