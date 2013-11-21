@@ -115,7 +115,7 @@ public class BSInterface {
             } else {
                 toMove = BSDirection.IDLE;
             }
-            player.move(toMove);
+            player.move(toMove, camera);
         }
 
         if(!player.state.isSelectingPower) {
@@ -161,10 +161,7 @@ public class BSInterface {
         if (session.isInGame) {
             session.state.currentMap.draw(camera);
             batch.begin();
-            player.draw();
-            //camera.rotate(0.1f);
-            //camera.position.set(player.currentFrame.getX(), player.currentFrame.getY(), 0);
-            //camera.lookAt(player.currentFrame.getX(), player.currentFrame.getY(), 0);
+            player.draw(camera);
             MakePowerBar();
             MakePowerSelector();
             MakeDirectionalPad();

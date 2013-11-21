@@ -2,6 +2,7 @@ package edu.smcm.gamedev.butterseal;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -85,9 +86,9 @@ public class BSPlayer {
     /**
      * Draws the player on the screen.
      */
-    public void draw() {
+    public void draw(OrthographicCamera cam) {
         if(!state.isMoving) {
-            move(BSDirection.IDLE);
+            move(BSDirection.IDLE, cam);
         }
 
         this.doTranslate();
@@ -126,7 +127,7 @@ public class BSPlayer {
      * 
      * @param direction the direction in which to move
      */
-    public void move(BSDirection direction) {
+    public void move(BSDirection direction, OrthographicCamera cam) {
         this.state.isMoving = true;
         if(direction != state.facing) {
             System.out.println("Moving " + direction);
@@ -136,18 +137,22 @@ public class BSPlayer {
         case NORTH:
             target = walkUp;
             displacement.y += BSMap.PIXELS_PER_TILE * currentFrame.getScaleX() / SCALE;
+            cam.translate(0, 1);
             break;
         case SOUTH:
             target = walkDown;
             displacement.y -= BSMap.PIXELS_PER_TILE * currentFrame.getScaleX() / SCALE;
+            cam.translate(0, -1);
             break;
         case EAST:
             target = walkRight;
             displacement.x += BSMap.PIXELS_PER_TILE * currentFrame.getScaleX() / SCALE;
+            cam.translate(1, 0);
             break;
         case WEST:
             target = walkLeft;
             displacement.x -= BSMap.PIXELS_PER_TILE * currentFrame.getScaleX() / SCALE;
+            cam.translate(-1, 0);
             break;
         case IDLE:
         default:
