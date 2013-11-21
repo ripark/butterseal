@@ -56,7 +56,7 @@ public class BSInterface {
         BSPlayer.camera = camera;
 
         this.session = session;
-        this.player = new BSPlayer(session.state, 0, 0);
+        this.player = new BSPlayer(session.state);
 
         dpad = new Sprite(BSAsset.DIRECTIONAL_PAD.getTextureRegion(assets));
         dpad.setOrigin(0, 0);

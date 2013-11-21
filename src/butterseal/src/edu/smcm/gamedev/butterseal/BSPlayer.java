@@ -70,8 +70,7 @@ public class BSPlayer {
     private static final float SPEED = 3f;
     private static final float NORMSPEED = SPEED / BSMap.PIXELS_PER_TILE;
 
-    public BSPlayer(BSGameState state,
-                    float x, float y) {
+    public BSPlayer(BSGameState state) {
         walkUp    = new BSAnimation(BSAsset.PLAYER_WALK_UP);
         walkDown  = new BSAnimation(BSAsset.PLAYER_WALK_DOWN);
         walkRight = new BSAnimation(BSAsset.PLAYER_WALK_RIGHT);
