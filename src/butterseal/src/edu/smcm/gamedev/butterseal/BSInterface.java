@@ -16,7 +16,6 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 
 /**
  * Contains program logic for the user interface.
@@ -66,7 +65,7 @@ public class BSInterface {
         camera.setToOrtho(false, Gdx.graphics.getWidth() / Gdx.graphics.getHeight() * TILE_WIDTH, TILE_HEIGHT);
 
         camera.position.set(player.getV2().add(0, 8), 1);
-        player.place(0, 0);
+        player.place(0, 0, camera.combined);
 
         activeRegions = new HashMap<Rectangle, BSGameStateActor>();
         LoadTestRegions();

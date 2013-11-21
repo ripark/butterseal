@@ -8,7 +8,9 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 
 /**
  * Handles player state and movement on-screen.
@@ -59,11 +61,11 @@ public class BSPlayer {
      */
     Vector2 displacement;
     BSTile currentTile;
-    private static final float SCALE = 3;
+    private static final float SCALE = 2.5f;
     /**
      * Frames to take per move
      */
-    private static final float SPEED = 3;
+    private static final float SPEED = 3f;
     private static final float NORMSPEED = SPEED / BSMap.PIXELS_PER_TILE;
 
     public BSPlayer(BSGameState state,
@@ -241,12 +243,12 @@ public class BSPlayer {
      * Place the player centered on a specific tile.
      * @param position
      */
-    public void place(Vector2 position) {
-        this.place(position.x, position.y);
+    public void place(Vector2 position, OrthographicCamera cam) {
+        this.place(position.x, position.y, cam.combined);
     }
 
-    public void place(float x, float y) {
-
+    public void place(float x, float y, Matrix4 projection) {
+        projection = new Matrix4(projection);
         // normalize to bottom-left corner
         x -= .3f * SCALE;
         y -= .3f * SCALE;
@@ -255,6 +257,13 @@ public class BSPlayer {
         // ???
 
         this.currentFrame.setPosition(x, y);
+    }
+
+    public void printwhere(Matrix4 projection) {
+
+        System.out.printf("%.1f:%.1f%n", currentFrame.getHeight() * SCALE, currentFrame.getWidth() * SCALE);
+        System.out.println(projection.getTranslation(new Vector3(currentFrame.getX(), currentFrame.getY(), 0)));
+
     }
 }
 
