@@ -79,6 +79,7 @@ public class BSPlayer {
         this.currentFrame = new Sprite(idle.frames[0]);
         this.currentFrame.setOrigin(0, 0);
         this.currentFrame.setScale(SCALE / BSMap.PIXELS_PER_TILE);
+        this.currentTile = new BSTile(0,0);
         this.displacement = new Vector2();
         this.state = state;
         this.state.facing = BSDirection.NORTH;
@@ -143,18 +144,22 @@ public class BSPlayer {
         switch(direction) {
         case NORTH:
             target = walkUp;
+            currentTile.y += 1;
             displacement.y += BSMap.PIXELS_PER_TILE * currentFrame.getScaleX() / SCALE;
             break;
         case SOUTH:
             target = walkDown;
+            currentTile.y -= 1;
             displacement.y -= BSMap.PIXELS_PER_TILE * currentFrame.getScaleX() / SCALE;
             break;
         case EAST:
             target = walkRight;
+            currentTile.x += 1;
             displacement.x += BSMap.PIXELS_PER_TILE * currentFrame.getScaleX() / SCALE;
             break;
         case WEST:
             target = walkLeft;
+            currentTile.x -= 1;
             displacement.x -= BSMap.PIXELS_PER_TILE * currentFrame.getScaleX() / SCALE;
             break;
         case IDLE:
@@ -237,6 +242,14 @@ public class BSPlayer {
 
     public Vector2 getV2() {
         return new Vector2(currentFrame.getX(), currentFrame.getY());
+    }
+
+    /**
+     * Places the player on a tile in the current map where player=key
+     * @param key
+     */
+    public void place(String key) {
+        currentTile = new BSTile(0,0);
     }
 
     /**
