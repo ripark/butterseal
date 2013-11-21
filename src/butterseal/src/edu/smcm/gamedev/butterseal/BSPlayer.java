@@ -115,8 +115,6 @@ public class BSPlayer {
 
         displacement.sub(ddx, ddy);
         currentFrame.translate(ddx,ddy);
-        float mystery = currentFrame.getScaleX() * BSMap.PIXELS_PER_TILE;
-        System.out.println(mystery);
         cam.translate(ddx, ddy);
     }
 
