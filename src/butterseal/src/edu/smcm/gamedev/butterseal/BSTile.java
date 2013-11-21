@@ -1,5 +1,7 @@
 package edu.smcm.gamedev.butterseal;
 
+import java.util.Map;
+
 public class BSTile {
     public int x, y;
     public BSTile(int x, int y) {
@@ -8,6 +10,10 @@ public class BSTile {
     }
     public BSTile(BSTile other) {
         this(other.x, other.y);
+    }
+
+    public Map<String,Map<String,String>> getProperties(BSMap map) {
+        return null;
     }
 }
 
