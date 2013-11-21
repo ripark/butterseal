@@ -63,7 +63,7 @@ public class BSPlayer {
     /**
      * Frames to take per move
      */
-    private static final int SPEED = 8;
+    private static final int SPEED = 4;
 
     public BSPlayer(BSGameState state,
                     float x, float y) {
@@ -102,13 +102,15 @@ public class BSPlayer {
     private void doTranslate() {
         float ddx = 0, ddy = 0;
 
-        if(displacement.x != 0)
-            ddx = displacement.x < (displacement.x > 0 ? SPEED : -SPEED) ?
-                    displacement.x : (displacement.x > 0 ? SPEED : -SPEED);
+        if(displacement.x != 0) {
+            ddx = Math.abs(displacement.x) < SPEED ?
+                    displacement.x : Math.signum(displacement.x) * SPEED;
+        }
 
-        if (displacement.y != 0)
-            ddy = displacement.y < (displacement.y > 0 ? SPEED : -SPEED) ?
-                    displacement.y : (displacement.y > 0 ? SPEED : -SPEED);
+        if (displacement.y != 0) {
+            ddy = Math.abs(displacement.y) < SPEED ?
+                    displacement.y : Math.signum(displacement.y) * SPEED;
+        }
 
         displacement.add(-ddx,-ddy);
         position.add(ddx,ddy);
