@@ -287,14 +287,13 @@ public class BSPlayer {
     }
 
     public void place(float x, float y) {
+        camera.position.set(x, y, 1);
         Matrix4 projection = new Matrix4(camera.combined);
         // normalize to bottom-left corner
         x -= .3f * SCALE;
         y -= .3f * SCALE;
 
         // TODO center on tile
-
-        camera.position.set(x, y, 1);
 
         this.currentFrame.setPosition(x, y);
     }
