@@ -73,7 +73,7 @@ Given that this is not a required platform, this functionality is optional.
 However, the implementation is generic enough to allow this.
 
 *** Specific Implementation
-
+Talk about active regions, cameras, etc
 ** World
 The entire world is internally represented as a directed graph,
   where each map corresponds to a node in the graph.
