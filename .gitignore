@@ -22,3 +22,4 @@ src/butterseal-ios/*
 
 # ANY bin directory; these should be compiled to be created
 bin/
+gen/
