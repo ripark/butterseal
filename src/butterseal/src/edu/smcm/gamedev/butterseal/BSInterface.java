@@ -7,11 +7,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Rectangle;
@@ -42,6 +45,7 @@ public class BSInterface {
     Map<Rectangle, BSGameStateActor> activeRegions;
 
     Sprite dpad;
+    Sprite menubutton;
 
     public BSInterface(BSSession session) {
         font = new BitmapFont();
@@ -59,9 +63,6 @@ public class BSInterface {
         this.session = session;
         this.player = new BSPlayer(session.state);
 
-        dpad = new Sprite(BSAsset.DIRECTIONAL_PAD.getTextureRegion(assets));
-        dpad.setOrigin(0, 0);
-        dpad.setPosition(0, 0);
 
         final int TILE_HEIGHT=20, TILE_WIDTH=30;
         camera.setToOrtho(false, Gdx.graphics.getWidth() / Gdx.graphics.getHeight() * TILE_WIDTH, TILE_HEIGHT);
@@ -73,16 +74,15 @@ public class BSInterface {
     }
 
     private void LoadTestRegions() {
-        activeRegions.put(new Rectangle().set(0, 0, 100, 100), new BSGameStateActor() {
+        activeRegions.put(vFlipRectangle(menubutton.getBoundingRectangle()), new BSGameStateActor() {
             @Override
             public void act(BSInterface gui) {
-                System.out.println("test active region 1");
-            }
-        });
-        activeRegions.put(new Rectangle().set(100, 100, 200, 200), new BSGameStateActor() {
-            @Override
-            public void act(BSInterface gui) {
-                System.out.println("test active region 2");
+                if(!gui.session.isPaused) {
+                    gui.session.isPaused = true;
+                    System.out.println("Pausing game.");
+                } else {
+                    System.out.println("Game paused.");
+                }
             }
         });
     }
@@ -153,8 +153,8 @@ public class BSInterface {
         }
         int x = input.getX();
         int y = input.getY();
-        return region.x < x && x < region.width
-            && region.y < y && y < region.height;
+        return region.x < x && x < region.x + region.width
+            && region.y < y && y < region.y + region.height;
     }
 
     /**
@@ -185,6 +185,7 @@ public class BSInterface {
             MakeTitleScreen();
             controls.end();
         }
+        DrawActiveRegions();
 
         if(DEBUG_MODE) {
             controls.begin();
@@ -197,6 +198,17 @@ public class BSInterface {
         cambatch.setProjectionMatrix(camera.combined);
     }
 
+    private void DrawActiveRegions() {
+        ShapeRenderer rend = new ShapeRenderer();
+        int h = Gdx.graphics.getHeight();
+        rend.begin(ShapeType.Line);
+        for(Rectangle r : activeRegions.keySet()) {
+            rend.setColor(Color.RED);
+            rend.rect(r.x, Math.abs(r.y-h)-r.height, r.width, r.height);
+        }
+        rend.end();
+    }
+
     private void MakePowerBar() {
 
     }
@@ -207,11 +219,13 @@ public class BSInterface {
         dpad.draw(controls);
     }
 
+    private void MakePauseButton() {
+        menubutton.draw(controls);
+    }
+
     /**
      * Dims the screen and displays the pause menu
      */
-    private void MakePauseButton() {
-    }
     private void MakePauseScreen() {
     }
     private void MakeTitleScreen() {
@@ -240,12 +254,32 @@ public class BSInterface {
             }
         }
         assets.finishLoading();
+
+        dpad = new Sprite(BSAsset.DIRECTIONAL_PAD.getTextureRegion(assets));
+        dpad.setBounds(0, 0, 196, 196);
+        menubutton = new Sprite(BSAsset.MENU_BUTTON.getTextureRegion(assets));
+        menubutton.setPosition(Gdx.graphics.getWidth()  - menubutton.getWidth(),
+                               Gdx.graphics.getHeight() - menubutton.getHeight());
     }
     public void dispose() {
-        // TODO Auto-generated method stub
         cambatch.dispose();
         controls.dispose();
         assets.dispose();
+    }
+
+    /**
+     * Flips a rectangle so that it uses the bottom-left as its origin (instead of top-left)
+     * @param rect
+     * @return
+     */
+    private static Rectangle vFlipRectangle(Rectangle rect) {
+        Rectangle r = new Rectangle(rect);
+        r.y = Math.abs(Gdx.graphics.getHeight()-r.y) - r.height;
+        return r;
+    }
+
+    private static Rectangle vFlipRectangle(float x, float y, float width, float height) {
+        return vFlipRectangle(new Rectangle(x, y, width, height));
     }
 }
 
