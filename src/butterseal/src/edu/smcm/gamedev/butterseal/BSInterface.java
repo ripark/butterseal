@@ -33,7 +33,8 @@ public class BSInterface {
     BSSession session;
     BSPlayer player;
 
-    SpriteBatch batch;
+    SpriteBatch cambatch;
+    SpriteBatch controls;
     AssetManager assets;
     OrthographicCamera camera;
     BitmapFont font;
@@ -45,13 +46,14 @@ public class BSInterface {
     public BSInterface(BSSession session) {
         font = new BitmapFont();
         assets = new AssetManager();
-        batch = new SpriteBatch();
+        cambatch = new SpriteBatch();
+        controls = new SpriteBatch();
         camera = new OrthographicCamera();
         SetAssetLoaders();
         LoadAssets();
 
         BSPlayer.assets = assets;
-        BSPlayer.batch = batch;
+        BSPlayer.batch = cambatch;
         BSPlayer.camera = camera;
 
         this.session = session;
@@ -166,8 +168,10 @@ public class BSInterface {
          */
         if (session.isInGame) {
             session.state.currentMap.draw(camera);
-            batch.begin();
+            cambatch.begin();
             player.draw();
+            cambatch.end();
+            controls.begin();
             MakePowerBar();
             MakePowerSelector();
             MakeDirectionalPad();
@@ -175,22 +179,22 @@ public class BSInterface {
             if (session.isPaused) {
                 MakePauseScreen();
             }
-            batch.end();
+            controls.end();
         } else {
-            batch.begin();
+            controls.begin();
             MakeTitleScreen();
-            batch.end();
+            controls.end();
         }
 
         if(DEBUG_MODE) {
-            batch.begin();
-            font.draw(batch,
+            controls.begin();
+            font.draw(controls,
                     String.format("FPS: %d", Gdx.graphics.getFramesPerSecond()),
                     1, Gdx.graphics.getHeight()-1);
-            batch.end();
+            controls.end();
         }
         camera.update();
-        batch.setProjectionMatrix(camera.combined);
+        cambatch.setProjectionMatrix(camera.combined);
     }
 
     private void MakePowerBar() {
@@ -200,7 +204,7 @@ public class BSInterface {
 
     }
     private void MakeDirectionalPad() {
-        dpad.draw(batch);
+        dpad.draw(controls);
     }
 
     /**
@@ -239,7 +243,8 @@ public class BSInterface {
     }
     public void dispose() {
         // TODO Auto-generated method stub
-        batch.dispose();
+        cambatch.dispose();
+        controls.dispose();
         assets.dispose();
     }
 }
