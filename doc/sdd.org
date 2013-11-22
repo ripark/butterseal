@@ -1,0 +1,202 @@
+#+Title: Software Design Document
+#+Author: Sean Allred
+#+Date: [2013-11-02 Sat]
+#+Description: This document details the design of the game internals drawing from the description of the game itself.
+
+* Functional Requirements
+** User Interface
+The game has an interface consisting of
+- navigation control
+- tile interaction
+- power interaction
+- a way to choose a power
+
+** World
+The world consists of many maps joined together by a super-map.
+The paradigm of Assassin's Creed is most applicable here:
+  have each map (puzzle-maps) joined by classicly exploratory roads and settlements.
+It is unknown whether each map corresponds to one puzzle;
+  that is, it is unknown whether there are puzzle-less maps.
+Their purpose needs to be entirely plot-oriented and
+  thus their existence is, at this stage, impromptu.
+
+See the [[file:../src/ButterSeal-android/assets/maps/map-descriptions.org][map description file]] for detailed information on each map.
+
+** Meeting on [2013-11-06 Wed 15:55]
+- load map
+- load objects / object properties
+- transition
+- save state?
+  - positions
+  - starting point
+  - item statuses
+- interactions
+- recognize current map / which map to move to
+- render map
+- obtain tile properties - perhaps load them into a 2D array
+- render objects
+
+other thought -- have a 'facing tile' object to see collisions before they happen
+* Implementation
+** User Interface
+A simplistic design would be as follows:
+
+:   .                                                   .
+:   .                                                   .
+:   |                          s m a l l   p o w e r s  |
+:   | +---------+     ...     +------+---------+------+ |
+:   | |         |             |      |         |      | |
+:   | |    D    |     ...     | <--- | Current | ---> | |
+:   | |   Pad   |     ...     | <--- |  Power  | ---> | |
+:   | |         |             |      |         |      | |
+:   | +---------+     ...     +------+---------+------+ |
+:   +---------------------------------------------------+
+
+The D-Pad simply satisfies navigation control.
+The "small powers" are scaled-down icons of each usable power (hereforth "ability")
+  (including simple interaction,
+  to be represented as a radial-symmetric star or similar).
+Each ability can be selected by use of
+  the arrows on either side of the large icon.
+Tapping the large icon in the center will use that ability.
+Selecting each ability highlights the corresponding icon above the control.
+(This presumably aids in ability navigation.)
+As a unit, this control satisfies the remaining user interface requirements.
+
+On the desktop version, =AWSD= (and =left-right-up-down=) replace the directional pad
+  (which is gone from this version),
+  =Z= and =C= replace ability selection,
+  and =X= activates the ability.
+The "small powers" icon bar still exists,
+  but in the upper-right corner instead.
+Given that this is not a required platform, this functionality is optional.
+However, the implementation is generic enough to allow this.
+
+*** Specific Implementation
+Talk about active regions, cameras, etc
+** World
+The entire world is internally represented as a directed graph,
+  where each map corresponds to a node in the graph.
+Each and every map is a /Tiled/-created map.
+A design description of each map is fully described
+  in the [[file:../src/ButterSeal-android/assets/maps/map-descriptions.org][map description document]].
+*** /Tiled/ Property Descriptions
+/Tiled/ allows you to set properties for tiles of tile-sets used in its maps.
+These allow for easy handling in the program logic, since you don't have to have pre-knowledge of how the map is laid out in advance.
+To make this work, a standard has to be set that is common between the map-designer and the logic-designer so that collaboration is simple and effective.
+
+- =wall= :: Set this property to denote an absolutely impassable object.
+            Expects a value of =true= or =false= appropriately.
+- =active= :: Set this property to denote if the tile is interactive.
+              Expects a value of =true= or =false= appropriately.
+- =player= :: Set this property to denote the starting tile of the map.
+              The player will start on this tile.
+              Exits and entrances to a map both have this property set.
+              The value of the property denotes the edge it belongs to.
+              (See [[*As%20a%20Data%20Structure][the implementation of the maps as a data structure]].)
+- =special= :: Set this property if the tile is special and should be handled as such in some way.
+               For example, set =special=beacon= to trigger program logic specific to beacons, such as toggle lighting.
+
+               Valid values are:
+  - =beacon=
+  - =torch=
+  - =door=
+  - =goal=
+- =air= :: Set this property to denote an absolutely passable tile.
+           That is, no matter what, you can walk through this tile.
+           Set =true= or =false= appropriately.
+*** The Maps
+**** Ice Cave
+***** Description
+The ice cave is a frozen maze; it is dark, lifeless, andvery cold.
+Completely cut off from the light and warmth of the Sun,
+  the cave is nearly impossible to traverse.
+
+You left your house excited and ambitious,
+  but upon entering the cave,
+  with all the twists and turns at its entrance (as if a dark room),
+  the hope in your heart dies with the light.
+You reach the main cavern of the cave to see a walled-off chamber right in front of you,
+  shimmering through the cracks with a pulsing greenish-brown light.
+Your curiosity piqued, you decide to find the source of the pulsing.
+(But how to get there?)
+
+The area you entered is, thankfully, lit with a few torches.
+You see a large oil lamp in front of you, unlit.
+With your newfound ability to start fires,
+  you light the lamp and
+  find your way through the cave and into the chamber you have sought after.
+
+You find a marimba enveloped in the colorful aura of its own dying life.
+You pick it up, revealing an escape hatch.
+You follow it down to the exit which opens into a forest.
+The weight of snow covering the canopy has broken off two well-sized, seeded branches from the treetops;
+  almost automatically, you pick them and use them as mallets for your new marimba.
+The marimba sounds much louder than you expected;
+  the pulsing light shoots out and envelopes the world as far as you can see.
+The marimba starts playing by itself, flying higher out of your control.
+In shock over what has just happened---but still in awe over it as well---you shrug and [[*The Forest][continue on]].
+
+***** Goal
+The goal of the ice cave is to get into the little spot that is directly in front of you, but is walled off.
+You can see it because of the torches, but you must use the beacons to light a path for yourself.
+(This means beacons are active; interacting with them lights its row and column.)
+You've got to find a full path to the next instrument to continue the game.
+
+***** Tile Key
+- =t= :: torch; you can walk through these and they light all the tiles around them (eight in all)
+- =S= :: starting position
+- =d= :: door to the ice cave
+- =B= :: beacons; you can turn these around to light up different paths
+- =#= :: walls
+- =+= :: suggested path
+- =$= :: MONEY.  (The goal; this would be some sort of instrument.)
+
+All blank tiles are as yet unused.
+**** The Forest
+*** As a Data Structure
+**** The World
+The world is stored as a directed graph.
+Nodes of the graph are =BSMap= objects and
+  they are connected by edges that inform the program logic where the starting position is.
+(This is done by looking for a property value, /not/ by looking for coordinates.)
+The graph represents where we can get from where and how.
+The following details, in words, how the graph is structured.
+
+The game starts outside your house.
+This map has two starting positions;
+  one for the absolute start of the game (where =player=gamestart=) and
+  one for a potential return from the [[*Ice Cave][ice cave]] (where =player=icecave=).
+The ice cave map also has two starting positions where =player=house= and where =player=forest=.
+The two maps are connected via two directed edges.
+The first directed edge goes from the house to the cave and
+  has a value of =house=.
+This tells the program to look in the destination map for a tile with the =player=house= property.
+The edge going back to the house has a value of =forest=, and
+  the program logic likewise looks for such a =player=forest= property in the house map.
+
+See =BSWorld.java=.
+The program logic can then search the result of =getMaps(source)=.
+**** Each Map
+Each map is, again, given as a subclass of =BSMap=.
+Take the ice cave as an example.
+The ice cave is implemented as the singleton class =BSMap_IceCave=.
+(The underscore is certainly not convention, but it helps segregate the maps.)
+=BSMap_IceCave= would be initialized as =super("ice-cave")=
+
+*** TODO Interacting with Maps
+/Tiled/ allows us a consistent means to interact with the maps
+  that will be generated by the map designer.
+This consistency is only helpful when handled in kind,
+  so the following are strictly adhered to.
+
+The abstract class =BSMap inherits TiledMap= handles the highest level of interaction with any map.
+This class has a =handleMove(xshift, yshift)= method that applies
+  any initial logic that is specified,
+  such as not allowing travel through walls
+  and not allowing travel over ice without proper gear equipped.
+=BSMap= also has an =abstract void handleSpecialMove(xshift, yshift)= that
+  each child class /must/ implement for its own special handling, even if there is none.
+
+Every /instantiable/ child class of =BSMap= corresponds to
+  exactly one traversable map in the game.
