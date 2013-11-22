@@ -1,0 +1,29 @@
+#+Title: Git Hook Descriptions
+#+Author: Sean Allred
+#+Date: [2013-11-22 Fri]
+
+Like many other version control systems, =git= allows
+  arbitrary scripts to be run before and after various repository actions.
+This is a collection of those actions which we are using
+  and instructions on how to set them up.
+
+* Tweet commits
+=twt= is a [[https://code.google.com/p/twt/][Windows CLI to Twitter]].
+It is included here in the =doc/= directory,
+  but /must/ be configured for use /before/ you make a commit.
+To configure =twt= for use, log in to the [[https://twitter.com/ButterSeal][@butterseal Twitter account]].
+Once logged in, run =twt -config=, authorize the app,
+  and copy the code provided by Twitter into the dialog that =twt= opens.
+This will create a =twtconfig.xml= file that contains raw account credentials.
+*Do not share the information in this file.*
+It is ignored from the repository via =.gitignore=,
+  so it will not be commit unless you stage it manually.
+
+To set up the hook, simply copy this into =.git/hooks/post-commit=
+  (with the =/usr/bin/env sh= [[http://en.wikipedia.org/wiki/Shebang_(Unix)][shebang line]]) or, if you are comfortable with Emacs,
+  run =org-babel-tangle= (usually bound to =C-c C-v t=) to place the file automatically.
+#+BEGIN_SRC sh :tangle ../.git/hooks/post-commit.test :shebang #!/usr/bin/env sh
+  MSG="`git log -1 --pretty=%B | head -n 1`"
+  URL="https://github.com/vermiculus/butterseal/commit/`git rev-parse HEAD`"
+  doc/twt -q Commit! $MSG See $URL for more information!
+#+END_SRC
