@@ -4,6 +4,8 @@ ButterSeal
 This game has very little to do with its title. `:)`
 ----------------------------------------------------
 
+A Game Development Project! With music! And a seal!
+
 todo: more description?
       I don't have much to say about the game.
       Perhaps a more knowledgeable person (cough-@butterseal-cough) may chime in.
