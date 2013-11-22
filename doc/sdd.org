@@ -64,8 +64,8 @@ Selecting each ability highlights the corresponding icon above the control.
 As a unit, this control satisfies the remaining user interface requirements.
 
 On the desktop version, =AWSD= (and =left-right-up-down=) replace the directional pad,
-  =Q= and =E= replace ability selection,
-  and =SPC= activates the ability.
+  =Z= and =C= replace ability selection,
+  and =X= activates the ability.
 The "small powers" icon bar still exists,
   but in the upper-right corner instead.
 Given that this is not a required platform, this functionality is optional.
