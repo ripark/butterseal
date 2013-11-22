@@ -22,7 +22,7 @@ It is ignored from the repository via =.gitignore=,
 To set up the hook, simply copy this into =.git/hooks/post-commit=
   (with the =/usr/bin/env sh= [[http://en.wikipedia.org/wiki/Shebang_(Unix)][shebang line]]) or, if you are comfortable with Emacs,
   run =org-babel-tangle= (usually bound to =C-c C-v t=) to place the file automatically.
-#+BEGIN_SRC sh :tangle ../.git/hooks/post-commit.test :shebang #!/usr/bin/env sh
+#+BEGIN_SRC sh :tangle ../.git/hooks/post-commit :shebang #!/usr/bin/env sh
   MSG="`git log -1 --pretty=%B | head -n 1`"
   URL="https://github.com/vermiculus/butterseal/commit/`git rev-parse HEAD`"
   doc/twt -q Commit! $MSG See $URL for more information!
