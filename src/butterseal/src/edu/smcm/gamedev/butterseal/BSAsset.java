@@ -14,7 +14,8 @@ public enum BSAsset {
     PLAYER_WALK_LEFT ( 64,  64, "data/spritesheets/player_walk_left.png"),
     PLAYER_WALK_RIGHT( 64,  64, "data/spritesheets/player_walk_right.png"),
     PLAYER_IDLE_STATE( 64,  64, "data/spritesheets/player_idle_state.png"),
-    DIRECTIONAL_PAD  (256, 256, "data/interface/dpad1.png");
+    DIRECTIONAL_PAD  (512, 512, "data/interface/dpad.png"),
+    MENU_BUTTON      (128, 131, "data/interface/menu-button.png");
 
     /**
      * Intended height of this sprite in pixels
