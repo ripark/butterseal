@@ -71,6 +71,15 @@ public enum BSMap {
         }
         return ret;
     }
+
+    public static BSMap getByKey(String key) {
+        for (BSMap m : BSMap.values()) {
+            if (m.key.equals(key)) {
+                return m;
+            }
+        }
+        return null;
+    }
 }
 
 // Local Variables:

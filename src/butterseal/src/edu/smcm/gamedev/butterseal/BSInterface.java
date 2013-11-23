@@ -77,7 +77,7 @@ public class BSInterface {
     }
 
     private void LoadActiveRegions() {
-        final int VOFFSET = -50;
+        final int VOFFSET = 0;//-50;
 
 
         Rectangle r_menu_button = vFlipRectangle(menubutton.getBoundingRectangle());
@@ -484,9 +484,9 @@ public class BSInterface {
             }
             m.map.dispose();
         }
-        cambatch.dispose();
-        controls.dispose();
-        assets.dispose();
+        //cambatch.dispose();
+        //controls.dispose();
+        //assets.dispose();
     }
 
     /**

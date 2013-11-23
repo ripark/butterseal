@@ -58,6 +58,7 @@ public class BSPlayer {
     static AssetManager assets;
     public static OrthographicCamera camera;
     BSAnimation walkUp, walkDown, walkRight, walkLeft, idle;
+    BSMap nextmap = null;
     Sprite currentFrame;
     /**
      * The pixels yet to move
@@ -97,6 +98,12 @@ public class BSPlayer {
         // update moving state based on whether we have more to move
         changeSprite(state.isMoving ? state.facing : null);
         this.state.isMoving = displacement.x != 0 || displacement.y != 0;
+        if(!this.state.isMoving && this.nextmap != null) {
+            String oldkey = this.state.currentMap.key;
+            this.state.currentMap = this.nextmap;
+            this.nextmap = null;
+            this.place(oldkey);
+        }
 
         this.currentFrame.draw(batch);
 
@@ -143,6 +150,13 @@ public class BSPlayer {
             return;
         }
         this.state.isMoving = true;
+
+        // check to see if we need to move maps
+        HashMap<String,String> props = this.getFacingTile().getProperties(this.state.currentMap).get("player");
+        if (props.containsKey("player")) {
+            this.nextmap = BSMap.getByKey(props.get("player"));
+        }
+
         if(direction != state.facing) {
             if(BSSession.DEBUG) {
                 System.out.println("Moving " + direction);
