@@ -40,7 +40,7 @@ public class BSInterface {
     OrthographicCamera camera;
     BitmapFont font;
 
-    Map<Rectangle, BSGameStateActor> activeRegions;
+    Map<Rectangle, BSInterfaceActor> activeRegions;
 
     Sprite dpad;
     Sprite menubutton;
@@ -72,7 +72,7 @@ public class BSInterface {
 
         player.place("start");
 
-        activeRegions = new HashMap<Rectangle, BSGameStateActor>();
+        activeRegions = new HashMap<Rectangle, BSInterfaceActor>();
         LoadActiveRegions();
     }
 
@@ -117,7 +117,7 @@ public class BSInterface {
         r_quit.y += VOFFSET;
 
 
-        activeRegions.put(r_menu_button, new BSGameStateActor() {
+        activeRegions.put(r_menu_button, new BSInterfaceActor() {
             @Override
             public void act(BSInterface gui) {
                 if(gui.session.isInGame) {
@@ -130,7 +130,7 @@ public class BSInterface {
                 }
             }
         });
-        activeRegions.put(r_start_game, new BSGameStateActor() {
+        activeRegions.put(r_start_game, new BSInterfaceActor() {
             @Override
             public void act(BSInterface gui) {
                 // TODO Auto-generated method stub
@@ -142,7 +142,7 @@ public class BSInterface {
                 }
             }
         });
-        activeRegions.put(r_load_game, new BSGameStateActor() {
+        activeRegions.put(r_load_game, new BSInterfaceActor() {
 
             @Override
             public void act(BSInterface gui) {
@@ -154,7 +154,7 @@ public class BSInterface {
                 }
             }
         });
-        activeRegions.put(r_quit_game, new BSGameStateActor() {
+        activeRegions.put(r_quit_game, new BSInterfaceActor() {
 
             @Override
             public void act(BSInterface gui) {
@@ -168,7 +168,7 @@ public class BSInterface {
                 }
             }
         });
-        activeRegions.put(r_resume, new BSGameStateActor() {
+        activeRegions.put(r_resume, new BSInterfaceActor() {
 
             @Override
             public void act(BSInterface gui) {
@@ -181,7 +181,7 @@ public class BSInterface {
                 }
             }
         });
-        activeRegions.put(r_save, new BSGameStateActor() {
+        activeRegions.put(r_save, new BSInterfaceActor() {
 
             @Override
             public void act(BSInterface gui) {
@@ -195,7 +195,7 @@ public class BSInterface {
                 }
             }
         });
-        activeRegions.put(r_quit, new BSGameStateActor() {
+        activeRegions.put(r_quit, new BSInterfaceActor() {
 
             @Override
             public void act(BSInterface gui) {
@@ -209,7 +209,7 @@ public class BSInterface {
                 }
             }
         });
-        activeRegions.put(r_dpad_left, new BSGameStateActor() {
+        activeRegions.put(r_dpad_left, new BSInterfaceActor() {
 
             @Override
             public void act(BSInterface gui) {
@@ -220,7 +220,7 @@ public class BSInterface {
                 gui.player.move(BSDirection.WEST);
             }
         });
-        activeRegions.put(r_dpad_right, new BSGameStateActor() {
+        activeRegions.put(r_dpad_right, new BSInterfaceActor() {
 
             @Override
             public void act(BSInterface gui) {
@@ -231,7 +231,7 @@ public class BSInterface {
                 gui.player.move(BSDirection.EAST);
             }
         });
-        activeRegions.put(r_dpad_up, new BSGameStateActor() {
+        activeRegions.put(r_dpad_up, new BSInterfaceActor() {
 
             @Override
             public void act(BSInterface gui) {
@@ -242,7 +242,7 @@ public class BSInterface {
                 gui.player.move(BSDirection.NORTH);
             }
         });
-        activeRegions.put(r_dpad_down, new BSGameStateActor() {
+        activeRegions.put(r_dpad_down, new BSInterfaceActor() {
 
             @Override
             public void act(BSInterface gui) {
@@ -253,7 +253,7 @@ public class BSInterface {
                 gui.player.move(BSDirection.SOUTH);
             }
         });
-        activeRegions.put(r_power_left, new BSGameStateActor() {
+        activeRegions.put(r_power_left, new BSInterfaceActor() {
 
             @Override
             public void act(BSInterface gui) {
@@ -264,7 +264,7 @@ public class BSInterface {
                 gui.player.setPower(-1);
             }
         });
-        activeRegions.put(r_power_right, new BSGameStateActor() {
+        activeRegions.put(r_power_right, new BSInterfaceActor() {
 
             @Override
             public void act(BSInterface gui) {
@@ -275,7 +275,7 @@ public class BSInterface {
                 gui.player.setPower(1);
             }
         });
-        activeRegions.put(r_power_select, new BSGameStateActor() {
+        activeRegions.put(r_power_select, new BSInterfaceActor() {
 
             @Override
             public void act(BSInterface gui) {
