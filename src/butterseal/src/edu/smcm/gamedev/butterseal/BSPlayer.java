@@ -67,7 +67,7 @@ public class BSPlayer {
     /**
      * Frames to take per move
      */
-    private static final float SPEED = 3f;
+    private static final float SPEED = 5f;
     private static final float NORMSPEED = SPEED / BSMap.PIXELS_PER_TILE;
 
     public BSPlayer(BSGameState state) {
@@ -91,15 +91,12 @@ public class BSPlayer {
      * Draws the player on the screen.
      */
     public void draw() {
-        if(!state.isMoving) {
-            changeSprite(null);
-        }
 
         Vector2 ret = this.doTranslate();
 
         // update moving state based on whether we have more to move
-        this.state.isMoving = displacement.x != 0 ||
-                              displacement.y != 0;
+        changeSprite(state.isMoving ? state.facing : null);
+        this.state.isMoving = displacement.x != 0 || displacement.y != 0;
 
         this.currentFrame.draw(batch);
 
@@ -288,7 +285,7 @@ public class BSPlayer {
     public void place(float x, float y) {
         // TODO make this less trial-and-error-y
         camera.position.set(x, y, 1);
-        Matrix4 projection = new Matrix4(camera.combined);
+        //Matrix4 projection = new Matrix4(camera.combined);
         // normalize to bottom-left corner
         x -= .8f;
         y -= .75f;

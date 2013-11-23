@@ -21,6 +21,7 @@ public class BSGameState {
      * The save slot.  The session manager will have arbitrarily many of these available.
      */
     public final int slot;
+    public boolean isWTF;
 
     /**
      * Opens this game on a particular game slot.

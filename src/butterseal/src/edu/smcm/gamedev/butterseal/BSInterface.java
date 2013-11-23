@@ -46,6 +46,7 @@ public class BSInterface {
 
     Sprite dpad;
     Sprite menubutton;
+    Sprite title;
 
     public BSInterface(BSSession session) {
         font = new BitmapFont();
@@ -70,18 +71,53 @@ public class BSInterface {
         player.place("start");
 
         activeRegions = new HashMap<Rectangle, BSGameStateActor>();
-        LoadTestRegions();
+        LoadActiveRegions();
     }
 
-    private void LoadTestRegions() {
+    private void LoadActiveRegions() {
         activeRegions.put(vFlipRectangle(menubutton.getBoundingRectangle()), new BSGameStateActor() {
             @Override
             public void act(BSInterface gui) {
-                if(!gui.session.isPaused) {
-                    gui.session.isPaused = true;
-                    System.out.println("Pausing game.");
-                } else {
-                    System.out.println("Game paused.");
+                if(gui.session.isInGame) {
+                    if(!gui.session.isPaused) {
+                        gui.session.isPaused = true;
+                        System.out.println("Pausing game.");
+                    } else {
+                        System.out.println("Game paused.");
+                    }
+                }
+            }
+        });
+
+        activeRegions.put(new Rectangle(423, 292, 282, 86), new BSGameStateActor() {
+            @Override
+            public void act(BSInterface gui) {
+                // TODO Auto-generated method stub
+                if (!gui.session.isInGame) {
+                    System.out.println("Starting game.");
+                    gui.session.isInGame = true;
+                }
+            }
+        });
+
+        activeRegions.put(new Rectangle(417, 410, 389, 115), new BSGameStateActor() {
+
+            @Override
+            public void act(BSInterface gui) {
+                // TODO Auto-generated method stub
+                if (!gui.session.isInGame) {
+                    System.out.println("Starting game");
+                }
+            }
+        });
+
+        activeRegions.put(new Rectangle(412, 528, 454, 122), new BSGameStateActor() {
+
+            @Override
+            public void act(BSInterface gui) {
+                // TODO Auto-generated method stub
+                if (!gui.session.isInGame) {
+                    System.out.println("Starting game");
                 }
             }
         });
@@ -186,6 +222,9 @@ public class BSInterface {
             controls.end();
         }
         DrawActiveRegions();
+        if(player.state.isWTF) {
+            camera.rotate(1f);
+        }
 
         if(DEBUG_MODE) {
             controls.begin();
@@ -229,6 +268,7 @@ public class BSInterface {
     private void MakePauseScreen() {
     }
     private void MakeTitleScreen() {
+        title.draw(controls);
     }
     /**
      * Sets all the loaders needed for the {@link #assetManager}.
@@ -260,6 +300,7 @@ public class BSInterface {
         menubutton = new Sprite(BSAsset.MENU_BUTTON.getTextureRegion(assets));
         menubutton.setPosition(Gdx.graphics.getWidth()  - menubutton.getWidth(),
                                Gdx.graphics.getHeight() - menubutton.getHeight());
+        title = new Sprite(BSAsset.TITLE.getTextureRegion(assets));
     }
     public void dispose() {
         cambatch.dispose();
@@ -278,6 +319,7 @@ public class BSInterface {
         return r;
     }
 
+    @SuppressWarnings("unused")
     private static Rectangle vFlipRectangle(float x, float y, float width, float height) {
         return vFlipRectangle(new Rectangle(x, y, width, height));
     }
