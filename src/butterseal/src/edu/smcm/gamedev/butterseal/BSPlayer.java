@@ -92,7 +92,7 @@ public class BSPlayer {
      * Draws the player on the screen.
      */
     public void draw() {
-
+        this.state.currentMap.update.act(this.state);
         Vector2 ret = this.doTranslate();
 
         // update moving state based on whether we have more to move
@@ -145,6 +145,7 @@ public class BSPlayer {
             return;
         }
         this.state.facing = direction;
+        this.state.hasbeentouching = false;
         changeSprite(state.facing);
         if(!canMove(this.state.facing) && direction == state.facing) {
             return;
@@ -158,7 +159,7 @@ public class BSPlayer {
         }
 
         if(direction != state.facing) {
-            if(BSSession.DEBUG) {
+            if(BSSession.DEBUG > 0) {
                 System.out.println("Moving " + direction);
             }
         }
@@ -212,13 +213,11 @@ public class BSPlayer {
         }
 
         BSTile adj = getAdjacentTile(direction);
-        if(!adj.isContainedIn(state.currentMap)) {
+        if(!adj.isContainedIn(state.currentMap.playerLevel)) {
             return false;
         }
 
-        HashMap<String, String> playerLevelProperties = adj.getProperties(state.currentMap)
-                                                           .get("player");
-        if (BSUtil.any(playerLevelProperties, "true", "wall")) {
+        if (adj.hasProperty(state.currentMap.playerLevel, "wall", "true")) {
             return false;
         }
 
@@ -265,7 +264,7 @@ public class BSPlayer {
     public void setPower(BSPower power) {
         if(this.state.selectedPower != power) {
             this.state.isSelectingPower = true;
-            if(BSSession.DEBUG) {
+            if(BSSession.DEBUG > 0) {
                 System.out.println("Setting power to " + power);
             }
             this.state.selectedPower = power;
@@ -274,12 +273,13 @@ public class BSPlayer {
 
     public void usePower() {
         if(!state.isUsingPower) {
-            if(BSSession.DEBUG) {
+            if(BSSession.DEBUG > 0) {
                 System.out.println("Using power " + this.state.selectedPower);
             }
         }
         this.state.isSelectingPower = false;
-        this.state.isUsingPower = false;
+        this.state.isUsingPower = true;
+        this.state.currentMap.usePower(this.state);
     }
 
     public Vector2 getV2() {

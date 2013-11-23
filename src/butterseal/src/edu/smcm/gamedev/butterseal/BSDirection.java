@@ -1,10 +1,17 @@
 package edu.smcm.gamedev.butterseal;
 
 public enum BSDirection {
-    NORTH,
-    SOUTH,
-    EAST,
-    WEST
+    NORTH(0,1),
+    SOUTH(0,-1),
+    EAST(1,0),
+    WEST(-1,0);
+
+    int dx, dy;
+
+    BSDirection(int dx, int dy) {
+        this.dx = dx;
+        this.dy = dy;
+    }
 }
 
 // Local Variables:

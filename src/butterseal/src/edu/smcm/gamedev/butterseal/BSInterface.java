@@ -74,6 +74,9 @@ public class BSInterface {
 
         activeRegions = new HashMap<Rectangle, BSInterfaceActor>();
         LoadActiveRegions();
+
+        key_state.put(Input.Keys.Z, false);
+        key_state.put(Input.Keys.C, false);
     }
 
     private void LoadActiveRegions() {
@@ -123,7 +126,7 @@ public class BSInterface {
                 if(gui.session.isInGame) {
                     if(!gui.session.isPaused) {
                         gui.session.isPaused = true;
-                        if(BSSession.DEBUG) {
+                        if(BSSession.DEBUG > 0) {
                             System.out.println("Pausing game.");
                         }
                     }
@@ -135,7 +138,7 @@ public class BSInterface {
             public void act(BSInterface gui) {
                 // TODO Auto-generated method stub
                 if (!gui.session.isInGame) {
-                    if(BSSession.DEBUG) {
+                    if(BSSession.DEBUG > 0) {
                         System.out.println("Starting game.");
                     }
                     gui.session.isInGame = true;
@@ -148,7 +151,7 @@ public class BSInterface {
             public void act(BSInterface gui) {
                 // TODO Auto-generated method stub
                 if (!gui.session.isInGame) {
-                    if(BSSession.DEBUG) {
+                    if(BSSession.DEBUG > 0) {
                         System.out.println("Loading game");
                     }
                 }
@@ -160,7 +163,7 @@ public class BSInterface {
             public void act(BSInterface gui) {
                 // TODO Auto-generated method stub
                 if (!gui.session.isInGame) {
-                    if(BSSession.DEBUG) {
+                    if(BSSession.DEBUG > 0) {
                         System.out.println("Quitting game completely.");
                     }
                     gui.dispose();
@@ -174,7 +177,7 @@ public class BSInterface {
             public void act(BSInterface gui) {
                 // TODO Auto-generated method stub
                 if(gui.session.isPaused) {
-                    if(BSSession.DEBUG) {
+                    if(BSSession.DEBUG > 0) {
                         System.out.println("Resuming game.");
                     }
                     gui.session.isPaused = false;
@@ -187,7 +190,7 @@ public class BSInterface {
             public void act(BSInterface gui) {
                 // TODO Auto-generated method stub
                 if(gui.session.isPaused) {
-                    if(BSSession.DEBUG) {
+                    if(BSSession.DEBUG > 0) {
                         System.out.println("Handling save action");
                     }
                     gui.player.state.save();
@@ -201,7 +204,7 @@ public class BSInterface {
             public void act(BSInterface gui) {
                 // TODO Auto-generated method stub
                 if(gui.session.isPaused) {
-                    if(BSSession.DEBUG) {
+                    if(BSSession.DEBUG > 0) {
                         System.out.println("Quitting game.");
                     }
                     gui.session.isPaused = false;
@@ -214,7 +217,7 @@ public class BSInterface {
             @Override
             public void act(BSInterface gui) {
                 // TODO Auto-generated method stub
-                if(BSSession.DEBUG) {
+                if(BSSession.DEBUG > 0) {
                     System.out.println("Going left.");
                 }
                 gui.player.move(BSDirection.WEST);
@@ -225,7 +228,7 @@ public class BSInterface {
             @Override
             public void act(BSInterface gui) {
                 // TODO Auto-generated method stub
-                if(BSSession.DEBUG) {
+                if(BSSession.DEBUG > 0) {
                     System.out.println("Going right.");
                 }
                 gui.player.move(BSDirection.EAST);
@@ -236,7 +239,7 @@ public class BSInterface {
             @Override
             public void act(BSInterface gui) {
                 // TODO Auto-generated method stub
-                if(BSSession.DEBUG) {
+                if(BSSession.DEBUG > 0) {
                     System.out.println("Going up.");
                 }
                 gui.player.move(BSDirection.NORTH);
@@ -247,7 +250,7 @@ public class BSInterface {
             @Override
             public void act(BSInterface gui) {
                 // TODO Auto-generated method stub
-                if(BSSession.DEBUG) {
+                if(BSSession.DEBUG > 0) {
                     System.out.println("Going down.");
                 }
                 gui.player.move(BSDirection.SOUTH);
@@ -258,7 +261,7 @@ public class BSInterface {
             @Override
             public void act(BSInterface gui) {
                 // TODO Auto-generated method stub
-                if(BSSession.DEBUG) {
+                if(BSSession.DEBUG > 0) {
                     System.out.println("power left");
                 }
                 gui.player.setPower(-1);
@@ -269,7 +272,7 @@ public class BSInterface {
             @Override
             public void act(BSInterface gui) {
                 // TODO Auto-generated method stub
-                if(BSSession.DEBUG) {
+                if(BSSession.DEBUG > 0) {
                     System.out.println("power right");
                 }
                 gui.player.setPower(1);
@@ -280,7 +283,7 @@ public class BSInterface {
             @Override
             public void act(BSInterface gui) {
                 // TODO Auto-generated method stub
-                if(BSSession.DEBUG) {
+                if(BSSession.DEBUG > 0) {
                     System.out.println("power select");
                 }
                 gui.player.usePower();
@@ -295,14 +298,19 @@ public class BSInterface {
      */
     public void poll(Input input) {
         pollKeyboard(input);
-
-        for(Rectangle r : activeRegions.keySet()){
-            if (isTouchingInside(input, r)){
-                activeRegions.get(r).act(this);
+        if(input.isTouched() && !player.state.hasbeentouching) {
+            player.state.hasbeentouching = true;
+            for(Rectangle r : activeRegions.keySet()){
+                if (isTouchingInside(input, r)){
+                    activeRegions.get(r).act(this);
+                }
             }
+        } else if (!input.isTouched()) {
+            player.state.hasbeentouching = false;
         }
     }
 
+    Map<Integer, Boolean> key_state = new HashMap<Integer, Boolean>();
     /**
      * Poll the keyboard for input.
      * @param input an input stream to analyze
@@ -325,12 +333,18 @@ public class BSInterface {
             player.move(toMove);
         }
 
-        if(!player.state.isSelectingPower) {
+        if(!depressed(input, Input.Keys.Z) && !depressed(input, Input.Keys.C)) {
             // poll for power chooser
             if(input.isKeyPressed(Input.Keys.Z)) {
                 player.setPower(-1);
+                key_state.put(Input.Keys.Z, true);
             } else if (input.isKeyPressed(Input.Keys.C)) {
                 player.setPower(1);
+                key_state.put(Input.Keys.C, true);
+            } else {
+                player.state.isSelectingPower = false;
+                key_state.put(Input.Keys.Z, false);
+                key_state.put(Input.Keys.C, false);
             }
         }
         if (input.isKeyPressed(Input.Keys.X)) {
@@ -341,6 +355,10 @@ public class BSInterface {
             this.dispose();
             Gdx.app.exit();
         }
+    }
+
+    public boolean depressed(Input input, int key) {
+        return input.isKeyPressed(key) && key_state.get(key);
     }
 
     /**
@@ -387,18 +405,21 @@ public class BSInterface {
             MakeTitleScreen();
             controls.end();
         }
-        if(BSSession.DEBUG) {
+        if(BSSession.DEBUG > 3) {
             DrawActiveRegions();
         }
         if(player.state.isWTF) {
             camera.rotate(1f);
         }
 
-        if(BSSession.DEBUG) {
+        if(BSSession.DEBUG > 0) {
             controls.begin();
             font.draw(controls,
                     String.format("FPS: %d", Gdx.graphics.getFramesPerSecond()),
                     1, Gdx.graphics.getHeight()-1);
+            font.draw(controls,
+                    String.format("Selected Power: %s", player.state.selectedPower),
+                    1, Gdx.graphics.getHeight()-20);
             controls.end();
         }
         camera.update();
@@ -417,7 +438,6 @@ public class BSInterface {
         }
         rend.end();
     }
-
     private void MakePowerBar() {
         powerbar.draw(controls);
     }
@@ -427,11 +447,9 @@ public class BSInterface {
     private void MakeDirectionalPad() {
         dpad.draw(controls);
     }
-
     private void MakePauseButton() {
         menubutton.draw(controls);
     }
-
     /**
      * Dims the screen and displays the pause menu
      */
@@ -479,7 +497,7 @@ public class BSInterface {
     }
     public void dispose() {
         for(BSMap m : BSMap.values()) {
-            if(BSSession.DEBUG) {
+            if(BSSession.DEBUG > 1) {
                 System.out.printf("Unloading map %s%n", m.asset.assetPath);
             }
             m.map.dispose();

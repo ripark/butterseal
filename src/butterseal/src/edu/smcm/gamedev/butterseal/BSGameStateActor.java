@@ -6,4 +6,5 @@ public interface BSGameStateActor {
      * @param player
      */
     public void act(BSGameState state);
+    public void update(BSGameState state);
 }

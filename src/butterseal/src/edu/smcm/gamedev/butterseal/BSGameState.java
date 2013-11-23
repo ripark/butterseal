@@ -16,6 +16,7 @@ public class BSGameState {
     boolean isMoving;
     boolean isSelectingPower;
     boolean isUsingPower;
+    boolean hasbeentouching = false;
 
     /**
      * The save slot.  The session manager will have arbitrarily many of these available.
@@ -51,7 +52,7 @@ public class BSGameState {
      * Saves this game to the slot it was opened with.
      */
     public void save() {
-        if(BSSession.DEBUG) {
+        if(BSSession.DEBUG > 0) {
             System.out.println("GameState saving game.");
         }
     }

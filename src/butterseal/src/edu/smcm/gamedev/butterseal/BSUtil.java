@@ -2,6 +2,9 @@ package edu.smcm.gamedev.butterseal;
 
 import java.util.Map;
 
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapProperties;
+
 public class BSUtil {
     /**
      * Iterate through the properties we were given.
@@ -37,5 +40,17 @@ public class BSUtil {
             }
         }
         return true;
+    }
+
+    public static boolean propertyEquals(Map<String, String> map, String key, String value) {
+        return map.containsKey(key) && map.get(key).equals(value);
+    }
+
+    public static boolean propertyEquals(MapProperties properties, String key, String value) {
+        return properties.containsKey(key) && properties.get(key).equals(value);
+    }
+
+    public static boolean propertyEquals(MapLayer layer, String key, String value) {
+        return propertyEquals(layer.getProperties(), key, value);
     }
 }
