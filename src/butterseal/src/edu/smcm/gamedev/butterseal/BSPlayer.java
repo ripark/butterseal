@@ -104,6 +104,7 @@ public class BSPlayer {
             this.state.currentMap = this.nextmap;
             this.nextmap = null;
             this.place(oldkey);
+            this.state.currentMap.update.update(this.state);
             this.state.currentMap.update.act(this.state);
         }
 

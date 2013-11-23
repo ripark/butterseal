@@ -33,7 +33,6 @@ public enum BSMap {
     ICE_CAVE(BSAsset.ICE_CAVE, "ice-cave", new BSGameStateActor() {
         @Override
         public void act(BSGameState state) {
-            update(state);
             BSMap m = state.currentMap;
             TiledMapTileLayer dark = m.getLayer("uncover");
             TiledMapTileLayer playerLevel = m.getLayer("player");
@@ -132,7 +131,6 @@ public enum BSMap {
                     }
                 }
             }
-
         }
 	}),
 	HOUSE(BSAsset.HOUSE, "house", new BSGameStateActor() {
