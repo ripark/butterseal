@@ -202,6 +202,7 @@ public enum BSMap {
 
     public void usePower(BSGameState state) {
         update.update(state);
+        update.act(state);
     }
 
     public TiledMapTileLayer getLayer(String name) {

@@ -31,6 +31,7 @@ import com.badlogic.gdx.math.Rectangle;
  *
  */
 public class BSInterface {
+    public static final boolean ANDROID_MODE = true;
     BSSession session;
     BSPlayer player;
 
@@ -77,10 +78,12 @@ public class BSInterface {
 
         key_state.put(Input.Keys.Z, false);
         key_state.put(Input.Keys.C, false);
+        player.state.currentMap.update.act(player.state);
     }
 
     private void LoadActiveRegions() {
-        final int VOFFSET = 0;//-50;
+
+        final int VOFFSET = ANDROID_MODE ? 50 : 0;
 
 
         Rectangle r_menu_button = vFlipRectangle(menubutton.getBoundingRectangle());
@@ -439,6 +442,20 @@ public class BSInterface {
         rend.end();
     }
     private void MakePowerBar() {
+        switch(player.state.selectedPower) {
+        case FIRE:
+            powerbar.setRegion(BSAsset.POWERBAR_FIRE.getTextureRegion(assets));
+            break;
+        case GROWTH:
+        case JUMP:
+        case LIGHT:
+        case STRENGTH:
+        case SWIMMING:
+        case ACTION:
+        default:
+            powerbar.setRegion(BSAsset.POWERBAR_ACTION.getTextureRegion(assets));
+            break;
+        }
         powerbar.draw(controls);
     }
     private void MakePowerSelector() {

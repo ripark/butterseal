@@ -94,7 +94,6 @@ public class BSPlayer {
      * Draws the player on the screen.
      */
     public void draw() {
-        this.state.currentMap.update.act(this.state);
         Vector2 ret = this.doTranslate();
 
         // update moving state based on whether we have more to move
@@ -105,7 +104,10 @@ public class BSPlayer {
             this.state.currentMap = this.nextmap;
             this.nextmap = null;
             this.place(oldkey);
+            this.state.currentMap.update.act(this.state);
         }
+
+
 
         this.currentFrame.draw(batch);
 
