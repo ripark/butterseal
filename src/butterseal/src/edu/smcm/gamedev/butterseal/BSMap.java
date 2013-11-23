@@ -9,13 +9,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 public enum BSMap {
-    HOME(BSAsset.HOUSE, "house", new Runnable() {
-            @Override
-            public void run() {
-                // game logic
-            }
-	}),
-    ICE_CAVE_ENTRY(BSAsset.ICE_CAVE_ENTRY, null, new Runnable() {
+    ICE_CAVE_ENTRY(BSAsset.ICE_CAVE_ENTRY, "ice-cave-entry", new Runnable() {
             @Override
             public void run() {
                 // game logic
@@ -27,7 +21,7 @@ public enum BSMap {
                 // game logic
             }
 	}),
-	TEST64(BSAsset.TEST64, "test", new Runnable() {
+	HOUSE(BSAsset.HOUSE, "house", new Runnable() {
 
         @Override
         public void run() {

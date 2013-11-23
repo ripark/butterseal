@@ -38,8 +38,8 @@ public class BSGameState {
         this.slot = slot;
         if(!load(slot)) {
             this.world = new BSWorld();
-            world.addRoute(BSMap.HOME, BSMap.ICE_CAVE, null);
-            currentMap = BSMap.TEST64;
+            world.addRoute(BSMap.HOUSE, BSMap.ICE_CAVE, null);
+            currentMap = BSMap.HOUSE;
         }
     }
 
