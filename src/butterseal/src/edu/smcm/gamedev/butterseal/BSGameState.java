@@ -49,12 +49,9 @@ public class BSGameState {
 
     /**
      * Saves this game to the slot it was opened with.
-     * @throws BSException throws an exception if a save is attempted while in motion; see {@link #isMoving}.
      */
-    public void save() throws BSException {
-        if(isMoving){
-            throw new BSException("Cannot save while moving.");
-        }
+    public void save() {
+        System.out.println("GameState saving game.");
     }
 
     public void begin() {

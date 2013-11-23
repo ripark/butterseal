@@ -48,6 +48,8 @@ public class BSInterface {
     Sprite menubutton;
     Sprite title;
 
+    private Sprite menu;
+
     public BSInterface(BSSession session) {
         font = new BitmapFont();
         assets = new AssetManager();
@@ -75,21 +77,23 @@ public class BSInterface {
     }
 
     private void LoadActiveRegions() {
-        activeRegions.put(vFlipRectangle(menubutton.getBoundingRectangle()), new BSGameStateActor() {
+        Rectangle mb = vFlipRectangle(menubutton.getBoundingRectangle());
+        mb.height -= 23;
+        mb.width -= 8;
+        mb.x += 8;
+        activeRegions.put(mb, new BSGameStateActor() {
             @Override
             public void act(BSInterface gui) {
                 if(gui.session.isInGame) {
                     if(!gui.session.isPaused) {
                         gui.session.isPaused = true;
                         System.out.println("Pausing game.");
-                    } else {
-                        System.out.println("Game paused.");
                     }
                 }
             }
         });
 
-        activeRegions.put(new Rectangle(423, 292, 282, 86), new BSGameStateActor() {
+        activeRegions.put(new Rectangle(477, 348, 286, 100), new BSGameStateActor() {
             @Override
             public void act(BSInterface gui) {
                 // TODO Auto-generated method stub
@@ -100,24 +104,62 @@ public class BSInterface {
             }
         });
 
-        activeRegions.put(new Rectangle(417, 410, 389, 115), new BSGameStateActor() {
+        activeRegions.put(new Rectangle(477, 450, 286, 120), new BSGameStateActor() {
 
             @Override
             public void act(BSInterface gui) {
                 // TODO Auto-generated method stub
                 if (!gui.session.isInGame) {
-                    System.out.println("Starting game");
+                    System.out.println("Loading game");
                 }
             }
         });
 
-        activeRegions.put(new Rectangle(412, 528, 454, 122), new BSGameStateActor() {
+        activeRegions.put(new Rectangle(450, 586, 320, 148), new BSGameStateActor() {
 
             @Override
             public void act(BSInterface gui) {
                 // TODO Auto-generated method stub
                 if (!gui.session.isInGame) {
-                    System.out.println("Starting game");
+                    System.out.println("Quitting game completely.");
+                    Gdx.app.exit();
+                }
+            }
+        });
+
+        activeRegions.put(new Rectangle(472, 187, 385, 104), new BSGameStateActor() {
+
+            @Override
+            public void act(BSInterface gui) {
+                // TODO Auto-generated method stub
+                if(gui.session.isPaused) {
+                    System.out.println("Resuming game.");
+                    gui.session.isPaused = false;
+                }
+            }
+        });
+
+        activeRegions.put(new Rectangle(472, 291, 282, 102), new BSGameStateActor() {
+
+            @Override
+            public void act(BSInterface gui) {
+                // TODO Auto-generated method stub
+                if(gui.session.isPaused) {
+                    gui.player.state.save();
+                    gui.session.isPaused = false;
+                }
+            }
+        });
+
+        activeRegions.put(new Rectangle(472, 393, 282, 152), new BSGameStateActor() {
+
+            @Override
+            public void act(BSInterface gui) {
+                // TODO Auto-generated method stub
+                if(gui.session.isPaused) {
+                    System.out.println("Quitting game.");
+                    gui.session.isPaused = false;
+                    gui.session.isInGame = false;
                 }
             }
         });
@@ -266,6 +308,7 @@ public class BSInterface {
      * Dims the screen and displays the pause menu
      */
     private void MakePauseScreen() {
+        menu.draw(controls);
     }
     private void MakeTitleScreen() {
         title.draw(controls);
@@ -301,6 +344,7 @@ public class BSInterface {
         menubutton.setPosition(Gdx.graphics.getWidth()  - menubutton.getWidth(),
                                Gdx.graphics.getHeight() - menubutton.getHeight());
         title = new Sprite(BSAsset.TITLE.getTextureRegion(assets));
+        menu = new Sprite(BSAsset.MENU.getTextureRegion(assets));
     }
     public void dispose() {
         cambatch.dispose();
