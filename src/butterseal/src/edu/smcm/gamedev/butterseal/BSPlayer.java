@@ -104,8 +104,7 @@ public class BSPlayer {
             this.state.currentMap = this.nextmap;
             this.nextmap = null;
             this.place(oldkey);
-            this.state.currentMap.update.update(this.state);
-            this.state.currentMap.update.act(this.state);
+            this.state.currentMap.usePower(state);
         }
 
 
@@ -160,6 +159,7 @@ public class BSPlayer {
         // check to see if we need to move maps
         HashMap<String,String> props = this.getFacingTile().getProperties(this.state.currentMap).get("player");
         if (props.containsKey("player")) {
+            this.state.currentMap.reset(state);
             this.nextmap = BSMap.getByKey(props.get("player"));
         }
 
@@ -283,10 +283,10 @@ public class BSPlayer {
             if(BSSession.DEBUG > 2) {
                 System.out.println("Using power " + this.state.selectedPower);
             }
+            this.state.isUsingPower = true;
+            this.state.currentMap.usePower(this.state);
         }
         this.state.isSelectingPower = false;
-        this.state.isUsingPower = true;
-        this.state.currentMap.usePower(this.state);
     }
 
     public Vector2 getV2() {

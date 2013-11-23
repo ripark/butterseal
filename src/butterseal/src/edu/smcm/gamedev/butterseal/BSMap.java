@@ -15,19 +15,14 @@ public enum BSMap {
     ICE_CAVE_ENTRY(BSAsset.ICE_CAVE_ENTRY, "ice-cave-entry", new BSGameStateActor() {
         @Override
         public void act(BSGameState state) {
-//            for(int row = 0; row < state.currentMap.playerLevel.getHeight(); row++) {
-//                for(int col = 0; col < state.currentMap.playerLevel.getWidth(); col++) {
-//                    BSTile curr = new BSTile(col, row);
-//                    Map<String, HashMap<String, String>> props = curr.getProperties(state.currentMap);
-//
-//                }
-//            }
         }
 
         @Override
         public void update(BSGameState state) {
-            // TODO Auto-generated method stub
+        }
 
+        @Override
+        public void reset(BSGameState state) {
         }
     }),
     ICE_CAVE(BSAsset.ICE_CAVE, "ice-cave", new BSGameStateActor() {
@@ -124,29 +119,47 @@ public enum BSMap {
             for(int row = 0; row < m.playerLevel.getHeight(); row++) {
                 for(int col = 0; col < m.playerLevel.getWidth(); col++) {
                     BSTile curr = new BSTile(row, col);
-                    if(!curr.hasProperty(dark, "lit", "true")) {
-                        curr.setProperty(m.playerLevel, "wall", "true");
-                    } else {
+                    if(curr.hasProperty(dark, "lit", "true")) {
                         curr.setProperty(m.playerLevel, "wall", "false");
+                    } else {
+                        curr.setProperty(m.playerLevel, "wall", "true");
                     }
                 }
             }
+        }
+
+        @Override
+        public void reset(BSGameState state) {
+//            BSMap m = state.currentMap;
+//            TiledMapTileLayer dark = m.getLayer("uncover");
+//            TiledMapTileLayer light = m.getLayer("player");
+//
+//            for(MapLayer l : m.map.getLayers()) {
+//                TiledMapTileLayer t = (TiledMapTileLayer) l;
+//                for(int row = 0; row < m.playerLevel.getHeight(); row++) {
+//                    for(int col = 0; col < m.playerLevel.getWidth(); col++) {
+//                        BSTile curr = new BSTile(row, col);
+//                        if(curr.hasProperty(light, "beacon", "on")) {
+//                            curr.setProperty(m.playerLevel, "beacon", "off");
+//                        } else {
+//                            curr.setProperty(m.playerLevel, "wall", "true");
+//                        }
+//                    }
+//                }
+//            }
         }
 	}),
 	HOUSE(BSAsset.HOUSE, "house", new BSGameStateActor() {
         @Override
         public void act(BSGameState state) {
-            BSMap m = state.currentMap;
-            for(int row = 0; row < m.playerLevel.getHeight(); row++) {
-                for(int col = 0; col < m.playerLevel.getWidth(); col++) {
-                }
-            }
         }
 
         @Override
         public void update(BSGameState state) {
-            // TODO Auto-generated method stub
+        }
 
+        @Override
+        public void reset(BSGameState state) {
         }
     });
 
@@ -205,6 +218,10 @@ public enum BSMap {
 
     public TiledMapTileLayer getLayer(String name) {
         return (TiledMapTileLayer) this.map.getLayers().get(name);
+    }
+
+    public void reset(BSGameState state) {
+        this.update.reset(state);
     }
 }
 

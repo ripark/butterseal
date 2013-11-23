@@ -78,8 +78,7 @@ public class BSInterface {
 
         key_state.put(Input.Keys.Z, false);
         key_state.put(Input.Keys.C, false);
-        player.state.currentMap.update.update(player.state);
-        player.state.currentMap.update.act(player.state);
+        player.state.currentMap.usePower(player.state);
     }
 
     private void LoadActiveRegions() {

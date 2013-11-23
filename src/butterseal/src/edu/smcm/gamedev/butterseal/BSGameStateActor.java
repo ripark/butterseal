@@ -7,4 +7,5 @@ public interface BSGameStateActor {
      */
     public void act(BSGameState state);
     public void update(BSGameState state);
+    public void reset(BSGameState state);
 }
