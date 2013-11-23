@@ -376,8 +376,10 @@ public class BSInterface {
         cambatch.setProjectionMatrix(camera.combined);
     }
 
+
+    ShapeRenderer rend = new ShapeRenderer();
+
     private void DrawActiveRegions() {
-        ShapeRenderer rend = new ShapeRenderer();
         int h = Gdx.graphics.getHeight();
         rend.begin(ShapeType.Line);
         for(Rectangle r : activeRegions.keySet()) {
