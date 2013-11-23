@@ -21,9 +21,6 @@ public class BSTile {
     }
 
     public Map<String, HashMap<String, String>> getProperties(BSMap map) {
-        return getProperties(map, true);
-    }
-    public Map<String, HashMap<String, String>> getProperties(BSMap map, boolean debug) {
         Map<String, HashMap<String, String>> ret = new HashMap<String, HashMap<String, String>>();
 
         for(MapLayer mlayer : map.map.getLayers()) {
@@ -36,7 +33,7 @@ public class BSTile {
                 HashMap<String, String> thislayer = new HashMap<String, String>();
                 for(Iterator<String> i = prop.getKeys(); i.hasNext();) {
                     String mykey = i.next();
-                    if(debug) {
+                    if(BSSession.DEBUG) {
                         System.out.printf("%s:%s::%d,%d:%s=%s%n", map.asset.assetPath, layer.getName(), x, y, mykey, prop.get(mykey));
                     }
                     thislayer.put(mykey, prop.get(mykey).toString());

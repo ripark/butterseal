@@ -51,7 +51,9 @@ public class BSGameState {
      * Saves this game to the slot it was opened with.
      */
     public void save() {
-        System.out.println("GameState saving game.");
+        if(BSSession.DEBUG) {
+            System.out.println("GameState saving game.");
+        }
     }
 
     public void begin() {

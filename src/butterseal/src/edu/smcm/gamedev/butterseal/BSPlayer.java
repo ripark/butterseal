@@ -144,7 +144,9 @@ public class BSPlayer {
         }
         this.state.isMoving = true;
         if(direction != state.facing) {
-            System.out.println("Moving " + direction);
+            if(BSSession.DEBUG) {
+                System.out.println("Moving " + direction);
+            }
         }
         switch(direction) {
         case NORTH:
@@ -249,14 +251,18 @@ public class BSPlayer {
     public void setPower(BSPower power) {
         if(this.state.selectedPower != power) {
             this.state.isSelectingPower = true;
-            System.out.println("Setting power to " + power);
+            if(BSSession.DEBUG) {
+                System.out.println("Setting power to " + power);
+            }
             this.state.selectedPower = power;
         }
     }
 
     public void usePower() {
         if(!state.isUsingPower) {
-            System.out.println("Using power " + this.state.selectedPower);
+            if(BSSession.DEBUG) {
+                System.out.println("Using power " + this.state.selectedPower);
+            }
         }
         this.state.isSelectingPower = false;
         this.state.isUsingPower = false;

@@ -31,8 +31,6 @@ import com.badlogic.gdx.math.Rectangle;
  *
  */
 public class BSInterface {
-    static final boolean DEBUG_MODE = true;
-
     BSSession session;
     BSPlayer player;
 
@@ -125,7 +123,9 @@ public class BSInterface {
                 if(gui.session.isInGame) {
                     if(!gui.session.isPaused) {
                         gui.session.isPaused = true;
-                        System.out.println("Pausing game.");
+                        if(BSSession.DEBUG) {
+                            System.out.println("Pausing game.");
+                        }
                     }
                 }
             }
@@ -135,7 +135,9 @@ public class BSInterface {
             public void act(BSInterface gui) {
                 // TODO Auto-generated method stub
                 if (!gui.session.isInGame) {
-                    System.out.println("Starting game.");
+                    if(BSSession.DEBUG) {
+                        System.out.println("Starting game.");
+                    }
                     gui.session.isInGame = true;
                 }
             }
@@ -146,7 +148,9 @@ public class BSInterface {
             public void act(BSInterface gui) {
                 // TODO Auto-generated method stub
                 if (!gui.session.isInGame) {
-                    System.out.println("Loading game");
+                    if(BSSession.DEBUG) {
+                        System.out.println("Loading game");
+                    }
                 }
             }
         });
@@ -156,7 +160,9 @@ public class BSInterface {
             public void act(BSInterface gui) {
                 // TODO Auto-generated method stub
                 if (!gui.session.isInGame) {
-                    System.out.println("Quitting game completely.");
+                    if(BSSession.DEBUG) {
+                        System.out.println("Quitting game completely.");
+                    }
                     gui.dispose();
                     Gdx.app.exit();
                 }
@@ -168,7 +174,9 @@ public class BSInterface {
             public void act(BSInterface gui) {
                 // TODO Auto-generated method stub
                 if(gui.session.isPaused) {
-                    System.out.println("Resuming game.");
+                    if(BSSession.DEBUG) {
+                        System.out.println("Resuming game.");
+                    }
                     gui.session.isPaused = false;
                 }
             }
@@ -179,6 +187,9 @@ public class BSInterface {
             public void act(BSInterface gui) {
                 // TODO Auto-generated method stub
                 if(gui.session.isPaused) {
+                    if(BSSession.DEBUG) {
+                        System.out.println("Handling save action");
+                    }
                     gui.player.state.save();
                     gui.session.isPaused = false;
                 }
@@ -190,7 +201,9 @@ public class BSInterface {
             public void act(BSInterface gui) {
                 // TODO Auto-generated method stub
                 if(gui.session.isPaused) {
-                    System.out.println("Quitting game.");
+                    if(BSSession.DEBUG) {
+                        System.out.println("Quitting game.");
+                    }
                     gui.session.isPaused = false;
                     gui.session.isInGame = false;
                 }
@@ -201,7 +214,9 @@ public class BSInterface {
             @Override
             public void act(BSInterface gui) {
                 // TODO Auto-generated method stub
-                System.out.println("Going left.");
+                if(BSSession.DEBUG) {
+                    System.out.println("Going left.");
+                }
                 gui.player.move(BSDirection.WEST);
             }
         });
@@ -210,7 +225,9 @@ public class BSInterface {
             @Override
             public void act(BSInterface gui) {
                 // TODO Auto-generated method stub
-                System.out.println("Going right.");
+                if(BSSession.DEBUG) {
+                    System.out.println("Going right.");
+                }
                 gui.player.move(BSDirection.EAST);
             }
         });
@@ -219,7 +236,9 @@ public class BSInterface {
             @Override
             public void act(BSInterface gui) {
                 // TODO Auto-generated method stub
-                System.out.println("Going up.");
+                if(BSSession.DEBUG) {
+                    System.out.println("Going up.");
+                }
                 gui.player.move(BSDirection.NORTH);
             }
         });
@@ -228,7 +247,9 @@ public class BSInterface {
             @Override
             public void act(BSInterface gui) {
                 // TODO Auto-generated method stub
-                System.out.println("Going down.");
+                if(BSSession.DEBUG) {
+                    System.out.println("Going down.");
+                }
                 gui.player.move(BSDirection.SOUTH);
             }
         });
@@ -237,7 +258,9 @@ public class BSInterface {
             @Override
             public void act(BSInterface gui) {
                 // TODO Auto-generated method stub
-                System.out.println("power left");
+                if(BSSession.DEBUG) {
+                    System.out.println("power left");
+                }
                 gui.player.setPower(-1);
             }
         });
@@ -246,7 +269,9 @@ public class BSInterface {
             @Override
             public void act(BSInterface gui) {
                 // TODO Auto-generated method stub
-                System.out.println("power right");
+                if(BSSession.DEBUG) {
+                    System.out.println("power right");
+                }
                 gui.player.setPower(1);
             }
         });
@@ -255,7 +280,9 @@ public class BSInterface {
             @Override
             public void act(BSInterface gui) {
                 // TODO Auto-generated method stub
-                System.out.println("power select");
+                if(BSSession.DEBUG) {
+                    System.out.println("power select");
+                }
                 gui.player.usePower();
             }
         });
@@ -360,12 +387,14 @@ public class BSInterface {
             MakeTitleScreen();
             controls.end();
         }
-        DrawActiveRegions();
+        if(BSSession.DEBUG) {
+            DrawActiveRegions();
+        }
         if(player.state.isWTF) {
             camera.rotate(1f);
         }
 
-        if(DEBUG_MODE) {
+        if(BSSession.DEBUG) {
             controls.begin();
             font.draw(controls,
                     String.format("FPS: %d", Gdx.graphics.getFramesPerSecond()),
@@ -450,7 +479,9 @@ public class BSInterface {
     }
     public void dispose() {
         for(BSMap m : BSMap.values()) {
-            System.out.printf("Unloading map %s%n", m.asset.assetPath);
+            if(BSSession.DEBUG) {
+                System.out.printf("Unloading map %s%n", m.asset.assetPath);
+            }
             m.map.dispose();
         }
         cambatch.dispose();
