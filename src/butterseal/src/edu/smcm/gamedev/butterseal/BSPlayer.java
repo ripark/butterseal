@@ -63,7 +63,7 @@ public class BSPlayer {
      * The pixels yet to move
      */
     Vector2 displacement;
-    private static final float SCALE = 2.5f;
+    private static final float SCALE = 5f;
     /**
      * Frames to take per move
      */
@@ -287,11 +287,12 @@ public class BSPlayer {
 
     public void place(float x, float y) {
         // TODO make this less trial-and-error-y
-        camera.position.set(x, y+5, 1);
+        camera.position.set(x, y, 1);
         Matrix4 projection = new Matrix4(camera.combined);
         // normalize to bottom-left corner
-        x -= .3f * SCALE;
-        y -= .3f * SCALE;
+        x -= .8f;
+        y -= .75f;
+        // TODO have this not be <em> awful </em>
 
         // TODO center on tile
 
