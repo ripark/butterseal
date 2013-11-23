@@ -40,6 +40,11 @@
     <property name="invisible" value="true"/>
    </properties>
   </tile>
+  <tile id="95">
+   <properties>
+    <property name="wall" value="true"/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="player" width="40" height="25">
   <data encoding="base64">

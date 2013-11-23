@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -217,8 +219,10 @@ public class BSPlayer {
             return false;
         }
 
-        if (adj.hasProperty(state.currentMap.playerLevel, "wall", "true")) {
-            return false;
+        for (MapLayer t : state.currentMap.map.getLayers()) {
+            if (adj.hasProperty((TiledMapTileLayer)t, "wall", "true")) {
+                return false;
+            }
         }
 
         return true;
