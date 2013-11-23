@@ -438,7 +438,7 @@ public class BSInterface {
         assets.finishLoading();
 
         dpad = new Sprite(BSAsset.DIRECTIONAL_PAD.getTextureRegion(assets));
-        dpad.setBounds(0, 0, 196, 196);
+        dpad.setBounds(0, 0, 256, 256);
         menubutton = new Sprite(BSAsset.MENU_BUTTON.getTextureRegion(assets));
         menubutton.setPosition(Gdx.graphics.getWidth()  - menubutton.getWidth(),
                                Gdx.graphics.getHeight() - menubutton.getHeight());
