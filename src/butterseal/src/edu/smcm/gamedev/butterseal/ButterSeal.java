@@ -27,7 +27,9 @@ public class ButterSeal implements ApplicationListener {
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
-        gui.poll(Gdx.input);
+        if(!gui.player.state.isMoving) {
+            gui.poll(Gdx.input);
+        }
         gui.draw();
     }
 
