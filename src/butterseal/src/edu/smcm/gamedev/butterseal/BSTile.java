@@ -21,7 +21,7 @@ public class BSTile {
     }
 
     public Map<String, HashMap<String, String>> getProperties(BSMap map) {
-        return getProperties(map, false);
+        return getProperties(map, true);
     }
     public Map<String, HashMap<String, String>> getProperties(BSMap map, boolean debug) {
         Map<String, HashMap<String, String>> ret = new HashMap<String, HashMap<String, String>>();

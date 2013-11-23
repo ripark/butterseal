@@ -50,6 +50,8 @@ public class BSInterface {
 
     private Sprite menu;
 
+    private Sprite powerbar;
+
     public BSInterface(BSSession session) {
         font = new BitmapFont();
         assets = new AssetManager();
@@ -77,11 +79,47 @@ public class BSInterface {
     }
 
     private void LoadActiveRegions() {
-        Rectangle mb = vFlipRectangle(menubutton.getBoundingRectangle());
-        mb.height -= 23;
-        mb.width -= 8;
-        mb.x += 8;
-        activeRegions.put(mb, new BSGameStateActor() {
+        final int VOFFSET = -50;
+
+
+        Rectangle r_menu_button = vFlipRectangle(menubutton.getBoundingRectangle());
+        r_menu_button.height -= 23;
+        r_menu_button.width -= 8;
+        r_menu_button.x += 8;
+
+        Rectangle r_start_game = new Rectangle(477, 348, 286, 100);
+        Rectangle r_load_game = new Rectangle(477, 450, 286, 120);
+        Rectangle r_quit_game = new Rectangle(450, 586, 320, 148);
+        Rectangle r_resume = new Rectangle(472, 187, 385, 104);
+        Rectangle r_save = new Rectangle(472, 291, 282, 102);
+        Rectangle r_quit = new Rectangle(472, 393, 282, 152);
+        int h = Gdx.graphics.getHeight();
+        int w = Gdx.graphics.getWidth();
+        float hh = Math.abs(dpad.getHeight() - h);
+        float xx = dpad.getWidth()/3;
+        float yy = dpad.getHeight()/3;
+        Rectangle r_dpad_left =    new Rectangle(dpad.getY() + 0, hh + yy, xx, yy);
+        Rectangle r_dpad_up =      new Rectangle(dpad.getY() + xx, hh, xx, yy);
+        Rectangle r_dpad_right =   new Rectangle(dpad.getY() + 2 * xx, hh + yy, xx, yy);
+        Rectangle r_dpad_down =    new Rectangle(dpad.getY() + xx, hh + 2 * yy, xx, yy);
+        Rectangle r_power_left =   new Rectangle(powerbar.getX(),
+                                                 h - powerbar.getHeight() - powerbar.getY(),
+                                                 powerbar.getHeight(), powerbar.getHeight());
+        Rectangle r_power_right =  new Rectangle(powerbar.getX() + 2*powerbar.getHeight(),
+                                                 h - powerbar.getHeight() - powerbar.getY(),
+                                                 powerbar.getHeight(), powerbar.getHeight());
+        Rectangle r_power_select = new Rectangle(powerbar.getX() + powerbar.getHeight(),
+                                                 h - powerbar.getHeight() - powerbar.getY(),
+                                                 powerbar.getHeight(), powerbar.getHeight());
+        r_start_game.y += VOFFSET;
+        r_load_game.y += VOFFSET;
+        r_quit_game.y += VOFFSET;
+        r_resume.y += VOFFSET;
+        r_save.y += VOFFSET;
+        r_quit.y += VOFFSET;
+
+
+        activeRegions.put(r_menu_button, new BSGameStateActor() {
             @Override
             public void act(BSInterface gui) {
                 if(gui.session.isInGame) {
@@ -92,8 +130,7 @@ public class BSInterface {
                 }
             }
         });
-
-        activeRegions.put(new Rectangle(477, 348, 286, 100), new BSGameStateActor() {
+        activeRegions.put(r_start_game, new BSGameStateActor() {
             @Override
             public void act(BSInterface gui) {
                 // TODO Auto-generated method stub
@@ -103,8 +140,7 @@ public class BSInterface {
                 }
             }
         });
-
-        activeRegions.put(new Rectangle(477, 450, 286, 120), new BSGameStateActor() {
+        activeRegions.put(r_load_game, new BSGameStateActor() {
 
             @Override
             public void act(BSInterface gui) {
@@ -114,20 +150,19 @@ public class BSInterface {
                 }
             }
         });
-
-        activeRegions.put(new Rectangle(450, 586, 320, 148), new BSGameStateActor() {
+        activeRegions.put(r_quit_game, new BSGameStateActor() {
 
             @Override
             public void act(BSInterface gui) {
                 // TODO Auto-generated method stub
                 if (!gui.session.isInGame) {
                     System.out.println("Quitting game completely.");
+                    gui.dispose();
                     Gdx.app.exit();
                 }
             }
         });
-
-        activeRegions.put(new Rectangle(472, 187, 385, 104), new BSGameStateActor() {
+        activeRegions.put(r_resume, new BSGameStateActor() {
 
             @Override
             public void act(BSInterface gui) {
@@ -138,8 +173,7 @@ public class BSInterface {
                 }
             }
         });
-
-        activeRegions.put(new Rectangle(472, 291, 282, 102), new BSGameStateActor() {
+        activeRegions.put(r_save, new BSGameStateActor() {
 
             @Override
             public void act(BSInterface gui) {
@@ -150,8 +184,7 @@ public class BSInterface {
                 }
             }
         });
-
-        activeRegions.put(new Rectangle(472, 393, 282, 152), new BSGameStateActor() {
+        activeRegions.put(r_quit, new BSGameStateActor() {
 
             @Override
             public void act(BSInterface gui) {
@@ -161,6 +194,69 @@ public class BSInterface {
                     gui.session.isPaused = false;
                     gui.session.isInGame = false;
                 }
+            }
+        });
+        activeRegions.put(r_dpad_left, new BSGameStateActor() {
+
+            @Override
+            public void act(BSInterface gui) {
+                // TODO Auto-generated method stub
+                System.out.println("Going left.");
+                gui.player.move(BSDirection.WEST);
+            }
+        });
+        activeRegions.put(r_dpad_right, new BSGameStateActor() {
+
+            @Override
+            public void act(BSInterface gui) {
+                // TODO Auto-generated method stub
+                System.out.println("Going right.");
+                gui.player.move(BSDirection.EAST);
+            }
+        });
+        activeRegions.put(r_dpad_up, new BSGameStateActor() {
+
+            @Override
+            public void act(BSInterface gui) {
+                // TODO Auto-generated method stub
+                System.out.println("Going up.");
+                gui.player.move(BSDirection.NORTH);
+            }
+        });
+        activeRegions.put(r_dpad_down, new BSGameStateActor() {
+
+            @Override
+            public void act(BSInterface gui) {
+                // TODO Auto-generated method stub
+                System.out.println("Going down.");
+                gui.player.move(BSDirection.SOUTH);
+            }
+        });
+        activeRegions.put(r_power_left, new BSGameStateActor() {
+
+            @Override
+            public void act(BSInterface gui) {
+                // TODO Auto-generated method stub
+                System.out.println("power left");
+                gui.player.setPower(-1);
+            }
+        });
+        activeRegions.put(r_power_right, new BSGameStateActor() {
+
+            @Override
+            public void act(BSInterface gui) {
+                // TODO Auto-generated method stub
+                System.out.println("power right");
+                gui.player.setPower(1);
+            }
+        });
+        activeRegions.put(r_power_select, new BSGameStateActor() {
+
+            @Override
+            public void act(BSInterface gui) {
+                // TODO Auto-generated method stub
+                System.out.println("power select");
+                gui.player.usePower();
             }
         });
     }
@@ -215,6 +311,7 @@ public class BSInterface {
         }
 
         if (input.isKeyPressed(Input.Keys.ESCAPE)) {
+            this.dispose();
             Gdx.app.exit();
         }
     }
@@ -291,7 +388,7 @@ public class BSInterface {
     }
 
     private void MakePowerBar() {
-
+        powerbar.draw(controls);
     }
     private void MakePowerSelector() {
 
@@ -345,8 +442,15 @@ public class BSInterface {
                                Gdx.graphics.getHeight() - menubutton.getHeight());
         title = new Sprite(BSAsset.TITLE.getTextureRegion(assets));
         menu = new Sprite(BSAsset.MENU.getTextureRegion(assets));
+
+        powerbar = new Sprite(BSAsset.POWERBAR_ACTION.getTextureRegion(assets));
+        powerbar.setPosition(Gdx.graphics.getWidth() - powerbar.getWidth() + 50, 25);
     }
     public void dispose() {
+        for(BSMap m : BSMap.values()) {
+            System.out.printf("Unloading map %s%n", m.asset.assetPath);
+            m.map.dispose();
+        }
         cambatch.dispose();
         controls.dispose();
         assets.dispose();
