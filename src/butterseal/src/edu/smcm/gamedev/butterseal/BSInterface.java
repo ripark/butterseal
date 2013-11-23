@@ -138,7 +138,7 @@ public class BSInterface {
             public void act(BSInterface gui) {
                 // TODO Auto-generated method stub
                 if (!gui.session.isInGame) {
-                    if(BSSession.DEBUG > 0) {
+                    if(BSSession.DEBUG > 1) {
                         System.out.println("Starting game.");
                     }
                     gui.session.isInGame = true;

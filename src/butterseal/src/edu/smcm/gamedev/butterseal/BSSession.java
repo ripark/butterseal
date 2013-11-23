@@ -8,7 +8,7 @@ package edu.smcm.gamedev.butterseal;
  *
  */
 public class BSSession {
-    public static int DEBUG = 3;
+    public static int DEBUG = 1;
     boolean isInGame;
     boolean isPaused;
     BSGameState state;

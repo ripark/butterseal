@@ -268,7 +268,7 @@ public class BSPlayer {
     public void setPower(BSPower power) {
         if(this.state.selectedPower != power) {
             this.state.isSelectingPower = true;
-            if(BSSession.DEBUG > 0) {
+            if(BSSession.DEBUG > 2) {
                 System.out.println("Setting power to " + power);
             }
             this.state.selectedPower = power;
@@ -277,7 +277,7 @@ public class BSPlayer {
 
     public void usePower() {
         if(!state.isUsingPower) {
-            if(BSSession.DEBUG > 0) {
+            if(BSSession.DEBUG > 2) {
                 System.out.println("Using power " + this.state.selectedPower);
             }
         }
