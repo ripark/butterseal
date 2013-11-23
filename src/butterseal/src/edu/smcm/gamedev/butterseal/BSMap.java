@@ -30,7 +30,6 @@ public enum BSMap {
         public void act(BSGameState state) {
             BSMap m = state.currentMap;
             TiledMapTileLayer dark = m.getLayer("uncover");
-            TiledMapTileLayer playerLevel = m.getLayer("player");
             TiledMapTile invis = BSTile.getTileForProperty(m, "invisible", "true");
 
             for(int row = 0; row < m.playerLevel.getHeight(); row++) {
@@ -56,11 +55,11 @@ public enum BSMap {
                                     }
                                 }
                             }
-                        } else if (curr.hasProperty(playerLevel, "light", "beacon")) {
+                        } else if (curr.hasProperty(m.playerLevel, "light", "beacon")) {
                             if(BSSession.DEBUG > 3) {
                                 System.out.println("found beacon");
                             }
-                            if(curr.hasProperty(playerLevel, "beacon", "on")) {
+                            if(curr.hasProperty(m.playerLevel, "beacon", "on")) {
                                 for (int i = -1; i <= 1; i++) {
                                     for (int j = -1; j <= 1; j++) {
                                         Cell point = new BSTile(row + i, col + j).getCell(dark);
@@ -78,12 +77,13 @@ public enum BSMap {
                                         System.out.println("Clearing " + d);
                                     }
                                     BSTile point = new BSTile(curr);
-                                    while(point.isContainedIn(playerLevel) && !point.hasProperty(playerLevel, "wall", "true")) {
+                                    while(point.isContainedIn(m.playerLevel) &&
+                                         !point.hasProperty(m.playerLevel, "wall", "true")) {
                                         point.getCell(dark).setTile(invis);
                                         point.setProperty(dark, "lit", "true");
                                         point.transpose(d.dx, d.dy);
                                     }
-                                    if(point.isContainedIn(playerLevel)) {
+                                    if(point.isContainedIn(m.playerLevel)) {
                                         point.getCell(dark).setTile(invis);
                                         point.setProperty(dark, "lit", "true");
                                     }
