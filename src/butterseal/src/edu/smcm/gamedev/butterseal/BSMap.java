@@ -26,9 +26,18 @@ public enum BSMap {
             public void run() {
                 // game logic
             }
+	}),
+	TEST64(BSAsset.TEST64, "test", new Runnable() {
+
+        @Override
+        public void run() {
+            // TODO Auto-generated method stub
+
+        }
+
 	});
 
-    static final float PIXELS_PER_TILE = 32;
+    static final float PIXELS_PER_TILE = 64;
 
     TiledMap map;
     OrthogonalTiledMapRenderer renderer;
