@@ -13,7 +13,7 @@ public class BSSession {
     BSGameState state;
 
     public BSSession() {
-        isInGame = true;
+        isInGame = false;
         isPaused = false;
     }
 
