@@ -17,7 +17,9 @@ public enum BSAsset {
     PLAYER_IDLE_STATE( 64,  64, "data/spritesheets/player_idle_state.png"),
     DIRECTIONAL_PAD  (512, 512, "data/interface/dpad.png"),
     MENU_BUTTON      (120, 123, "data/interface/menu-button.png"),
-    MENU             (800, 1280, "data/interface/menu.png");
+    MENU             (800, 1280, "data/interface/menu.png"),
+    POWERBAR_ACTION  (128, 448, "data/interface/abilities/action.png"),
+    POWERBAR_FIRE    (128, 448, "data/interface/abilities/fire.png");
 
     /**
      * Intended height of this sprite in pixels
