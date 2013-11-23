@@ -9,7 +9,7 @@ public enum BSAsset {
     ICE_CAVE         ( -1,  -1, "data/maps/ice-cave.tmx"),
     ICE_CAVE_ENTRY   ( -1,  -1, "data/maps/ice-cave-entry.tmx"),
     TEST64           ( -1,  -1, "data/maps/sixfour.tmx"),
-    TITLE            (800, 1280, "data/images/title.png"),
+    TITLE            (800, 1280, "data/interface/title.png"),
     PLAYER_WALK_UP   ( 64,  64, "data/spritesheets/player_walk_up.png"),
     PLAYER_WALK_DOWN ( 64,  64, "data/spritesheets/player_walk_down.png"),
     PLAYER_WALK_LEFT ( 64,  64, "data/spritesheets/player_walk_left.png"),
