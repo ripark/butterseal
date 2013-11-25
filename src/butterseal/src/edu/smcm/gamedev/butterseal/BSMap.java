@@ -138,23 +138,6 @@ public enum BSMap {
 
         @Override
         public void reset(BSGameState state) {
-//            BSMap m = state.currentMap;
-//            TiledMapTileLayer dark = m.getLayer("uncover");
-//            TiledMapTileLayer light = m.getLayer("player");
-//
-//            for(MapLayer l : m.map.getLayers()) {
-//                TiledMapTileLayer t = (TiledMapTileLayer) l;
-//                for(int row = 0; row < m.playerLevel.getHeight(); row++) {
-//                    for(int col = 0; col < m.playerLevel.getWidth(); col++) {
-//                        BSTile curr = new BSTile(row, col);
-//                        if(curr.hasProperty(light, "beacon", "on")) {
-//                            curr.setProperty(m.playerLevel, "beacon", "off");
-//                        } else {
-//                            curr.setProperty(m.playerLevel, "wall", "true");
-//                        }
-//                    }
-//                }
-//            }
         }
 	}),
 	HOUSE(BSAsset.HOUSE, "house", new BSGameStateActor() {
