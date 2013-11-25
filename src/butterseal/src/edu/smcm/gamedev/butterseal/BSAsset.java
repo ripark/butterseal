@@ -1,6 +1,7 @@
 package edu.smcm.gamedev.butterseal;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -19,7 +20,9 @@ public enum BSAsset {
     MENU             (800,1280, "data/interface/menu.png"),
     POWERBAR_ACTION  (128, 448, "data/interface/abilities/action.png"),
     POWERBAR_FIRE    (128, 448, "data/interface/abilities/fire.png"),
-    MENU_ABOUT       (800,1280, "data/interface/about.png");
+    MENU_ABOUT       (800,1280, "data/interface/about.png"),
+    FIRST_MUSIC      ( -1,  -1, "data/music/part1.mp3"),
+    SECOND_MUSIC     ( -1,  -1, "data/music/part2.mp3");
 
     /**
      * Intended height of this sprite in pixels
@@ -57,6 +60,18 @@ public enum BSAsset {
             return new TextureRegion(assets.get(this.assetPath, Texture.class), 0, 0, this.height, this.width);
         }
         return null;
+    }
+
+    void playMusic(AssetManager assets) {
+        if(this.assetPath.endsWith(".mp3")) {
+            assets.get(this.assetPath, Music.class).play();
+        }
+    }
+
+    void pauseMusic(AssetManager assets) {
+        if(this.assetPath.endsWith(".mp3")) {
+            assets.get(this.assetPath, Music.class).pause();
+        }
     }
 }
 // Local Variables:
