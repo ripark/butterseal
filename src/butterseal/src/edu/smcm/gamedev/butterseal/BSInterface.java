@@ -7,6 +7,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -35,6 +36,7 @@ public class BSInterface {
     BSSession session;
     BSPlayer player;
 
+    Music firstmusic, secondmusic;
     SpriteBatch cambatch;
     SpriteBatch controls;
     AssetManager assets;
@@ -66,6 +68,7 @@ public class BSInterface {
 
         this.session = session;
         this.player = new BSPlayer(session.state);
+        BSGameState.ASSETS = assets;
 
 
         final int TILE_HEIGHT=20, TILE_WIDTH=30;
@@ -139,6 +142,8 @@ public class BSInterface {
         activeRegions.put(r_menu_button, new BSInterfaceActor() {
             @Override
             public void act(BSInterface gui) {
+                firstmusic.pause();
+                secondmusic.pause();
                 gui.session.screen = BSSessionState.PAUSED;
                 if (BSSession.DEBUG > 0) {
                     System.out.println("Pausing game.");
@@ -157,6 +162,16 @@ public class BSInterface {
                     System.out.println("Starting game.");
                 }
                 gui.session.screen = BSSessionState.INGAME;
+                switch(gui.session.state.music) {
+                case FIRST_MUSIC:
+                    firstmusic.play();
+                    break;
+                case SECOND_MUSIC:
+                    secondmusic.play();
+                    break;
+                default:
+                    throw new IllegalStateException();
+                }
             }
 
             @Override
@@ -200,6 +215,16 @@ public class BSInterface {
                     System.out.println("Resuming game.");
                 }
                 gui.session.screen = BSSessionState.INGAME;
+                switch(gui.session.state.music) {
+                case FIRST_MUSIC:
+                    firstmusic.play();
+                    break;
+                case SECOND_MUSIC:
+                    secondmusic.play();
+                    break;
+                default:
+                    throw new IllegalStateException();
+                }
             }
 
             @Override
@@ -574,6 +599,8 @@ public class BSInterface {
                 assets.load(asset.assetPath, Texture.class);
             } else if (asset.assetPath.endsWith(".tmx")) {
                 assets.load(asset.assetPath, TiledMap.class);
+            } else if (asset.assetPath.endsWith(".mp3")) {
+                assets.load(asset.assetPath, Music.class);
             } else {
                 System.err.print("No loader found for " + asset.assetPath);
                 System.exit(1);
@@ -593,6 +620,10 @@ public class BSInterface {
         powerbar.setPosition(Gdx.graphics.getWidth() - powerbar.getWidth() + 50, 25);
 
         about_screen = new Sprite(BSAsset.MENU_ABOUT.getTextureRegion(assets));
+
+        firstmusic = Gdx.audio.newMusic(Gdx.files.internal(BSAsset.FIRST_MUSIC.assetPath));
+        secondmusic = Gdx.audio.newMusic(Gdx.files.internal(BSAsset.SECOND_MUSIC.assetPath));
+
     }
     public void dispose() {
         for(BSMap m : BSMap.values()) {

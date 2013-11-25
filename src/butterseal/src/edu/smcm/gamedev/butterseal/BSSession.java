@@ -1,5 +1,6 @@
 package edu.smcm.gamedev.butterseal;
 
+
 /**
  * Handles a ButterSeal session overall.
  * This state is not tied to any particular game,
@@ -8,9 +9,10 @@ package edu.smcm.gamedev.butterseal;
  *
  */
 public class BSSession {
-    public static int DEBUG = 5;
+    public static int DEBUG = 0;
     BSSessionState screen;
     BSGameState state;
+    BSInterface gui;
 
     public BSSession() {
         screen = BSSessionState.TITLE;

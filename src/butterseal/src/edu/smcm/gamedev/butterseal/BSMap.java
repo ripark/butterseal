@@ -124,6 +124,16 @@ public enum BSMap {
                 state.isUsingPower = false;
             }
 
+            if (state.isUsingPower && state.selectedPower == BSPower.ACTION) {
+                if (state.currentTile.hasProperty(light, "money", "1")) {
+                    if (state.music == BSAsset.FIRST_MUSIC) {
+                        state.music.pauseMusic(BSGameState.ASSETS);
+                        state.music = BSAsset.SECOND_MUSIC;
+                        state.music.playMusic(BSGameState.ASSETS);
+                    }
+                }
+            }
+
             for(int row = 0; row < m.playerLevel.getHeight(); row++) {
                 for(int col = 0; col < m.playerLevel.getWidth(); col++) {
                     BSTile curr = new BSTile(row, col);

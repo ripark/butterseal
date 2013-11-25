@@ -1,5 +1,8 @@
 package edu.smcm.gamedev.butterseal;
 
+import com.badlogic.gdx.assets.AssetManager;
+
+
 /**
  * Maintains the state of the game.
  *
@@ -7,6 +10,7 @@ package edu.smcm.gamedev.butterseal;
  *
  */
 public class BSGameState {
+    static AssetManager ASSETS;
     BSPower selectedPower;
     BSDirection facing;
 
@@ -23,6 +27,7 @@ public class BSGameState {
      */
     public final int slot;
     public boolean isWTF;
+    BSAsset music;
 
     /**
      * Opens this game on a particular game slot.
@@ -41,6 +46,7 @@ public class BSGameState {
             this.world = new BSWorld();
             world.addRoute(BSMap.HOUSE, BSMap.ICE_CAVE, null);
             currentMap = BSMap.HOUSE;
+            music = BSAsset.FIRST_MUSIC;
         }
     }
 
