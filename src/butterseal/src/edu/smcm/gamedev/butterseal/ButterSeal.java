@@ -39,6 +39,8 @@ public class ButterSeal implements ApplicationListener {
 
     @Override
     public void pause() {
+        gui.dispose();
+        System.exit(0);
     }
 
     @Override
