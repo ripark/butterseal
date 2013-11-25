@@ -128,165 +128,210 @@ public class BSInterface {
         activeRegions.put(r_entire_screen, new BSInterfaceActor() {
             @Override
             public void act(BSInterface gui) {
-                if(gui.session.screen == BSSessionState.ABOUT) {
-                    gui.session.screen = BSSessionState.TITLE;
-                }
+                gui.session.screen = BSSessionState.TITLE;
+            }
+
+            @Override
+            public boolean active(BSInterface gui) {
+                return gui.session.screen == BSSessionState.ABOUT;
             }
         });
         activeRegions.put(r_menu_button, new BSInterfaceActor() {
             @Override
             public void act(BSInterface gui) {
-                if(gui.session.screen == BSSessionState.INGAME) {
-                    gui.session.screen = BSSessionState.PAUSED;
-                    if(BSSession.DEBUG > 0) {
-                        System.out.println("Pausing game.");
-                    }
+                gui.session.screen = BSSessionState.PAUSED;
+                if (BSSession.DEBUG > 0) {
+                    System.out.println("Pausing game.");
                 }
+            }
+
+            @Override
+            public boolean active(BSInterface gui) {
+                return gui.session.screen == BSSessionState.INGAME;
             }
         });
         activeRegions.put(r_start_game, new BSInterfaceActor() {
             @Override
             public void act(BSInterface gui) {
-                if (gui.session.screen == BSSessionState.TITLE) {
-                    if(BSSession.DEBUG > 1) {
-                        System.out.println("Starting game.");
-                    }
-                    gui.session.screen = BSSessionState.INGAME;
+                if (BSSession.DEBUG > 1) {
+                    System.out.println("Starting game.");
                 }
+                gui.session.screen = BSSessionState.INGAME;
+            }
+
+            @Override
+            public boolean active(BSInterface gui) {
+                return gui.session.screen == BSSessionState.TITLE;
             }
         });
         activeRegions.put(r_load_game, new BSInterfaceActor() {
             @Override
             public void act(BSInterface gui) {
-                if (gui.session.screen == BSSessionState.TITLE) {
-                    if(BSSession.DEBUG > 0) {
-                        System.out.println("Loading game");
-                    }
-                    gui.session.screen = BSSessionState.ABOUT;
+                if (BSSession.DEBUG > 0) {
+                    System.out.println("Loading game");
                 }
+                gui.session.screen = BSSessionState.ABOUT;
+            }
+
+            @Override
+            public boolean active(BSInterface gui) {
+                return gui.session.screen == BSSessionState.TITLE;
             }
         });
         activeRegions.put(r_quit_game, new BSInterfaceActor() {
             @Override
             public void act(BSInterface gui) {
-                if (gui.session.screen == BSSessionState.TITLE) {
-                    if(BSSession.DEBUG > 0) {
-                        System.out.println("Quitting game completely.");
-                    }
-                    gui.dispose();
-                    Gdx.app.exit();
+                if (BSSession.DEBUG > 0) {
+                    System.out.println("Quitting game completely.");
                 }
+                gui.dispose();
+                Gdx.app.exit();
+            }
+
+            @Override
+            public boolean active(BSInterface gui) {
+                return gui.session.screen == BSSessionState.TITLE;
             }
         });
         activeRegions.put(r_resume, new BSInterfaceActor() {
             @Override
             public void act(BSInterface gui) {
-                if(gui.session.screen == BSSessionState.PAUSED) {
-                    if(BSSession.DEBUG > 0) {
-                        System.out.println("Resuming game.");
-                    }
-                    gui.session.screen = BSSessionState.INGAME;
+                if (BSSession.DEBUG > 0) {
+                    System.out.println("Resuming game.");
                 }
+                gui.session.screen = BSSessionState.INGAME;
+            }
+
+            @Override
+            public boolean active(BSInterface gui) {
+                return gui.session.screen == BSSessionState.PAUSED;
             }
         });
         activeRegions.put(r_save, new BSInterfaceActor() {
             @Override
             public void act(BSInterface gui) {
-                if(gui.session.screen == BSSessionState.PAUSED) {
-                    if(BSSession.DEBUG > 0) {
-                        System.out.println("Handling save action");
-                    }
-                    gui.session.state.save();
-                    gui.session.screen = BSSessionState.INGAME;
+                if (BSSession.DEBUG > 0) {
+                    System.out.println("Handling save action");
                 }
+                gui.session.state.save();
+                gui.session.screen = BSSessionState.INGAME;
+            }
+
+            @Override
+            public boolean active(BSInterface gui) {
+                return gui.session.screen == BSSessionState.PAUSED;
             }
         });
         activeRegions.put(r_quit, new BSInterfaceActor() {
             @Override
             public void act(BSInterface gui) {
-                if(gui.session.screen == BSSessionState.PAUSED) {
-                    if(BSSession.DEBUG > 0) {
-                        System.out.println("Quitting game.");
-                    }
-                    gui.session.screen = BSSessionState.TITLE;
+                if (BSSession.DEBUG > 0) {
+                    System.out.println("Quitting game.");
                 }
+                gui.session.screen = BSSessionState.TITLE;
+            }
+
+            @Override
+            public boolean active(BSInterface gui) {
+                return gui.session.screen == BSSessionState.PAUSED;
             }
         });
         activeRegions.put(r_dpad_left, new BSInterfaceActor() {
             @Override
             public void act(BSInterface gui) {
-                if (gui.session.screen == BSSessionState.INGAME) {
-                    if(BSSession.DEBUG > 0) {
-                        System.out.println("Going left.");
-                    }
-                    gui.player.move(BSDirection.WEST);
+                if (BSSession.DEBUG > 0) {
+                    System.out.println("Going left.");
                 }
+                gui.player.move(BSDirection.WEST);
+            }
+
+            @Override
+            public boolean active(BSInterface gui) {
+                return gui.session.screen == BSSessionState.INGAME;
             }
         });
         activeRegions.put(r_dpad_right, new BSInterfaceActor() {
             @Override
             public void act(BSInterface gui) {
-                if (gui.session.screen == BSSessionState.INGAME) {
-                    if(BSSession.DEBUG > 0) {
-                        System.out.println("Going right.");
-                    }
-                    gui.player.move(BSDirection.EAST);
+                if (BSSession.DEBUG > 0) {
+                    System.out.println("Going right.");
                 }
+                gui.player.move(BSDirection.EAST);
+            }
+
+            @Override
+            public boolean active(BSInterface gui) {
+                return gui.session.screen == BSSessionState.INGAME;
             }
         });
         activeRegions.put(r_dpad_up, new BSInterfaceActor() {
             @Override
             public void act(BSInterface gui) {
-                if (gui.session.screen == BSSessionState.INGAME) {
-                    if (BSSession.DEBUG > 0) {
-                        System.out.println("Going up.");
-                    }
-                    gui.player.move(BSDirection.NORTH);
+                if (BSSession.DEBUG > 0) {
+                    System.out.println("Going up.");
                 }
+                gui.player.move(BSDirection.NORTH);
+            }
+
+            @Override
+            public boolean active(BSInterface gui) {
+                return gui.session.screen == BSSessionState.INGAME;
             }
         });
         activeRegions.put(r_dpad_down, new BSInterfaceActor() {
             @Override
             public void act(BSInterface gui) {
-                if (gui.session.screen == BSSessionState.INGAME) {
-                    if (BSSession.DEBUG > 0) {
-                        System.out.println("Going down.");
-                    }
-                    gui.player.move(BSDirection.SOUTH);
+                if (BSSession.DEBUG > 0) {
+                    System.out.println("Going down.");
                 }
+                gui.player.move(BSDirection.SOUTH);
+            }
+
+            @Override
+            public boolean active(BSInterface gui) {
+                return gui.session.screen == BSSessionState.INGAME;
             }
         });
         activeRegions.put(r_power_left, new BSInterfaceActor() {
             @Override
             public void act(BSInterface gui) {
-                if (gui.session.screen == BSSessionState.INGAME) {
-                    if (BSSession.DEBUG > 0) {
-                        System.out.println("power left");
-                    }
-                    gui.player.setPower(-1);
+                if (BSSession.DEBUG > 0) {
+                    System.out.println("power left");
                 }
+                gui.player.setPower(-1);
+            }
+
+            @Override
+            public boolean active(BSInterface gui) {
+                return gui.session.screen == BSSessionState.INGAME;
             }
         });
         activeRegions.put(r_power_right, new BSInterfaceActor() {
             @Override
             public void act(BSInterface gui) {
-                if (gui.session.screen == BSSessionState.INGAME) {
-                    if (BSSession.DEBUG > 0) {
-                        System.out.println("power right");
-                    }
-                    gui.player.setPower(1);
+                if (BSSession.DEBUG > 0) {
+                    System.out.println("power right");
                 }
+                gui.player.setPower(1);
+            }
+
+            @Override
+            public boolean active(BSInterface gui) {
+                return gui.session.screen == BSSessionState.INGAME;
             }
         });
         activeRegions.put(r_power_select, new BSInterfaceActor() {
             @Override
             public void act(BSInterface gui) {
-                if (gui.session.screen == BSSessionState.INGAME) {
-                    if (BSSession.DEBUG > 0) {
-                        System.out.println("power select");
-                    }
-                    gui.player.usePower();
+                if (BSSession.DEBUG > 0) {
+                    System.out.println("power select");
                 }
+                gui.player.usePower();
+            }
+
+            @Override
+            public boolean active(BSInterface gui) {
+                return gui.session.screen == BSSessionState.INGAME;
             }
         });
     }
@@ -301,8 +346,9 @@ public class BSInterface {
         if(input.isTouched() && !session.state.hasbeentouching) {
             session.state.hasbeentouching = true;
             for(Rectangle r : activeRegions.keySet()){
-                if (isTouchingInside(input, r)){
+                if (activeRegions.get(r).active(this) && isTouchingInside(input, r)){
                     activeRegions.get(r).act(this);
+                    return;
                 }
             }
         } else if (!input.isTouched()) {

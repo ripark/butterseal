@@ -6,6 +6,7 @@ public interface BSInterfaceActor {
      * @param player
      */
     public void act(BSInterface gui);
+    public boolean active(BSInterface gui);
 }
 
 // Local Variables:

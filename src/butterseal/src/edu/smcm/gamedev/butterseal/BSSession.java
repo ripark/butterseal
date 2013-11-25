@@ -13,7 +13,7 @@ public class BSSession {
     BSGameState state;
 
     public BSSession() {
-        screen = BSSessionState.ABOUT;
+        screen = BSSessionState.TITLE;
     }
 
     public void start(int slot) {
