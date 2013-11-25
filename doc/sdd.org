@@ -153,6 +153,21 @@ You've got to find a full path to the next instrument to continue the game.
 
 All blank tiles are as yet unused.
 **** The Forest
+**** The River
+This game is based upon the puzzle that Alex Meadows presented at 2-4-6.
+The idea is to have a grid of ice sheets, arranged in a square or rectangle of odd dimensions.
+(It is a proven thing that squares of even dimensions are easy to solve.)
+The game is to not make the last move.
+
+This all said, the game works as follows.
+With your new jumping ability, you jump from ice sheet to ice sheet.
+When you're at a sheet, you can either place a torch or not place a torch.
+If you melt it, the sheet goes away and can no longer be
+**** Ice Cave 2
+Sokoban
+**** Puzzle Ideas
+- sliding sticks of butter to get through the puzzle (river shunting puzzle)
+**** Epilogue: Highway Crossing Seal
 *** As a Data Structure
 **** The World
 The world is stored as a directed graph.
