@@ -9,7 +9,7 @@ package edu.smcm.gamedev.butterseal;
  *
  */
 public class BSSession {
-    public static int DEBUG = 0;
+    public static int DEBUG = 1;
     BSSessionState screen;
     BSGameState state;
     BSInterface gui;
