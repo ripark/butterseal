@@ -83,7 +83,7 @@ public class BSInterface {
 
     private void LoadActiveRegions() {
 
-        final int VOFFSET = ANDROID_MODE ? 50 : 0;
+        final int VOFFSET = ANDROID_MODE ? -50 : 0;
 
 
         Rectangle r_menu_button = vFlipRectangle(menubutton.getBoundingRectangle());
