@@ -24,3 +24,4 @@ src/butterseal-ios/*
 bin/
 gen/
 /doc/twtcfg.xml
+.*/

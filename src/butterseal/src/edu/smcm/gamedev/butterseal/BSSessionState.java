@@ -7,5 +7,7 @@ public enum BSSessionState {
     ABOUT1,
     ABOUT2,
     ABOUT3,
-    ABOUT4
+    ABOUT4,
+    ABOUT5,
+    ABOUT6
 }

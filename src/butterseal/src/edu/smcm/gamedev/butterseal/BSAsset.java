@@ -24,6 +24,8 @@ public enum BSAsset {
     MENU_ABOUT2      (800,1280, "data/interface/about2.png"),
     MENU_ABOUT3      (800,1280, "data/interface/about3.png"),
     MENU_ABOUT4      (800,1280, "data/interface/about4.png"),
+    MENU_ABOUT5      (800,1280, "data/interface/about5.png"),
+    MENU_ABOUT6      (800,1280, "data/interface/about6.png"),
     FIRST_MUSIC      ( -1,  -1, "data/music/part1.mp3"),
     SECOND_MUSIC     ( -1,  -1, "data/music/part2.mp3");
 

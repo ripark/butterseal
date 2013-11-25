@@ -138,7 +138,7 @@ public class BSInterface {
 
             @Override
             public boolean active(BSInterface gui) {
-                return  gui.session.screen == BSSessionState.ABOUT4;
+                return  gui.session.screen == BSSessionState.ABOUT6;
             }
         });
 
@@ -157,6 +157,12 @@ public class BSInterface {
                     newstate = BSSessionState.ABOUT4;
                     break;
                 case ABOUT4:
+                    newstate = BSSessionState.ABOUT5;
+                    break;
+                case ABOUT5:
+                    newstate = BSSessionState.ABOUT6;
+                    break;
+                case ABOUT6:
                     newstate = BSSessionState.TITLE;
                     break;
                 default:
@@ -167,12 +173,12 @@ public class BSInterface {
 
             @Override
             public boolean active(BSInterface gui) {
-                boolean r = gui.session.screen == BSSessionState.ABOUT1 ||
+                return gui.session.screen == BSSessionState.ABOUT1 ||
                         gui.session.screen == BSSessionState.ABOUT2 ||
                         gui.session.screen == BSSessionState.ABOUT3 ||
-                        gui.session.screen == BSSessionState.ABOUT4;
-                System.out.println(r);
-                return r;
+                        gui.session.screen == BSSessionState.ABOUT4 ||
+                        gui.session.screen == BSSessionState.ABOUT5 ||
+                        gui.session.screen == BSSessionState.ABOUT6;
             }
         });
         activeRegions.put(r_menu_button, new BSInterfaceActor() {
@@ -429,6 +435,8 @@ public class BSInterface {
         case ABOUT2:
         case ABOUT3:
         case ABOUT4:
+        case ABOUT5:
+        case ABOUT6:
             break;
         case INGAME:
             if(!session.state.isMoving) {
@@ -516,7 +524,9 @@ public class BSInterface {
         case ABOUT1:
         case ABOUT2:
         case ABOUT3:
-        case ABOUT4:
+        case ABOUT4: // TODO move case switch to make-about-screen
+        case ABOUT5:
+        case ABOUT6:
             controls.begin();
             MakeAboutScreen();
             controls.end();
@@ -583,6 +593,12 @@ public class BSInterface {
             break;
         case ABOUT4:
             to = assets.get(BSAsset.MENU_ABOUT4.assetPath, Texture.class);
+            break;
+        case ABOUT5:
+            to = assets.get(BSAsset.MENU_ABOUT5.assetPath, Texture.class);
+            break;
+        case ABOUT6:
+            to = assets.get(BSAsset.MENU_ABOUT6.assetPath, Texture.class);
             break;
         default:
             throw new IllegalStateException();
