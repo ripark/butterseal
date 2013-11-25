@@ -20,7 +20,10 @@ public enum BSAsset {
     MENU             (800,1280, "data/interface/menu.png"),
     POWERBAR_ACTION  (128, 448, "data/interface/abilities/action.png"),
     POWERBAR_FIRE    (128, 448, "data/interface/abilities/fire.png"),
-    MENU_ABOUT       (800,1280, "data/interface/about.png"),
+    MENU_ABOUT1      (800,1280, "data/interface/about1.png"),
+    MENU_ABOUT2      (800,1280, "data/interface/about2.png"),
+    MENU_ABOUT3      (800,1280, "data/interface/about3.png"),
+    MENU_ABOUT4      (800,1280, "data/interface/about4.png"),
     FIRST_MUSIC      ( -1,  -1, "data/music/part1.mp3"),
     SECOND_MUSIC     ( -1,  -1, "data/music/part2.mp3");
 

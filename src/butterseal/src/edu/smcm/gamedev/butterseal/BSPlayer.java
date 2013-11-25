@@ -72,7 +72,6 @@ public class BSPlayer {
      */
     static final float DEFAULT_SPEED = 5f;
     float SPEED;
-    float NORMSPEED;
 
     public BSPlayer(BSGameState state) {
         walkUp    = new BSAnimation(BSAsset.PLAYER_WALK_UP);
@@ -90,7 +89,6 @@ public class BSPlayer {
         this.state.selectedPower = BSPower.ACTION;
         this.state.currentTile = new BSTile(0,0);
         SPEED = DEFAULT_SPEED;
-        NORMSPEED = SPEED / BSMap.PIXELS_PER_TILE;
     }
 
     /**
@@ -121,13 +119,13 @@ public class BSPlayer {
         float ddx = 0, ddy = 0;
 
         if(displacement.x != 0) {
-            ddx = Math.abs(displacement.x) < NORMSPEED ?
-                    displacement.x : Math.signum(displacement.x) * NORMSPEED;
+            ddx = Math.abs(displacement.x) < getNormalizedSpeed() ?
+                    displacement.x : Math.signum(displacement.x) * getNormalizedSpeed();
         }
 
         if (displacement.y != 0) {
-            ddy = Math.abs(displacement.y) < NORMSPEED ?
-                    displacement.y : Math.signum(displacement.y) * NORMSPEED;
+            ddy = Math.abs(displacement.y) < getNormalizedSpeed() ?
+                    displacement.y : Math.signum(displacement.y) * getNormalizedSpeed();
         }
 
         displacement.sub(ddx, ddy);
@@ -158,6 +156,8 @@ public class BSPlayer {
             return;
         }
         this.state.isMoving = true;
+
+        SPEED = 60 * 5f / Gdx.graphics.getFramesPerSecond();
 
         // check to see if we need to move maps
         HashMap<String,String> props = this.getFacingTile().getProperties(this.state.currentMap).get("player");
@@ -332,6 +332,10 @@ public class BSPlayer {
         System.out.printf("%.1f:%.1f%n", currentFrame.getHeight() * SCALE, currentFrame.getWidth() * SCALE);
         System.out.println(projection.getTranslation(new Vector3(currentFrame.getX(), currentFrame.getY(), 0)));
 
+    }
+
+    public float getNormalizedSpeed() {
+        return SPEED / BSMap.PIXELS_PER_TILE;
     }
 }
 

@@ -32,7 +32,7 @@ import com.badlogic.gdx.math.Rectangle;
  *
  */
 public class BSInterface {
-    public static final boolean ANDROID_MODE = false;
+    public static final boolean ANDROID_MODE = true;
     BSSession session;
     BSPlayer player;
 
@@ -97,11 +97,12 @@ public class BSInterface {
         Rectangle r_entire_screen = new Rectangle(0, 0, 1280, 800);
 
         Rectangle r_start_game = new Rectangle(477, 348, 286, 100);
-        Rectangle r_load_game = new Rectangle(477, 450, 286, 120);
+        Rectangle r_load_game = new Rectangle(477, 477, 340, 130);
         Rectangle r_quit_game = new Rectangle(450, 586, 320, 148);
         Rectangle r_resume = new Rectangle(472, 187, 385, 104);
-        Rectangle r_save = new Rectangle(472, 291, 282, 102);
+        //Rectangle r_save = new Rectangle(472, 291, 282, 102);
         Rectangle r_quit = new Rectangle(472, 393, 282, 152);
+        Rectangle r_aboutnext = new Rectangle(1164, 388, 108, 54);
         int h = Gdx.graphics.getHeight();
         int w = Gdx.graphics.getWidth();
         float hh = Math.abs(dpad.getHeight() - h);
@@ -125,8 +126,9 @@ public class BSInterface {
         r_load_game.y += VOFFSET;
         r_quit_game.y += VOFFSET;
         r_resume.y += VOFFSET;
-        r_save.y += VOFFSET;
+        //r_save.y += VOFFSET;
         r_quit.y += VOFFSET;
+        r_aboutnext.y += VOFFSET;
 
         activeRegions.put(r_entire_screen, new BSInterfaceActor() {
             @Override
@@ -136,7 +138,41 @@ public class BSInterface {
 
             @Override
             public boolean active(BSInterface gui) {
-                return gui.session.screen == BSSessionState.ABOUT;
+                return  gui.session.screen == BSSessionState.ABOUT4;
+            }
+        });
+
+        activeRegions.put(r_aboutnext, new BSInterfaceActor() {
+            @Override
+            public void act(BSInterface gui) {
+                BSSessionState newstate = gui.session.screen;
+                switch(gui.session.screen) {
+                case ABOUT1:
+                    newstate = BSSessionState.ABOUT2;
+                    break;
+                case ABOUT2:
+                    newstate = BSSessionState.ABOUT3;
+                    break;
+                case ABOUT3:
+                    newstate = BSSessionState.ABOUT4;
+                    break;
+                case ABOUT4:
+                    newstate = BSSessionState.TITLE;
+                    break;
+                default:
+                    throw new IllegalStateException();
+                }
+                gui.session.screen = newstate;
+            }
+
+            @Override
+            public boolean active(BSInterface gui) {
+                boolean r = gui.session.screen == BSSessionState.ABOUT1 ||
+                        gui.session.screen == BSSessionState.ABOUT2 ||
+                        gui.session.screen == BSSessionState.ABOUT3 ||
+                        gui.session.screen == BSSessionState.ABOUT4;
+                System.out.println(r);
+                return r;
             }
         });
         activeRegions.put(r_menu_button, new BSInterfaceActor() {
@@ -185,7 +221,7 @@ public class BSInterface {
                 if (BSSession.DEBUG > 0) {
                     System.out.println("Loading game");
                 }
-                gui.session.screen = BSSessionState.ABOUT;
+                gui.session.screen = BSSessionState.ABOUT1;
             }
 
             @Override
@@ -231,21 +267,21 @@ public class BSInterface {
                 return gui.session.screen == BSSessionState.PAUSED;
             }
         });
-        activeRegions.put(r_save, new BSInterfaceActor() {
-            @Override
-            public void act(BSInterface gui) {
-                if (BSSession.DEBUG > 0) {
-                    System.out.println("Handling save action");
-                }
-                gui.session.state.save();
-                gui.session.screen = BSSessionState.INGAME;
-            }
-
-            @Override
-            public boolean active(BSInterface gui) {
-                return gui.session.screen == BSSessionState.PAUSED;
-            }
-        });
+//        activeRegions.put(r_save, new BSInterfaceActor() {
+//            @Override
+//            public void act(BSInterface gui) {
+//                if (BSSession.DEBUG > 0) {
+//                    System.out.println("Handling save action");
+//                }
+//                gui.session.state.save();
+//                gui.session.screen = BSSessionState.INGAME;
+//            }
+//
+//            @Override
+//            public boolean active(BSInterface gui) {
+//                return gui.session.screen == BSSessionState.PAUSED;
+//            }
+//        });
         activeRegions.put(r_quit, new BSInterfaceActor() {
             @Override
             public void act(BSInterface gui) {
@@ -366,6 +402,7 @@ public class BSInterface {
      * @param input
      */
     public void poll(Input input) {
+        System.out.println(session.screen);
         pollKeyboard(input);
         if(input.isTouched() && !session.state.hasbeentouching) {
             session.state.hasbeentouching = true;
@@ -388,7 +425,10 @@ public class BSInterface {
      */
     private void pollKeyboard(Input input) {
         switch(session.screen) {
-        case ABOUT:
+        case ABOUT1:
+        case ABOUT2:
+        case ABOUT3:
+        case ABOUT4:
             break;
         case INGAME:
             if(!session.state.isMoving) {
@@ -411,7 +451,6 @@ public class BSInterface {
                 } else {
                     player.SPEED = BSPlayer.DEFAULT_SPEED;
                 }
-                player.NORMSPEED = player.SPEED / BSMap.PIXELS_PER_TILE;
                 player.move(toMove);
             }
 
@@ -434,9 +473,7 @@ public class BSInterface {
             }
             break;
         case PAUSED:
-            break;
         case TITLE:
-            break;
         default:
             break;
         }
@@ -476,7 +513,10 @@ public class BSInterface {
          * If we are not in a game, then draw the title screen.
          */
         switch(session.screen) {
-        case ABOUT:
+        case ABOUT1:
+        case ABOUT2:
+        case ABOUT3:
+        case ABOUT4:
             controls.begin();
             MakeAboutScreen();
             controls.end();
@@ -530,6 +570,24 @@ public class BSInterface {
     }
 
     private void MakeAboutScreen() {
+        Texture to = about_screen.getTexture();
+        switch(session.screen) {
+        case ABOUT1:
+            to = assets.get(BSAsset.MENU_ABOUT1.assetPath, Texture.class);
+            break;
+        case ABOUT2:
+            to = assets.get(BSAsset.MENU_ABOUT2.assetPath, Texture.class);
+            break;
+        case ABOUT3:
+            to = assets.get(BSAsset.MENU_ABOUT3.assetPath, Texture.class);
+            break;
+        case ABOUT4:
+            to = assets.get(BSAsset.MENU_ABOUT4.assetPath, Texture.class);
+            break;
+        default:
+            throw new IllegalStateException();
+        }
+        about_screen.setTexture(to);
         about_screen.draw(controls);
     }
 
@@ -617,7 +675,7 @@ public class BSInterface {
         powerbar = new Sprite(BSAsset.POWERBAR_ACTION.getTextureRegion(assets));
         powerbar.setPosition(Gdx.graphics.getWidth() - powerbar.getWidth() + 50, 25);
 
-        about_screen = new Sprite(BSAsset.MENU_ABOUT.getTextureRegion(assets));
+        about_screen = new Sprite(BSAsset.MENU_ABOUT1.getTextureRegion(assets));
 
         firstmusic = assets.get(BSAsset.FIRST_MUSIC.assetPath);
         firstmusic.setLooping(true);
