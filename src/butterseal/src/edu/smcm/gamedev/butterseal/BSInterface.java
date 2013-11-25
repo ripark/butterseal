@@ -199,7 +199,6 @@ public class BSInterface {
                 if (BSSession.DEBUG > 0) {
                     System.out.println("Quitting game completely.");
                 }
-                gui.dispose();
                 Gdx.app.exit();
             }
 
@@ -443,7 +442,6 @@ public class BSInterface {
         }
 
         if (input.isKeyPressed(Input.Keys.ESCAPE)) {
-            this.dispose();
             Gdx.app.exit();
         }
     }
@@ -636,7 +634,7 @@ public class BSInterface {
         }
         //cambatch.dispose();
         //controls.dispose();
-        //assets.dispose();
+        assets.dispose();
     }
 
     /**
