@@ -30,16 +30,18 @@ public enum BSMap {
         public void act(BSGameState state) {
             BSMap m = state.currentMap;
             TiledMapTileLayer dark = m.getLayer("uncover");
+            TiledMapTileLayer light = m.getLayer("player");
             TiledMapTile invis = BSTile.getTileForProperty(m, "invisible", "true");
 
             for(int row = 0; row < m.playerLevel.getHeight(); row++) {
                 for(int col = 0; col < m.playerLevel.getWidth(); col++) {
                     BSTile curr = new BSTile(row, col);
+
                     Map<String, HashMap<String, String>> pp = curr.getProperties(state.currentMap);
                     HashMap<String, String> props = pp.get("player");
 
                     if(props.containsKey("light")) {
-                        if(curr.hasProperty(playerLevel, "light", "torch")) {
+                        if(curr.hasProperty(light, "light", "torch")) {
                             if(BSSession.DEBUG > 3) {
                                 System.out.println("found torch");
                             }
@@ -51,7 +53,6 @@ public enum BSMap {
                                             System.out.printf("Clearing tile %d,%d%n", row + i, col + j);
                                         }
                                         point.setTile(invis);
-                                        point.getTile().getProperties().put("lit", "true");
                                     }
                                 }
                             }
@@ -59,16 +60,18 @@ public enum BSMap {
                             if(BSSession.DEBUG > 3) {
                                 System.out.println("found beacon");
                             }
-                            if(curr.hasProperty(m.playerLevel, "beacon", "on")) {
+                            if(curr.hasProperty(light, "beacon", "on")) {
                                 for (int i = -1; i <= 1; i++) {
                                     for (int j = -1; j <= 1; j++) {
-                                        Cell point = new BSTile(row + i, col + j).getCell(dark);
-                                        if(!point.getTile().equals(invis)) {
-                                            if(BSSession.DEBUG > 2) {
-                                                System.out.printf("Clearing tile %d,%d%n", row + i, col + j);
+                                        BSTile lookingAt = new BSTile(row + i, col + j);
+                                        if(lookingAt.isContainedIn(dark)) {
+                                            Cell point = lookingAt.getCell(dark);
+                                            if(!point.getTile().equals(invis)) {
+                                                if(BSSession.DEBUG > 2) {
+                                                    System.out.printf("Clearing tile %d,%d%n", row + i, col + j);
+                                                }
+                                                point.setTile(invis);
                                             }
-                                            point.setTile(invis);
-                                            point.getTile().getProperties().put("lit", "true");
                                         }
                                     }
                                 }
@@ -77,15 +80,13 @@ public enum BSMap {
                                         System.out.println("Clearing " + d);
                                     }
                                     BSTile point = new BSTile(curr);
-                                    while(point.isContainedIn(m.playerLevel) &&
+                                    while(point.isContainedIn(dark) &&
                                          !point.hasProperty(m.playerLevel, "wall", "true")) {
                                         point.getCell(dark).setTile(invis);
-                                        point.setProperty(dark, "lit", "true");
                                         point.transpose(d.dx, d.dy);
                                     }
-                                    if(point.isContainedIn(m.playerLevel)) {
+                                    if(point.isContainedIn(dark)) {
                                         point.getCell(dark).setTile(invis);
-                                        point.setProperty(dark, "lit", "true");
                                     }
                                 }
                             }
@@ -112,6 +113,13 @@ public enum BSMap {
                     }
                     TiledMapTile beacon_on = BSTile.getTileForProperty(m, "beacon", "on");
                     state.currentTile.getCell(light).setTile(beacon_on);
+//                } else if (state.currentTile.hasProperty(light, "beacon", "on")) {
+//                    state.currentTile.setProperty(light, "beacon", "off");
+//                    if(BSSession.DEBUG > 2) {
+//                        System.out.println("Unlighting beacon.");
+//                    }
+//                    TiledMapTile beacon_off = BSTile.getTileForProperty(m, "beacon", "off");
+//                    state.currentTile.getCell(light).setTile(beacon_off);
                 }
                 state.isUsingPower = false;
             }
