@@ -279,6 +279,7 @@ public class BSPlayer {
             }
             this.state.selectedPower = power;
         }
+        this.state.isUsingPower = false;
     }
 
     public void usePower() {
