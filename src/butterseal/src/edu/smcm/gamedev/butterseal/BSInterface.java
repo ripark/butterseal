@@ -622,7 +622,9 @@ public class BSInterface {
         about_screen = new Sprite(BSAsset.MENU_ABOUT.getTextureRegion(assets));
 
         firstmusic = Gdx.audio.newMusic(Gdx.files.internal(BSAsset.FIRST_MUSIC.assetPath));
+        firstmusic.setLooping(true);
         secondmusic = Gdx.audio.newMusic(Gdx.files.internal(BSAsset.SECOND_MUSIC.assetPath));
+        secondmusic.setLooping(true);
 
     }
     public void dispose() {
