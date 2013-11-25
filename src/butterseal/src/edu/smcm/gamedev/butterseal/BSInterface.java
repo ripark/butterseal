@@ -164,10 +164,10 @@ public class BSInterface {
                 gui.session.screen = BSSessionState.INGAME;
                 switch(gui.session.state.music) {
                 case FIRST_MUSIC:
-                    firstmusic.play();
+                	gui.session.state.music.playMusic(BSGameState.ASSETS);
                     break;
                 case SECOND_MUSIC:
-                    secondmusic.play();
+                	gui.session.state.music.playMusic(BSGameState.ASSETS);
                     break;
                 default:
                     throw new IllegalStateException();
@@ -217,10 +217,10 @@ public class BSInterface {
                 gui.session.screen = BSSessionState.INGAME;
                 switch(gui.session.state.music) {
                 case FIRST_MUSIC:
-                    firstmusic.play();
+                	gui.session.state.music.playMusic(BSGameState.ASSETS);
                     break;
                 case SECOND_MUSIC:
-                    secondmusic.play();
+                	gui.session.state.music.playMusic(BSGameState.ASSETS);
                     break;
                 default:
                     throw new IllegalStateException();
