@@ -300,7 +300,9 @@ public class BSInterface {
      * @param input
      */
     public void poll(Input input) {
-        pollKeyboard(input);
+        if(this.session.isInGame) {
+            pollKeyboard(input);
+        }
         if(input.isTouched() && !player.state.hasbeentouching) {
             player.state.hasbeentouching = true;
             for(Rectangle r : activeRegions.keySet()){
