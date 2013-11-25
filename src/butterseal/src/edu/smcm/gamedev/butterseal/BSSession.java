@@ -8,15 +8,12 @@ package edu.smcm.gamedev.butterseal;
  *
  */
 public class BSSession {
-    public static int DEBUG = 1;
-    boolean isInGame;
-    boolean isPaused;
+    public static int DEBUG = 5;
+    BSSessionState screen;
     BSGameState state;
-    boolean isReadingAbout;
 
     public BSSession() {
-        isInGame = false;
-        isPaused = false;
+        screen = BSSessionState.ABOUT;
     }
 
     public void start(int slot) {

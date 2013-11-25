@@ -31,7 +31,7 @@ import com.badlogic.gdx.math.Rectangle;
  *
  */
 public class BSInterface {
-    public static final boolean ANDROID_MODE = true;
+    public static final boolean ANDROID_MODE = false;
     BSSession session;
     BSPlayer player;
 
@@ -78,7 +78,7 @@ public class BSInterface {
 
         key_state.put(Input.Keys.Z, false);
         key_state.put(Input.Keys.C, false);
-        player.state.currentMap.usePower(player.state);
+        session.state.currentMap.usePower(session.state);
     }
 
     private void LoadActiveRegions() {
@@ -126,24 +126,20 @@ public class BSInterface {
         r_quit.y += VOFFSET;
 
         activeRegions.put(r_entire_screen, new BSInterfaceActor() {
-
             @Override
             public void act(BSInterface gui) {
-                if(session.isReadingAbout) {
-                    session.isReadingAbout = false;
+                if(gui.session.screen == BSSessionState.ABOUT) {
+                    gui.session.screen = BSSessionState.TITLE;
                 }
             }
         });
-
         activeRegions.put(r_menu_button, new BSInterfaceActor() {
             @Override
             public void act(BSInterface gui) {
-                if(gui.session.isInGame) {
-                    if(!gui.session.isPaused) {
-                        gui.session.isPaused = true;
-                        if(BSSession.DEBUG > 0) {
-                            System.out.println("Pausing game.");
-                        }
+                if(gui.session.screen == BSSessionState.INGAME) {
+                    gui.session.screen = BSSessionState.PAUSED;
+                    if(BSSession.DEBUG > 0) {
+                        System.out.println("Pausing game.");
                     }
                 }
             }
@@ -151,34 +147,29 @@ public class BSInterface {
         activeRegions.put(r_start_game, new BSInterfaceActor() {
             @Override
             public void act(BSInterface gui) {
-                // TODO Auto-generated method stub
-                if (!gui.session.isInGame) {
+                if (gui.session.screen == BSSessionState.TITLE) {
                     if(BSSession.DEBUG > 1) {
                         System.out.println("Starting game.");
                     }
-                    gui.session.isInGame = true;
+                    gui.session.screen = BSSessionState.INGAME;
                 }
             }
         });
         activeRegions.put(r_load_game, new BSInterfaceActor() {
-
             @Override
             public void act(BSInterface gui) {
-                // TODO Auto-generated method stub
-                if (!gui.session.isInGame) {
+                if (gui.session.screen == BSSessionState.TITLE) {
                     if(BSSession.DEBUG > 0) {
                         System.out.println("Loading game");
                     }
-                    gui.session.isReadingAbout = true;
+                    gui.session.screen = BSSessionState.ABOUT;
                 }
             }
         });
         activeRegions.put(r_quit_game, new BSInterfaceActor() {
-
             @Override
             public void act(BSInterface gui) {
-                // TODO Auto-generated method stub
-                if (!gui.session.isInGame) {
+                if (gui.session.screen == BSSessionState.TITLE) {
                     if(BSSession.DEBUG > 0) {
                         System.out.println("Quitting game completely.");
                     }
@@ -188,121 +179,114 @@ public class BSInterface {
             }
         });
         activeRegions.put(r_resume, new BSInterfaceActor() {
-
             @Override
             public void act(BSInterface gui) {
-                // TODO Auto-generated method stub
-                if(gui.session.isPaused) {
+                if(gui.session.screen == BSSessionState.PAUSED) {
                     if(BSSession.DEBUG > 0) {
                         System.out.println("Resuming game.");
                     }
-                    gui.session.isPaused = false;
+                    gui.session.screen = BSSessionState.INGAME;
                 }
             }
         });
         activeRegions.put(r_save, new BSInterfaceActor() {
-
             @Override
             public void act(BSInterface gui) {
-                // TODO Auto-generated method stub
-                if(gui.session.isPaused) {
+                if(gui.session.screen == BSSessionState.PAUSED) {
                     if(BSSession.DEBUG > 0) {
                         System.out.println("Handling save action");
                     }
-                    gui.player.state.save();
-                    gui.session.isPaused = false;
+                    gui.session.state.save();
+                    gui.session.screen = BSSessionState.INGAME;
                 }
             }
         });
         activeRegions.put(r_quit, new BSInterfaceActor() {
-
             @Override
             public void act(BSInterface gui) {
-                // TODO Auto-generated method stub
-                if(gui.session.isPaused) {
+                if(gui.session.screen == BSSessionState.PAUSED) {
                     if(BSSession.DEBUG > 0) {
                         System.out.println("Quitting game.");
                     }
-                    gui.session.isPaused = false;
-                    gui.session.isInGame = false;
+                    gui.session.screen = BSSessionState.TITLE;
                 }
             }
         });
         activeRegions.put(r_dpad_left, new BSInterfaceActor() {
-
             @Override
             public void act(BSInterface gui) {
-                // TODO Auto-generated method stub
-                if(BSSession.DEBUG > 0) {
-                    System.out.println("Going left.");
+                if (gui.session.screen == BSSessionState.INGAME) {
+                    if(BSSession.DEBUG > 0) {
+                        System.out.println("Going left.");
+                    }
+                    gui.player.move(BSDirection.WEST);
                 }
-                gui.player.move(BSDirection.WEST);
             }
         });
         activeRegions.put(r_dpad_right, new BSInterfaceActor() {
-
             @Override
             public void act(BSInterface gui) {
-                // TODO Auto-generated method stub
-                if(BSSession.DEBUG > 0) {
-                    System.out.println("Going right.");
+                if (gui.session.screen == BSSessionState.INGAME) {
+                    if(BSSession.DEBUG > 0) {
+                        System.out.println("Going right.");
+                    }
+                    gui.player.move(BSDirection.EAST);
                 }
-                gui.player.move(BSDirection.EAST);
             }
         });
         activeRegions.put(r_dpad_up, new BSInterfaceActor() {
-
             @Override
             public void act(BSInterface gui) {
-                // TODO Auto-generated method stub
-                if(BSSession.DEBUG > 0) {
-                    System.out.println("Going up.");
+                if (gui.session.screen == BSSessionState.INGAME) {
+                    if (BSSession.DEBUG > 0) {
+                        System.out.println("Going up.");
+                    }
+                    gui.player.move(BSDirection.NORTH);
                 }
-                gui.player.move(BSDirection.NORTH);
             }
         });
         activeRegions.put(r_dpad_down, new BSInterfaceActor() {
-
             @Override
             public void act(BSInterface gui) {
-                // TODO Auto-generated method stub
-                if(BSSession.DEBUG > 0) {
-                    System.out.println("Going down.");
+                if (gui.session.screen == BSSessionState.INGAME) {
+                    if (BSSession.DEBUG > 0) {
+                        System.out.println("Going down.");
+                    }
+                    gui.player.move(BSDirection.SOUTH);
                 }
-                gui.player.move(BSDirection.SOUTH);
             }
         });
         activeRegions.put(r_power_left, new BSInterfaceActor() {
-
             @Override
             public void act(BSInterface gui) {
-                // TODO Auto-generated method stub
-                if(BSSession.DEBUG > 0) {
-                    System.out.println("power left");
+                if (gui.session.screen == BSSessionState.INGAME) {
+                    if (BSSession.DEBUG > 0) {
+                        System.out.println("power left");
+                    }
+                    gui.player.setPower(-1);
                 }
-                gui.player.setPower(-1);
             }
         });
         activeRegions.put(r_power_right, new BSInterfaceActor() {
-
             @Override
             public void act(BSInterface gui) {
-                // TODO Auto-generated method stub
-                if(BSSession.DEBUG > 0) {
-                    System.out.println("power right");
+                if (gui.session.screen == BSSessionState.INGAME) {
+                    if (BSSession.DEBUG > 0) {
+                        System.out.println("power right");
+                    }
+                    gui.player.setPower(1);
                 }
-                gui.player.setPower(1);
             }
         });
         activeRegions.put(r_power_select, new BSInterfaceActor() {
-
             @Override
             public void act(BSInterface gui) {
-                // TODO Auto-generated method stub
-                if(BSSession.DEBUG > 0) {
-                    System.out.println("power select");
+                if (gui.session.screen == BSSessionState.INGAME) {
+                    if (BSSession.DEBUG > 0) {
+                        System.out.println("power select");
+                    }
+                    gui.player.usePower();
                 }
-                gui.player.usePower();
             }
         });
     }
@@ -313,18 +297,16 @@ public class BSInterface {
      * @param input
      */
     public void poll(Input input) {
-        if(this.session.isInGame) {
-            pollKeyboard(input);
-        }
-        if(input.isTouched() && !player.state.hasbeentouching) {
-            player.state.hasbeentouching = true;
+        pollKeyboard(input);
+        if(input.isTouched() && !session.state.hasbeentouching) {
+            session.state.hasbeentouching = true;
             for(Rectangle r : activeRegions.keySet()){
                 if (isTouchingInside(input, r)){
                     activeRegions.get(r).act(this);
                 }
             }
         } else if (!input.isTouched()) {
-            player.state.hasbeentouching = false;
+            session.state.hasbeentouching = false;
         }
     }
 
@@ -335,48 +317,58 @@ public class BSInterface {
      * @param input an input stream to analyze
      */
     private void pollKeyboard(Input input) {
-        if(!player.state.isMoving) {
-            // poll for movement
-            BSDirection toMove;
-            if(input.isKeyPressed(Input.Keys.RIGHT)) {
-                toMove = BSDirection.EAST;
-            } else if(input.isKeyPressed(Input.Keys.UP)) {
-                toMove = BSDirection.NORTH;
-            } else if(input.isKeyPressed(Input.Keys.LEFT)) {
-                toMove = BSDirection.WEST;
-            } else if(input.isKeyPressed(Input.Keys.DOWN)) {
-                toMove = BSDirection.SOUTH;
-            } else {
-                toMove = null;
-            }
-            if (input.isKeyPressed(Input.Keys.CONTROL_LEFT) ||
-                input.isKeyPressed(Input.Keys.CONTROL_RIGHT)) {
-                player.SPEED = 5 * BSPlayer.DEFAULT_SPEED;
-            } else {
-                player.SPEED = BSPlayer.DEFAULT_SPEED;
+        switch(session.screen) {
+        case ABOUT:
+            break;
+        case INGAME:
+            if(!session.state.isMoving) {
+                // poll for movement
+                BSDirection toMove;
+                if(input.isKeyPressed(Input.Keys.RIGHT)) {
+                    toMove = BSDirection.EAST;
+                } else if(input.isKeyPressed(Input.Keys.UP)) {
+                    toMove = BSDirection.NORTH;
+                } else if(input.isKeyPressed(Input.Keys.LEFT)) {
+                    toMove = BSDirection.WEST;
+                } else if(input.isKeyPressed(Input.Keys.DOWN)) {
+                    toMove = BSDirection.SOUTH;
+                } else {
+                    toMove = null;
+                }
+                if (input.isKeyPressed(Input.Keys.CONTROL_LEFT) ||
+                    input.isKeyPressed(Input.Keys.CONTROL_RIGHT)) {
+                    player.SPEED = 5 * BSPlayer.DEFAULT_SPEED;
+                } else {
+                    player.SPEED = BSPlayer.DEFAULT_SPEED;
+                }
+                player.NORMSPEED = player.SPEED / BSMap.PIXELS_PER_TILE;
+                player.move(toMove);
             }
 
-            player.NORMSPEED = player.SPEED / BSMap.PIXELS_PER_TILE;
-            player.move(toMove);
-
-        }
-
-        if(!depressed(input, Input.Keys.Z) && !depressed(input, Input.Keys.C)) {
-            // poll for power chooser
-            if(input.isKeyPressed(Input.Keys.Z)) {
-                player.setPower(-1);
-                key_state.put(Input.Keys.Z, true);
-            } else if (input.isKeyPressed(Input.Keys.C)) {
-                player.setPower(1);
-                key_state.put(Input.Keys.C, true);
-            } else {
-                player.state.isSelectingPower = false;
-                key_state.put(Input.Keys.Z, false);
-                key_state.put(Input.Keys.C, false);
+            if(!depressed(input, Input.Keys.Z) && !depressed(input, Input.Keys.C)) {
+                // poll for power chooser
+                if(input.isKeyPressed(Input.Keys.Z)) {
+                    player.setPower(-1);
+                    key_state.put(Input.Keys.Z, true);
+                } else if (input.isKeyPressed(Input.Keys.C)) {
+                    player.setPower(1);
+                    key_state.put(Input.Keys.C, true);
+                } else {
+                    session.state.isSelectingPower = false;
+                    key_state.put(Input.Keys.Z, false);
+                    key_state.put(Input.Keys.C, false);
+                }
             }
-        }
-        if (input.isKeyPressed(Input.Keys.X)) {
-            player.usePower();
+            if (input.isKeyPressed(Input.Keys.X)) {
+                player.usePower();
+            }
+            break;
+        case PAUSED:
+            break;
+        case TITLE:
+            break;
+        default:
+            break;
         }
 
         if (input.isKeyPressed(Input.Keys.ESCAPE)) {
@@ -414,7 +406,13 @@ public class BSInterface {
          *
          * If we are not in a game, then draw the title screen.
          */
-        if (session.isInGame) {
+        switch(session.screen) {
+        case ABOUT:
+            controls.begin();
+            MakeAboutScreen();
+            controls.end();
+            break;
+        case INGAME:
             session.state.currentMap.draw(camera);
             cambatch.begin();
             player.draw();
@@ -424,40 +422,43 @@ public class BSInterface {
             MakePowerSelector();
             MakeDirectionalPad();
             MakePauseButton();
-            if (session.isPaused) {
-                MakePauseScreen();
-            }
             controls.end();
-        } else if (session.isReadingAbout) {
+            break;
+        case PAUSED:
             controls.begin();
-            MakeAboutScreen();
+            MakePauseScreen();
             controls.end();
-        } else {
+            break;
+        case TITLE:
             controls.begin();
             MakeTitleScreen();
             controls.end();
+            break;
+        default:
+            break;
         }
+
         if(BSSession.DEBUG > 3) {
             DrawActiveRegions();
         }
-        if(player.state.isWTF) {
+
+        if(session.state.isWTF) {
             camera.rotate(1f);
         }
 
         if(BSSession.DEBUG > 0) {
             controls.begin();
-            font.draw(controls,
-                    String.format("FPS: %d", Gdx.graphics.getFramesPerSecond()),
-                    1, Gdx.graphics.getHeight()-1);
-            font.draw(controls,
-                    String.format("Selected Power: %s", player.state.selectedPower),
-                    1, Gdx.graphics.getHeight()-20);
+            printText(5,String.format("FPS: %d", Gdx.graphics.getFramesPerSecond()));
+            printText(25,String.format("Selected Power: %s", session.state.selectedPower));
             controls.end();
         }
         camera.update();
         cambatch.setProjectionMatrix(camera.combined);
     }
 
+    private void printText(int pos, String s) {
+        font.draw(controls, s, 1, Gdx.graphics.getHeight()-pos);
+    }
 
     private void MakeAboutScreen() {
         about_screen.draw(controls);
@@ -475,7 +476,7 @@ public class BSInterface {
         rend.end();
     }
     private void MakePowerBar() {
-        switch(player.state.selectedPower) {
+        switch(session.state.selectedPower) {
         case FIRE:
             powerbar.setRegion(BSAsset.POWERBAR_FIRE.getTextureRegion(assets));
             break;
