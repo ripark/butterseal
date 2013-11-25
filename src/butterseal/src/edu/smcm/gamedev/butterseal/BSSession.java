@@ -12,6 +12,7 @@ public class BSSession {
     boolean isInGame;
     boolean isPaused;
     BSGameState state;
+    boolean isReadingAbout;
 
     public BSSession() {
         isInGame = false;

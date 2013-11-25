@@ -8,7 +8,7 @@ public enum BSAsset {
     HOUSE            ( -1,  -1, "data/maps/house.tmx"),
     ICE_CAVE_ENTRY   ( -1,  -1, "data/maps/ice-cave-entry.tmx"),
     ICE_CAVE         ( -1,  -1, "data/maps/ice-cave.tmx"),
-    TITLE            (800, 1280, "data/interface/title.png"),
+    TITLE            (800,1280, "data/interface/title.png"),
     PLAYER_WALK_UP   ( 64,  64, "data/spritesheets/player_walk_up.png"),
     PLAYER_WALK_DOWN ( 64,  64, "data/spritesheets/player_walk_down.png"),
     PLAYER_WALK_LEFT ( 64,  64, "data/spritesheets/player_walk_left.png"),
@@ -16,9 +16,10 @@ public enum BSAsset {
     PLAYER_IDLE_STATE( 64,  64, "data/spritesheets/player_idle_state.png"),
     DIRECTIONAL_PAD  (512, 512, "data/interface/dpad.png"),
     MENU_BUTTON      (120, 123, "data/interface/menu-button.png"),
-    MENU             (800, 1280, "data/interface/menu.png"),
+    MENU             (800,1280, "data/interface/menu.png"),
     POWERBAR_ACTION  (128, 448, "data/interface/abilities/action.png"),
-    POWERBAR_FIRE    (128, 448, "data/interface/abilities/fire.png");
+    POWERBAR_FIRE    (128, 448, "data/interface/abilities/fire.png"),
+    MENU_ABOUT       (800,1280, "data/interface/about.png");
 
     /**
      * Intended height of this sprite in pixels

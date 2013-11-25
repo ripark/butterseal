@@ -91,6 +91,8 @@ public class BSInterface {
         r_menu_button.width -= 8;
         r_menu_button.x += 8;
 
+        Rectangle r_entire_screen = new Rectangle(0, 0, 1280, 800);
+
         Rectangle r_start_game = new Rectangle(477, 348, 286, 100);
         Rectangle r_load_game = new Rectangle(477, 450, 286, 120);
         Rectangle r_quit_game = new Rectangle(450, 586, 320, 148);
@@ -115,6 +117,7 @@ public class BSInterface {
         Rectangle r_power_select = new Rectangle(powerbar.getX() + powerbar.getHeight(),
                                                  h - powerbar.getHeight() - powerbar.getY(),
                                                  powerbar.getHeight(), powerbar.getHeight());
+        r_entire_screen.y += VOFFSET;
         r_start_game.y += VOFFSET;
         r_load_game.y += VOFFSET;
         r_quit_game.y += VOFFSET;
@@ -122,6 +125,15 @@ public class BSInterface {
         r_save.y += VOFFSET;
         r_quit.y += VOFFSET;
 
+        activeRegions.put(r_entire_screen, new BSInterfaceActor() {
+
+            @Override
+            public void act(BSInterface gui) {
+                if(session.isReadingAbout) {
+                    session.isReadingAbout = false;
+                }
+            }
+        });
 
         activeRegions.put(r_menu_button, new BSInterfaceActor() {
             @Override
@@ -157,6 +169,7 @@ public class BSInterface {
                     if(BSSession.DEBUG > 0) {
                         System.out.println("Loading game");
                     }
+                    gui.session.isReadingAbout = true;
                 }
             }
         });
@@ -316,6 +329,7 @@ public class BSInterface {
     }
 
     Map<Integer, Boolean> key_state = new HashMap<Integer, Boolean>();
+    Sprite about_screen;
     /**
      * Poll the keyboard for input.
      * @param input an input stream to analyze
@@ -414,6 +428,10 @@ public class BSInterface {
                 MakePauseScreen();
             }
             controls.end();
+        } else if (session.isReadingAbout) {
+            controls.begin();
+            MakeAboutScreen();
+            controls.end();
         } else {
             controls.begin();
             MakeTitleScreen();
@@ -440,6 +458,10 @@ public class BSInterface {
         cambatch.setProjectionMatrix(camera.combined);
     }
 
+
+    private void MakeAboutScreen() {
+        about_screen.draw(controls);
+    }
 
     ShapeRenderer rend = new ShapeRenderer();
 
@@ -522,6 +544,8 @@ public class BSInterface {
 
         powerbar = new Sprite(BSAsset.POWERBAR_ACTION.getTextureRegion(assets));
         powerbar.setPosition(Gdx.graphics.getWidth() - powerbar.getWidth() + 50, 25);
+
+        about_screen = new Sprite(BSAsset.MENU_ABOUT.getTextureRegion(assets));
     }
     public void dispose() {
         for(BSMap m : BSMap.values()) {
