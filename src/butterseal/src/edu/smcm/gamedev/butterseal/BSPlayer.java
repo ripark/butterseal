@@ -1,5 +1,6 @@
 package edu.smcm.gamedev.butterseal;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.badlogic.gdx.Gdx;
@@ -88,6 +89,9 @@ public class BSPlayer {
         this.state.facing = BSDirection.NORTH;
         this.state.selectedPower = BSPower.ACTION;
         this.state.currentTile = new BSTile(0,0);
+        this.state.available_powers = new ArrayList<BSPower>();
+        this.state.available_powers.add(BSPower.ACTION);
+        this.state.available_powers.add(BSPower.FIRE); // TODO remove
         SPEED = DEFAULT_SPEED;
     }
 
@@ -264,12 +268,13 @@ public class BSPlayer {
     }
 
     public void setPower(int i) {
-        int l = BSPower.values().length;
-        int o = this.state.selectedPower.ordinal();
+        int l = this.state.available_powers.size();
+        int o = this.state.available_powers.indexOf(this.state.selectedPower);
         int current = o + l;
         int next = (current + i) % l;
-        this.setPower(BSPower.values()[next]);
+        this.setPower(this.state.available_powers.get(next));
     }
+    
 
     public void setPower(BSPower power) {
         if(this.state.selectedPower != power) {

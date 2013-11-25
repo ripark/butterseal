@@ -1,5 +1,7 @@
 package edu.smcm.gamedev.butterseal;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.assets.AssetManager;
 
 
@@ -28,6 +30,7 @@ public class BSGameState {
     public final int slot;
     public boolean isWTF;
     BSAsset music;
+	public ArrayList<BSPower> available_powers;
 
     /**
      * Opens this game on a particular game slot.

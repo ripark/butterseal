@@ -524,7 +524,7 @@ public class BSInterface {
         case ABOUT1:
         case ABOUT2:
         case ABOUT3:
-        case ABOUT4: // TODO move case switch to make-about-screen
+        case ABOUT4:
         case ABOUT5:
         case ABOUT6:
             controls.begin();

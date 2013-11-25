@@ -28,6 +28,10 @@ public enum BSMap {
     ICE_CAVE(BSAsset.ICE_CAVE, "ice-cave", new BSGameStateActor() {
         @Override
         public void act(BSGameState state) {
+        	// TODO only act when the player moves or uses a power
+        	if(!state.available_powers.contains(BSPower.FIRE)) {
+        		state.available_powers.add(BSPower.FIRE);
+        	}
             BSMap m = state.currentMap;
             TiledMapTileLayer dark = m.getLayer("uncover");
             TiledMapTileLayer light = m.getLayer("player");
