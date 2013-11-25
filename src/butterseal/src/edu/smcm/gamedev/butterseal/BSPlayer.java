@@ -70,8 +70,9 @@ public class BSPlayer {
     /**
      * Frames to take per move
      */
-    private static final float SPEED = 5f;
-    private static final float NORMSPEED = SPEED / BSMap.PIXELS_PER_TILE;
+    static final float DEFAULT_SPEED = 5f;
+    float SPEED;
+    float NORMSPEED;
 
     public BSPlayer(BSGameState state) {
         walkUp    = new BSAnimation(BSAsset.PLAYER_WALK_UP);
@@ -88,6 +89,8 @@ public class BSPlayer {
         this.state.facing = BSDirection.NORTH;
         this.state.selectedPower = BSPower.ACTION;
         this.state.currentTile = new BSTile(0,0);
+        SPEED = DEFAULT_SPEED;
+        NORMSPEED = SPEED / BSMap.PIXELS_PER_TILE;
     }
 
     /**

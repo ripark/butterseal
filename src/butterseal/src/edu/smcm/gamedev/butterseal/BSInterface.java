@@ -333,7 +333,16 @@ public class BSInterface {
             } else {
                 toMove = null;
             }
+            if (input.isKeyPressed(Input.Keys.CONTROL_LEFT) ||
+                input.isKeyPressed(Input.Keys.CONTROL_RIGHT)) {
+                player.SPEED = 5 * BSPlayer.DEFAULT_SPEED;
+            } else {
+                player.SPEED = BSPlayer.DEFAULT_SPEED;
+            }
+
+            player.NORMSPEED = player.SPEED / BSMap.PIXELS_PER_TILE;
             player.move(toMove);
+
         }
 
         if(!depressed(input, Input.Keys.Z) && !depressed(input, Input.Keys.C)) {
