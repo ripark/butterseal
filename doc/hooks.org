@@ -38,5 +38,5 @@ Follow the configuration directions given at the GitHub repository.
 #+BEGIN_SRC sh :tangle ../.git/hooks/post-commit :shebang #!/usr/bin/env sh
   MSG="`git log -1 --pretty=%B | head -n 1`"
   URL="https://github.com/vermiculus/butterseal/commit/`git rev-parse HEAD`"
-  t update Commit! $MSG See $URL for more information!
+  t update "Commit! $MSG See $URL for more information!"
 #+END_SRC
