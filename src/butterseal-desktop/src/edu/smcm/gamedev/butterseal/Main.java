@@ -12,6 +12,7 @@ public class Main {
 		cfg.width = 1280;
 		cfg.height = 800;
 		
+		BSInterface.ANDROID_MODE = false;
 		new LwjglApplication(new ButterSeal(), cfg);
 	}
 }

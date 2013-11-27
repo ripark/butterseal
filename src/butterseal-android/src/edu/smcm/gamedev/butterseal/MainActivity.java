@@ -13,6 +13,7 @@ public class MainActivity extends AndroidApplication {
         AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
         cfg.useGL20 = false;
         
+        BSInterface.ANDROID_MODE = true;
         initialize(new ButterSeal(), cfg);
     }
 }

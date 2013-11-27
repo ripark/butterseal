@@ -32,7 +32,7 @@ import com.badlogic.gdx.math.Rectangle;
  *
  */
 public class BSInterface {
-    public static final boolean ANDROID_MODE = true;
+    public static boolean ANDROID_MODE = true;
     BSSession session;
     BSPlayer player;
 
