@@ -161,7 +161,7 @@ public class BSPlayer {
         }
         this.state.isMoving = true;
 
-        SPEED = 60 * 5f / Gdx.graphics.getFramesPerSecond();
+        //SPEED = 60 * 5f / Gdx.graphics.getFramesPerSecond();
 
         // check to see if we need to move maps
         HashMap<String,String> props = this.getFacingTile().getProperties(this.state.currentMap).get("player");
@@ -193,6 +193,7 @@ public class BSPlayer {
             displacement.x -= BSMap.PIXELS_PER_TILE * currentFrame.getScaleX() / SCALE;
             break;
         }
+        state.currentMap.update.act(state);
     }
 
     private void changeSprite(BSDirection direction) {
