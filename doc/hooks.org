@@ -8,6 +8,7 @@ This is a collection of those actions which we are using
   and instructions on how to set them up.
 
 * Tweet commits
+** Windows
 =twt= is a [[https://code.google.com/p/twt/][Windows CLI to Twitter]].
 It is included here in the =doc/= directory,
   but /must/ be configured for use /before/ you make a commit.
@@ -26,4 +27,16 @@ To set up the hook, simply copy this into =.git/hooks/post-commit=
   MSG="`git log -1 --pretty=%B | head -n 1`"
   URL="https://github.com/vermiculus/butterseal/commit/`git rev-parse HEAD`"
   doc/twt -q Commit! $MSG See $URL for more information!
+#+END_SRC
+** Ruby
+=t= is a Ruby-based Twitter client.
+It should be installed via your favorite package manager
+  (=gem= is popular for Ruby applications),
+  or directly downloaded from its [[https://github.com/sferik/t][GitHub repository]].
+Follow the configuration directions given at the GitHub repository.
+
+#+BEGIN_SRC sh :tangle ../.git/hooks/post-commit :shebang #!/usr/bin/env sh
+  MSG="`git log -1 --pretty=%B | head -n 1`"
+  URL="https://github.com/vermiculus/butterseal/commit/`git rev-parse HEAD`"
+  t update Commit! $MSG See $URL for more information!
 #+END_SRC
