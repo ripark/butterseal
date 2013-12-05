@@ -36,7 +36,7 @@ public class BSInterface {
     BSSession session;
     BSPlayer player;
 
-    Music firstmusic, secondmusic;
+    Music firstmusic, secondmusic, titlemusic;
     SpriteBatch cambatch;
     SpriteBatch controls;
     AssetManager assets;
@@ -75,6 +75,7 @@ public class BSInterface {
         camera.setToOrtho(false, Gdx.graphics.getWidth() / Gdx.graphics.getHeight() * TILE_WIDTH, TILE_HEIGHT);
 
         player.place("start");
+        titlemusic.play();
 
         activeRegions = new HashMap<Rectangle, BSInterfaceActor>();
         LoadActiveRegions();
@@ -103,6 +104,7 @@ public class BSInterface {
         //Rectangle r_save = new Rectangle(472, 291, 282, 102);
         Rectangle r_quit = new Rectangle(472, 393, 282, 152);
         Rectangle r_aboutnext = new Rectangle(1164, 388, 108, 54);
+        Rectangle r_credits = new Rectangle(470, 700, 280, 80);
         int h = Gdx.graphics.getHeight();
         int w = Gdx.graphics.getWidth();
         float hh = Math.abs(dpad.getHeight() - h);
@@ -129,6 +131,7 @@ public class BSInterface {
         //r_save.y += VOFFSET;
         r_quit.y += VOFFSET;
         r_aboutnext.y += VOFFSET;
+        r_credits.y += VOFFSET;
 
         activeRegions.put(r_entire_screen, new BSInterfaceActor() {
             @Override
@@ -138,10 +141,10 @@ public class BSInterface {
 
             @Override
             public boolean active(BSInterface gui) {
-                return  gui.session.screen == BSSessionState.ABOUT6;
+                return  gui.session.screen == BSSessionState.ABOUT6 ||
+                        gui.session.screen == BSSessionState.CREDITS;
             }
         });
-
         activeRegions.put(r_aboutnext, new BSInterfaceActor() {
             @Override
             public void act(BSInterface gui) {
@@ -204,6 +207,8 @@ public class BSInterface {
                     System.out.println("Starting game.");
                 }
                 gui.session.screen = BSSessionState.INGAME;
+
+                titlemusic.stop();
                 switch(gui.session.state.music) {
                 case FIRST_MUSIC:
                 	gui.session.state.music.playMusic(BSGameState.ASSETS);
@@ -295,6 +300,7 @@ public class BSInterface {
                     System.out.println("Quitting game.");
                 }
                 gui.session.screen = BSSessionState.TITLE;
+                gui.titlemusic.stop();
             }
 
             @Override
@@ -398,6 +404,16 @@ public class BSInterface {
             @Override
             public boolean active(BSInterface gui) {
                 return gui.session.screen == BSSessionState.INGAME;
+            }
+        });
+        activeRegions.put(r_credits, new BSInterfaceActor() {
+            @Override
+            public void act(BSInterface gui) {
+                gui.session.screen = BSSessionState.CREDITS;
+            }
+            @Override
+            public boolean active(BSInterface gui) {
+                return gui.session.screen == BSSessionState.TITLE;
             }
         });
     }
@@ -553,6 +569,11 @@ public class BSInterface {
             MakeTitleScreen();
             controls.end();
             break;
+        case CREDITS:
+            controls.begin();
+            MakeCreditsScreen();
+            controls.end();
+            break;
         default:
             break;
         }
@@ -573,6 +594,10 @@ public class BSInterface {
         }
         camera.update();
         cambatch.setProjectionMatrix(camera.combined);
+    }
+
+    private void MakeCreditsScreen() {
+        credits_screen.draw(controls);
     }
 
     private void printText(int pos, String s) {
@@ -608,6 +633,7 @@ public class BSInterface {
     }
 
     ShapeRenderer rend = new ShapeRenderer();
+    private Sprite credits_screen;
 
     private void DrawActiveRegions() {
         int h = Gdx.graphics.getHeight();
@@ -671,7 +697,8 @@ public class BSInterface {
                 assets.load(asset.assetPath, Texture.class);
             } else if (asset.assetPath.endsWith(".tmx")) {
                 assets.load(asset.assetPath, TiledMap.class);
-            } else if (asset.assetPath.endsWith(".mp3")) {
+            } else if (asset.assetPath.endsWith(".mp3") ||
+                       asset.assetPath.endsWith(".ogg")) {
                 assets.load(asset.assetPath, Music.class);
             } else {
                 System.err.print("No loader found for " + asset.assetPath);
@@ -692,12 +719,15 @@ public class BSInterface {
         powerbar.setPosition(Gdx.graphics.getWidth() - powerbar.getWidth() + 50, 25);
 
         about_screen = new Sprite(BSAsset.MENU_ABOUT1.getTextureRegion(assets));
+        credits_screen = new Sprite(BSAsset.CREDITS_SCREEN.getTextureRegion(assets));
 
         firstmusic = assets.get(BSAsset.FIRST_MUSIC.assetPath);
         firstmusic.setLooping(true);
         secondmusic = assets.get(BSAsset.SECOND_MUSIC.assetPath);
         secondmusic.setLooping(true);
 
+        titlemusic = assets.get(BSAsset.TITLE_MUSIC.assetPath);
+        titlemusic.setLooping(true);
     }
     public void dispose() {
         for(BSMap m : BSMap.values()) {

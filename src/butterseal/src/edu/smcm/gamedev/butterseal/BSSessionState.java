@@ -9,5 +9,6 @@ public enum BSSessionState {
     ABOUT3,
     ABOUT4,
     ABOUT5,
-    ABOUT6
+    ABOUT6,
+    CREDITS
 }
