@@ -285,7 +285,7 @@ public class BSInterface {
                     System.out.println("Quitting game.");
                 }
                 gui.session.screen = BSSessionState.TITLE;
-                gui.titlemusic.stop();
+                gui.titlemusic.play();
             }
 
             @Override
