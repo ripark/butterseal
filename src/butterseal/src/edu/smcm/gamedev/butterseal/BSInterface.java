@@ -36,7 +36,6 @@ public class BSInterface {
     BSSession session;
     BSPlayer player;
 
-    Music firstmusic, secondmusic, titlemusic;
     SpriteBatch cambatch;
     SpriteBatch controls;
     AssetManager assets;
@@ -75,7 +74,7 @@ public class BSInterface {
         camera.setToOrtho(false, Gdx.graphics.getWidth() / Gdx.graphics.getHeight() * TILE_WIDTH, TILE_HEIGHT);
 
         player.place("start");
-        titlemusic.play();
+        session.state.setMusic(BSAsset.TITLE_MUSIC);
 
         activeRegions = new HashMap<Rectangle, BSInterfaceActor>();
         LoadActiveRegions();
@@ -187,8 +186,7 @@ public class BSInterface {
         activeRegions.put(r_menu_button, new BSInterfaceActor() {
             @Override
             public void act(BSInterface gui) {
-                firstmusic.pause();
-                secondmusic.pause();
+                gui.session.state.music.pauseMusic();
                 gui.session.screen = BSSessionState.PAUSED;
                 if (BSSession.DEBUG > 0) {
                     System.out.println("Pausing game.");
@@ -207,18 +205,7 @@ public class BSInterface {
                     System.out.println("Starting game.");
                 }
                 gui.session.screen = BSSessionState.INGAME;
-
-                titlemusic.stop();
-                switch(gui.session.state.music) {
-                case FIRST_MUSIC:
-                	gui.session.state.music.playMusic(BSGameState.ASSETS);
-                    break;
-                case SECOND_MUSIC:
-                	gui.session.state.music.playMusic(BSGameState.ASSETS);
-                    break;
-                default:
-                    throw new IllegalStateException();
-                }
+                gui.session.state.setMusic(BSAsset.FIRST_MUSIC);
             }
 
             @Override
@@ -261,16 +248,7 @@ public class BSInterface {
                     System.out.println("Resuming game.");
                 }
                 gui.session.screen = BSSessionState.INGAME;
-                switch(gui.session.state.music) {
-                case FIRST_MUSIC:
-                	gui.session.state.music.playMusic(BSGameState.ASSETS);
-                    break;
-                case SECOND_MUSIC:
-                	gui.session.state.music.playMusic(BSGameState.ASSETS);
-                    break;
-                default:
-                    throw new IllegalStateException();
-                }
+                gui.session.state.music.playMusic();
             }
 
             @Override
@@ -285,7 +263,7 @@ public class BSInterface {
                     System.out.println("Quitting game.");
                 }
                 gui.session.screen = BSSessionState.TITLE;
-                gui.titlemusic.play();
+                gui.session.state.setMusic(BSAsset.TITLE_MUSIC);
             }
 
             @Override
@@ -673,7 +651,6 @@ public class BSInterface {
         assets.setLoader(TiledMap.class,
                                new TmxMapLoader(
                                  new InternalFileHandleResolver()));
-
     }
     /**
      * Loads all game assets
@@ -708,13 +685,9 @@ public class BSInterface {
         about_screen = new Sprite(BSAsset.MENU_ABOUT1.getTextureRegion(assets));
         credits_screen = new Sprite(BSAsset.CREDITS_SCREEN.getTextureRegion(assets));
 
-        firstmusic = assets.get(BSAsset.FIRST_MUSIC.assetPath);
-        firstmusic.setLooping(true);
-        secondmusic = assets.get(BSAsset.SECOND_MUSIC.assetPath);
-        secondmusic.setLooping(true);
-
-        titlemusic = assets.get(BSAsset.TITLE_MUSIC.assetPath);
-        titlemusic.setLooping(true);
+        assets.get(BSAsset. FIRST_MUSIC.assetPath, Music.class).setLooping(true);
+        assets.get(BSAsset.SECOND_MUSIC.assetPath, Music.class).setLooping(true);
+        assets.get(BSAsset. TITLE_MUSIC.assetPath, Music.class).setLooping(true);
     }
     public void dispose() {
         for(BSMap m : BSMap.values()) {

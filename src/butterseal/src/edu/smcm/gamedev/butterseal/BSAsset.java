@@ -69,15 +69,21 @@ public enum BSAsset {
         return null;
     }
 
-    void playMusic(AssetManager assets) {
+    void playMusic() {
         if(this.assetPath.endsWith(".mp3")) {
-            assets.get(this.assetPath, Music.class).play();
+            BSGameState.ASSETS.get(this.assetPath, Music.class).play();
         }
     }
 
-    void pauseMusic(AssetManager assets) {
+    void pauseMusic() {
         if(this.assetPath.endsWith(".mp3")) {
-            assets.get(this.assetPath, Music.class).pause();
+            BSGameState.ASSETS.get(this.assetPath, Music.class).pause();
+        }
+    }
+
+    public void stopMusic() {
+        if(this.assetPath.endsWith(".mp3")) {
+            BSGameState.ASSETS.get(this.assetPath, Music.class).stop();
         }
     }
 }

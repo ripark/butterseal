@@ -69,6 +69,12 @@ public class BSGameState {
     public void begin() {
 
     }
+
+    public void setMusic(BSAsset music) {
+        this.music.stopMusic();
+        this.music = music;
+        this.music.playMusic();
+    }
 }
 
 // Local Variables:

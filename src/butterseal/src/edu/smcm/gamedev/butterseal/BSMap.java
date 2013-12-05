@@ -135,9 +135,7 @@ public enum BSMap {
             if (state.isUsingPower && state.selectedPower == BSPower.ACTION) {
                 if (state.currentTile.hasProperty(light, "money", "1")) {
                     if (state.music == BSAsset.FIRST_MUSIC) {
-                        state.music.pauseMusic(BSGameState.ASSETS);
-                        state.music = BSAsset.SECOND_MUSIC;
-                        state.music.playMusic(BSGameState.ASSETS);
+                        state.setMusic(BSAsset.SECOND_MUSIC);
                     }
                 }
             }
