@@ -176,7 +176,7 @@ public class BSInterface {
 
             @Override
             public boolean active(BSInterface gui) {
-                return gui.session.screen == BSSessionState.ABOUT1 ||
+                return  gui.session.screen == BSSessionState.ABOUT1 ||
                         gui.session.screen == BSSessionState.ABOUT2 ||
                         gui.session.screen == BSSessionState.ABOUT3 ||
                         gui.session.screen == BSSessionState.ABOUT4 ||
@@ -278,21 +278,6 @@ public class BSInterface {
                 return gui.session.screen == BSSessionState.PAUSED;
             }
         });
-//        activeRegions.put(r_save, new BSInterfaceActor() {
-//            @Override
-//            public void act(BSInterface gui) {
-//                if (BSSession.DEBUG > 0) {
-//                    System.out.println("Handling save action");
-//                }
-//                gui.session.state.save();
-//                gui.session.screen = BSSessionState.INGAME;
-//            }
-//
-//            @Override
-//            public boolean active(BSInterface gui) {
-//                return gui.session.screen == BSSessionState.PAUSED;
-//            }
-//        });
         activeRegions.put(r_quit, new BSInterfaceActor() {
             @Override
             public void act(BSInterface gui) {
@@ -424,7 +409,9 @@ public class BSInterface {
      * @param input
      */
     public void poll(Input input) {
-        System.out.println(session.screen);
+        if (BSSession.DEBUG > 3) {
+            System.out.println(session.screen);
+        }
         pollKeyboard(input);
         if(input.isTouched() && !session.state.hasbeentouching) {
             session.state.hasbeentouching = true;
