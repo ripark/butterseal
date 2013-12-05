@@ -121,13 +121,6 @@ public enum BSMap {
                     }
                     TiledMapTile beacon_on = BSTile.getTileForProperty(m, "beacon", "on");
                     state.currentTile.getCell(light).setTile(beacon_on);
-//                } else if (state.currentTile.hasProperty(light, "beacon", "on")) {
-//                    state.currentTile.setProperty(light, "beacon", "off");
-//                    if(BSSession.DEBUG > 2) {
-//                        System.out.println("Unlighting beacon.");
-//                    }
-//                    TiledMapTile beacon_off = BSTile.getTileForProperty(m, "beacon", "off");
-//                    state.currentTile.getCell(light).setTile(beacon_off);
                 }
                 state.isUsingPower = false;
             }
