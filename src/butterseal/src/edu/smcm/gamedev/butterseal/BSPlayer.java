@@ -166,12 +166,16 @@ public class BSPlayer {
         // check to see if we need to move maps
         HashMap<String,String> props = this.getFacingTile().getProperties(this.state.currentMap).get("player");
         if (props.containsKey("player")) {
-            this.state.currentMap.reset(state);
             this.nextmap = BSMap.getByKey(props.get("player"));
+            if(state.world.isRoute(state.currentMap, nextmap)) {
+                this.state.currentMap.reset(state);
+            } else {
+                nextmap = null;
+            }
         }
 
         if(direction != state.facing) {
-            if(BSSession.DEBUG > 0) {
+            if(ButterSeal.DEBUG > 0) {
                 System.out.println("Moving " + direction);
             }
         }
@@ -231,7 +235,7 @@ public class BSPlayer {
         }
 
         for (MapLayer t : state.currentMap.map.getLayers()) {
-            if (adj.hasProperty((TiledMapTileLayer)t, "wall", "true")) {
+            if (adj.hasProperty(state.currentMap, (TiledMapTileLayer)t, "wall", "true")) {
                 return false;
             }
         }
@@ -275,12 +279,12 @@ public class BSPlayer {
         int next = (current + i) % l;
         this.setPower(this.state.available_powers.get(next));
     }
-    
+
 
     public void setPower(BSPower power) {
         if(this.state.selectedPower != power) {
             this.state.isSelectingPower = true;
-            if(BSSession.DEBUG > 2) {
+            if(ButterSeal.DEBUG > 2) {
                 System.out.println("Setting power to " + power);
             }
             this.state.selectedPower = power;
@@ -290,7 +294,7 @@ public class BSPlayer {
 
     public void usePower() {
         if(!state.isUsingPower) {
-            if(BSSession.DEBUG > 2) {
+            if(ButterSeal.DEBUG > 2) {
                 System.out.println("Using power " + this.state.selectedPower);
             }
             this.state.isUsingPower = true;

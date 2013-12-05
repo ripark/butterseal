@@ -60,8 +60,20 @@ public class BSWorld {
      * @param data The route data.
      * @throws BSException Neither source nor destination can be null.
      */
-    public void addRoute(BSMap source, BSMap destination, Object data) {
+    public void addRoute(BSMap source, BSMap destination, Object data, boolean twoway) {
         routes.add(new Route(source, destination, data));
+        routes.add(new Route(destination, source, data));
+    }
+
+    /**
+     * Adds a new route to the world between two maps, carrying arbitrary data.
+     * @param source The source map.
+     * @param destination The destination map.
+     * @param data The route data.
+     * @throws BSException Neither source nor destination can be null.
+     */
+    public void addRoute(BSMap source, BSMap destination, Object data) {
+        addRoute(source, destination, data, true);
     }
 
     /**

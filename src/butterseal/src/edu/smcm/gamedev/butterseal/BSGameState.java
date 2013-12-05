@@ -47,7 +47,8 @@ public class BSGameState {
         this.slot = slot;
         if(!load(slot)) {
             this.world = new BSWorld();
-            world.addRoute(BSMap.HOUSE, BSMap.ICE_CAVE, null);
+            world.addRoute(BSMap.HOUSE, BSMap.ICE_CAVE_ENTRY, null);
+            world.addRoute(BSMap.ICE_CAVE_ENTRY, BSMap.ICE_CAVE, null);
             currentMap = BSMap.HOUSE;
             music = BSAsset.FIRST_MUSIC;
         }
@@ -61,7 +62,7 @@ public class BSGameState {
      * Saves this game to the slot it was opened with.
      */
     public void save() {
-        if(BSSession.DEBUG > 0) {
+        if(ButterSeal.DEBUG > 0) {
             System.out.println("GameState saving game.");
         }
     }

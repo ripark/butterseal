@@ -32,7 +32,6 @@ import com.badlogic.gdx.math.Rectangle;
  *
  */
 public class BSInterface {
-    public static boolean ANDROID_MODE = true;
     BSSession session;
     BSPlayer player;
 
@@ -86,7 +85,7 @@ public class BSInterface {
 
     private void LoadActiveRegions() {
 
-        final int VOFFSET = ANDROID_MODE ? -50 : 0;
+        final int VOFFSET = ButterSeal.ANDROID_MODE ? -50 : 0;
 
 
         Rectangle r_menu_button = vFlipRectangle(menubutton.getBoundingRectangle());
@@ -188,7 +187,7 @@ public class BSInterface {
             public void act(BSInterface gui) {
                 gui.session.state.music.pauseMusic();
                 gui.session.screen = BSSessionState.PAUSED;
-                if (BSSession.DEBUG > 0) {
+                if (ButterSeal.DEBUG > 0) {
                     System.out.println("Pausing game.");
                 }
             }
@@ -201,7 +200,7 @@ public class BSInterface {
         activeRegions.put(r_start_game, new BSInterfaceActor() {
             @Override
             public void act(BSInterface gui) {
-                if (BSSession.DEBUG > 1) {
+                if (ButterSeal.DEBUG > 1) {
                     System.out.println("Starting game.");
                 }
                 gui.session.screen = BSSessionState.INGAME;
@@ -216,7 +215,7 @@ public class BSInterface {
         activeRegions.put(r_load_game, new BSInterfaceActor() {
             @Override
             public void act(BSInterface gui) {
-                if (BSSession.DEBUG > 0) {
+                if (ButterSeal.DEBUG > 0) {
                     System.out.println("Loading game");
                 }
                 gui.session.screen = BSSessionState.ABOUT1;
@@ -230,7 +229,7 @@ public class BSInterface {
         activeRegions.put(r_quit_game, new BSInterfaceActor() {
             @Override
             public void act(BSInterface gui) {
-                if (BSSession.DEBUG > 0) {
+                if (ButterSeal.DEBUG > 0) {
                     System.out.println("Quitting game completely.");
                 }
                 Gdx.app.exit();
@@ -244,7 +243,7 @@ public class BSInterface {
         activeRegions.put(r_resume, new BSInterfaceActor() {
             @Override
             public void act(BSInterface gui) {
-                if (BSSession.DEBUG > 0) {
+                if (ButterSeal.DEBUG > 0) {
                     System.out.println("Resuming game.");
                 }
                 gui.session.screen = BSSessionState.INGAME;
@@ -259,7 +258,7 @@ public class BSInterface {
         activeRegions.put(r_quit, new BSInterfaceActor() {
             @Override
             public void act(BSInterface gui) {
-                if (BSSession.DEBUG > 0) {
+                if (ButterSeal.DEBUG > 0) {
                     System.out.println("Quitting game.");
                 }
                 gui.session.screen = BSSessionState.TITLE;
@@ -274,7 +273,7 @@ public class BSInterface {
         activeRegions.put(r_dpad_left, new BSInterfaceActor() {
             @Override
             public void act(BSInterface gui) {
-                if (BSSession.DEBUG > 0) {
+                if (ButterSeal.DEBUG > 0) {
                     System.out.println("Going left.");
                 }
                 gui.player.move(BSDirection.WEST);
@@ -288,7 +287,7 @@ public class BSInterface {
         activeRegions.put(r_dpad_right, new BSInterfaceActor() {
             @Override
             public void act(BSInterface gui) {
-                if (BSSession.DEBUG > 0) {
+                if (ButterSeal.DEBUG > 0) {
                     System.out.println("Going right.");
                 }
                 gui.player.move(BSDirection.EAST);
@@ -302,7 +301,7 @@ public class BSInterface {
         activeRegions.put(r_dpad_up, new BSInterfaceActor() {
             @Override
             public void act(BSInterface gui) {
-                if (BSSession.DEBUG > 0) {
+                if (ButterSeal.DEBUG > 0) {
                     System.out.println("Going up.");
                 }
                 gui.player.move(BSDirection.NORTH);
@@ -316,7 +315,7 @@ public class BSInterface {
         activeRegions.put(r_dpad_down, new BSInterfaceActor() {
             @Override
             public void act(BSInterface gui) {
-                if (BSSession.DEBUG > 0) {
+                if (ButterSeal.DEBUG > 0) {
                     System.out.println("Going down.");
                 }
                 gui.player.move(BSDirection.SOUTH);
@@ -330,7 +329,7 @@ public class BSInterface {
         activeRegions.put(r_power_left, new BSInterfaceActor() {
             @Override
             public void act(BSInterface gui) {
-                if (BSSession.DEBUG > 0) {
+                if (ButterSeal.DEBUG > 0) {
                     System.out.println("power left");
                 }
                 gui.player.setPower(-1);
@@ -344,7 +343,7 @@ public class BSInterface {
         activeRegions.put(r_power_right, new BSInterfaceActor() {
             @Override
             public void act(BSInterface gui) {
-                if (BSSession.DEBUG > 0) {
+                if (ButterSeal.DEBUG > 0) {
                     System.out.println("power right");
                 }
                 gui.player.setPower(1);
@@ -358,7 +357,7 @@ public class BSInterface {
         activeRegions.put(r_power_select, new BSInterfaceActor() {
             @Override
             public void act(BSInterface gui) {
-                if (BSSession.DEBUG > 0) {
+                if (ButterSeal.DEBUG > 0) {
                     System.out.println("power select");
                 }
                 gui.player.usePower();
@@ -387,7 +386,7 @@ public class BSInterface {
      * @param input
      */
     public void poll(Input input) {
-        if (BSSession.DEBUG > 3) {
+        if (ButterSeal.DEBUG > 4) {
             System.out.println(session.screen);
         }
         pollKeyboard(input);
@@ -543,7 +542,7 @@ public class BSInterface {
             break;
         }
 
-        if(BSSession.DEBUG > 3) {
+        if(ButterSeal.DEBUG > 3) {
             DrawActiveRegions();
         }
 
@@ -551,7 +550,7 @@ public class BSInterface {
             camera.rotate(1f);
         }
 
-        if(BSSession.DEBUG > 0) {
+        if(ButterSeal.DEBUG > 0) {
             controls.begin();
             printText(5,String.format("FPS: %d", Gdx.graphics.getFramesPerSecond()));
             printText(25,String.format("Selected Power: %s", session.state.selectedPower));
@@ -688,10 +687,11 @@ public class BSInterface {
         assets.get(BSAsset. FIRST_MUSIC.assetPath, Music.class).setLooping(true);
         assets.get(BSAsset.SECOND_MUSIC.assetPath, Music.class).setLooping(true);
         assets.get(BSAsset. TITLE_MUSIC.assetPath, Music.class).setLooping(true);
+        assets.get(BSAsset. TITLE_MUSIC.assetPath, Music.class).setVolume(0.1f);
     }
     public void dispose() {
         for(BSMap m : BSMap.values()) {
-            if(BSSession.DEBUG > 1) {
+            if(ButterSeal.DEBUG > 1) {
                 System.out.printf("Unloading map %s%n", m.asset.assetPath);
             }
             m.map.dispose();

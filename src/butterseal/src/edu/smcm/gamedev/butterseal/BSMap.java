@@ -37,8 +37,8 @@ public enum BSMap {
                 return;
             }
             BSMap m = state.currentMap;
-            TiledMapTileLayer dark = m.getLayer("uncover");
-            TiledMapTileLayer light = m.getLayer("player");
+            TiledMapTileLayer dark = m.getLayer("dark");
+            TiledMapTileLayer light = m.getLayer("light");
             TiledMapTile invis = BSTile.getTileForProperty(m, "invisible", "true");
 
             for(int row = 0; row < m.playerLevel.getHeight(); row++) {
@@ -46,36 +46,35 @@ public enum BSMap {
                     BSTile curr = new BSTile(row, col);
 
                     Map<String, HashMap<String, String>> pp = curr.getProperties(state.currentMap);
-                    HashMap<String, String> props = pp.get("player");
 
-                    if(props.containsKey("light")) {
-                        if(curr.hasProperty(light, "light", "torch")) {
-                            if(BSSession.DEBUG > 3) {
+                    if(pp.get("light").containsKey("light")) {
+                        if(curr.hasProperty(m, light, "light", "torch")) {
+                            if(ButterSeal.DEBUG > 3) {
                                 System.out.println("found torch");
                             }
                             for (int i = -1; i <= 1; i++) {
                                 for (int j = -1; j <= 1; j++) {
                                     Cell point = new BSTile(row + i, col + j).getCell(dark);
                                     if(!point.getTile().equals(invis)) {
-                                        if(BSSession.DEBUG > 2) {
+                                        if(ButterSeal.DEBUG > 2) {
                                             System.out.printf("Clearing tile %d,%d%n", row + i, col + j);
                                         }
                                         point.setTile(invis);
                                     }
                                 }
                             }
-                        } else if (curr.hasProperty(m.playerLevel, "light", "beacon")) {
-                            if(BSSession.DEBUG > 3) {
+                        } else if (curr.hasProperty(m, light, "light", "beacon")) {
+                            if(ButterSeal.DEBUG > 3) {
                                 System.out.println("found beacon");
                             }
-                            if(curr.hasProperty(light, "beacon", "on")) {
+                            if(curr.hasProperty(m, light, "beacon", "on")) {
                                 for (int i = -1; i <= 1; i++) {
                                     for (int j = -1; j <= 1; j++) {
                                         BSTile lookingAt = new BSTile(row + i, col + j);
                                         if(lookingAt.isContainedIn(dark)) {
                                             Cell point = lookingAt.getCell(dark);
                                             if(!point.getTile().equals(invis)) {
-                                                if(BSSession.DEBUG > 2) {
+                                                if(ButterSeal.DEBUG > 2) {
                                                     System.out.printf("Clearing tile %d,%d%n", row + i, col + j);
                                                 }
                                                 point.setTile(invis);
@@ -84,12 +83,12 @@ public enum BSMap {
                                     }
                                 }
                                 for(BSDirection d : BSDirection.values()) {
-                                    if(BSSession.DEBUG > 2) {
+                                    if(ButterSeal.DEBUG > 2) {
                                         System.out.println("Clearing " + d);
                                     }
                                     BSTile point = new BSTile(curr);
                                     while(point.isContainedIn(dark) &&
-                                         !point.hasProperty(m.playerLevel, "wall", "true")) {
+                                         !point.hasProperty(m, m.playerLevel, "wall", "true")) {
                                         point.getCell(dark).setTile(invis);
                                         point.transpose(d.dx, d.dy);
                                     }
@@ -99,7 +98,7 @@ public enum BSMap {
                                 }
                             }
                         } else {
-                            System.err.printf("Unknown option light=%s%n", props.get("light"));
+                            System.err.printf("Unknown option light=%s%n", pp.get("light").get("light"));
                         }
                     }
                 }
@@ -109,26 +108,27 @@ public enum BSMap {
         @Override
         public void update(BSGameState state) {
             BSMap m = state.currentMap;
-            TiledMapTileLayer light = m.getLayer("player");
-            TiledMapTileLayer dark = m.getLayer("uncover");
+            TiledMapTileLayer light = m.getLayer("light");
+            TiledMapTileLayer dark = m.getLayer("dark");
+            TiledMapTile beacon_on = BSTile.getTileForProperty(m, "beacon", "on");
 
             // update beacon state
             if (state.isUsingPower && state.selectedPower == BSPower.FIRE) {
-                if (state.currentTile.hasProperty(light, "beacon", "off")) {
+                if (state.currentTile.hasProperty(m, light, "beacon", "off")) {
                     state.currentTile.setProperty(light, "beacon", "on");
-                    if(BSSession.DEBUG > 2) {
+                    if(ButterSeal.DEBUG > 2) {
                         System.out.println("Lighting beacon.");
                     }
-                    TiledMapTile beacon_on = BSTile.getTileForProperty(m, "beacon", "on");
                     state.currentTile.getCell(light).setTile(beacon_on);
                 }
                 state.isUsingPower = false;
             }
-
-            if (state.isUsingPower && state.selectedPower == BSPower.ACTION) {
-                if (state.currentTile.hasProperty(light, "money", "1")) {
-                    if (state.music == BSAsset.FIRST_MUSIC) {
+            if (state.currentTile.hasProperty(m, m.playerLevel, "objective", "true")) {
+                if (state.isUsingPower && state.selectedPower == BSPower.ACTION) {
+                    if(!m.objectiveReached) {
+                        m.objectiveReached = true;
                         state.setMusic(BSAsset.SECOND_MUSIC);
+                        state.world.addRoute(BSMap.ICE_CAVE, BSMap.ICE_CAVE_EXIT, null);
                     }
                 }
             }
@@ -136,7 +136,7 @@ public enum BSMap {
             for(int row = 0; row < m.playerLevel.getHeight(); row++) {
                 for(int col = 0; col < m.playerLevel.getWidth(); col++) {
                     BSTile curr = new BSTile(row, col);
-                    if(curr.hasProperty(dark, "lit", "true")) {
+                    if(curr.hasProperty(m, dark, "lit", "true")) {
                         curr.setProperty(m.playerLevel, "wall", "false");
                     } else {
                         curr.setProperty(m.playerLevel, "wall", "true");
@@ -148,6 +148,27 @@ public enum BSMap {
         @Override
         public void reset(BSGameState state) {
         }
+	}),
+	ICE_CAVE_EXIT(BSAsset.ICE_CAVE_EXIT, "ice-cave-exit", new BSGameStateActor() {
+
+        @Override
+        public void act(BSGameState state) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void update(BSGameState state) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void reset(BSGameState state) {
+            // TODO Auto-generated method stub
+
+        }
+
 	}),
 	HOUSE(BSAsset.HOUSE, "house", new BSGameStateActor() {
         @Override
@@ -171,6 +192,7 @@ public enum BSMap {
     String key;
     BSGameStateActor update;
     TiledMapTileLayer playerLevel;
+    boolean objectiveReached;
 
     BSMap(BSAsset asset, String key, BSGameStateActor update) {
         this.map = new TmxMapLoader().load(asset.assetPath);
@@ -194,7 +216,7 @@ public enum BSMap {
             for(int col = 0; col < w; col++) {
                 ret = new BSTile(row, col);
                 Map<String, String> prop = ret.getProperties(this).get("player");
-                if (prop.containsKey("player") && prop.get("player").equals(key)) {
+                if (prop != null && prop.containsKey("player") && prop.get("player").equals(key)) {
                     return ret;
                 }
             }

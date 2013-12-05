@@ -31,15 +31,17 @@ public class BSTile {
             try {
                 Cell c = layer.getCell(x, y);
                 if (c == null) {
-                    System.err.printf("%s:%s::%d,%d:no cell%n", map.asset.assetPath, layer.getName(), x, y);
-                    continue;
+                    //System.err.printf("%s:%s::%d,%d:no cell%n", map.asset.assetPath, layer.getName(), x, y);
+                    layer.setCell(x, y, new Cell());
+                    c = layer.getCell(x, y);
+                    c.setTile(BSTile.getTileForProperty(map, "invisible", "true"));
                 }
                 TiledMapTile t = c.getTile();
                 MapProperties prop = t.getProperties();
                 HashMap<String, String> thislayer = new HashMap<String, String>();
                 for(Iterator<String> i = prop.getKeys(); i.hasNext();) {
                     String mykey = i.next();
-                    if(BSSession.DEBUG > 3) {
+                    if(ButterSeal.DEBUG > 3) {
                         System.out.printf("%s:%s::%d,%d:%s=%s%n", map.asset.assetPath, layer.getName(), x, y, mykey, prop.get(mykey));
                     }
                     thislayer.put(mykey, prop.get(mykey).toString());
@@ -94,12 +96,18 @@ public class BSTile {
     public TiledMapTileLayer.Cell getCell(TiledMapTileLayer layer) {
         return layer.getCell(x, y);
     }
-    public boolean hasProperty(TiledMapTileLayer map, String key, String value) {
-        if (!this.isContainedIn(map)) {
+    public boolean hasProperty(BSMap map, TiledMapTileLayer layer, String key, String value) {
+        if (!this.isContainedIn(layer)) {
             return false;
         }
-        Cell c = getCell(map);
-        TiledMapTile t = c.getTile();
+        Cell c = getCell(layer);
+        TiledMapTile t;
+        if (c == null) {
+            t = BSTile.getTileForProperty(map, "invisible", "true");
+        }
+        else {
+            t = c.getTile();
+        }
         MapProperties p = t.getProperties();
         return BSUtil.propertyEquals(p, key, value);
     }

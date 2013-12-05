@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.GL10;
 public class ButterSeal implements ApplicationListener {
     BSSession session;
     BSInterface gui;
+    public static boolean ANDROID_MODE = true;
+    public static int DEBUG = 1;
 
     @Override
     public void create() {
