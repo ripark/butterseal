@@ -30,7 +30,8 @@ public enum BSAsset {
     SECOND_MUSIC     ( -1,  -1, "data/music/part2.mp3"),
     TITLE_MUSIC      ( -1,  -1, "data/music/title.mp3"),
     CREDITS_SCREEN   (800,1280, "data/interface/credits.png"),
-    ICE_CAVE_EXIT    ( -1,  -1, "data/maps/ice-cave-exit.tmx");
+    ICE_CAVE_EXIT    ( -1,  -1, "data/maps/ice-cave-exit.tmx"),
+    PLAYER           ( -1,  -1, "data/spritesheets/player.txt");
 
     /**
      * Intended height of this sprite in pixels

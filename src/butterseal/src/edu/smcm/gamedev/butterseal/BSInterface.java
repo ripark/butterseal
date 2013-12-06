@@ -663,9 +663,9 @@ public class BSInterface {
             } else if (asset.assetPath.endsWith(".mp3") ||
                        asset.assetPath.endsWith(".ogg")) {
                 assets.load(asset.assetPath, Music.class);
+            } else if (asset.assetPath.endsWith(".txt")) {
             } else {
-                System.err.print("No loader found for " + asset.assetPath);
-                System.exit(1);
+                System.err.printf("No loader found for %s%n", asset.assetPath);
             }
         }
         assets.finishLoading();

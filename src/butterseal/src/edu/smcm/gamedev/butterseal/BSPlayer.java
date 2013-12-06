@@ -6,16 +6,17 @@ import java.util.HashMap;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Array;
 
 /**
  * Handles player state and movement on-screen.
@@ -29,29 +30,14 @@ public class BSPlayer {
 
     private static class BSAnimation {
         Animation animation;
-        Texture spritesheet;
-        TextureRegion[] frames;
+        TextureAtlas spriteSheet;
         float time;
 
-        public BSAnimation(BSAsset asset) {
-            this.spritesheet = assets.get(asset.assetPath);
-            this.setAnimations();
-        }
+        public BSAnimation(String prefix) {
+            this.spriteSheet = new TextureAtlas(BSAsset.PLAYER.assetPath);
 
-        public void setAnimations() {
-            TextureRegion[][] tmp =
-                TextureRegion.split(this.spritesheet,
-                                    this.spritesheet.getWidth() / FRAME_COLS,
-                                    this.spritesheet.getHeight() / FRAME_ROWS);
-            this.frames = new TextureRegion[FRAME_COLS * FRAME_ROWS];
-            int index = 0;
-            for (int i = 0; i < FRAME_ROWS; i++) {
-                for (int j = 0; j < FRAME_COLS; j++) {
-                    this.frames[index] = tmp[i][j];
-                    index += 1;
-                }
-            }
-            this.animation = new Animation(0.25f, frames);
+            Array<Sprite> skeleton = spriteSheet.createSprites(prefix);
+            this.animation = new Animation(0.25f, skeleton);
             this.time = 0f;
         }
     }
@@ -67,7 +53,7 @@ public class BSPlayer {
      * The pixels yet to move
      */
     Vector2 displacement;
-    private static final float SCALE = 5f;
+    private static final float SCALE = 1f;
     /**
      * Frames to take per move
      */
@@ -75,14 +61,14 @@ public class BSPlayer {
     float SPEED;
 
     public BSPlayer(BSGameState state) {
-        walkUp    = new BSAnimation(BSAsset.PLAYER_WALK_UP);
-        walkDown  = new BSAnimation(BSAsset.PLAYER_WALK_DOWN);
-        walkRight = new BSAnimation(BSAsset.PLAYER_WALK_RIGHT);
-        walkLeft  = new BSAnimation(BSAsset.PLAYER_WALK_LEFT);
-        idle      = new BSAnimation(BSAsset.PLAYER_IDLE_STATE);
+        walkUp    = new BSAnimation("up");
+        walkDown  = new BSAnimation("down");
+        walkRight = new BSAnimation("east");
+        walkLeft  = new BSAnimation("west");
+        idle      = new BSAnimation("idle");
 
-        this.currentFrame = new Sprite(idle.frames[0]);
-        this.currentFrame.setOrigin(0, 0);
+        this.changeSprite(null);
+        this.currentFrame.setOrigin(14/16f, 13/16f);
         this.currentFrame.setScale(SCALE / BSMap.PIXELS_PER_TILE);
         this.displacement = new Vector2();
         this.state = state;
@@ -219,7 +205,13 @@ public class BSPlayer {
             }
         }
         target.time += Gdx.graphics.getDeltaTime();
-        this.currentFrame.setRegion(target.animation.getKeyFrame(target.time, true));
+        //get key frame is returning null
+        TextureRegion iafno = target.animation.getKeyFrame(target.time, true);
+        if(this.currentFrame == null) {
+            currentFrame = new Sprite(iafno);
+        } else {
+            this.currentFrame.setRegion(iafno);
+        }
     }
 
     private boolean canMove(BSDirection direction) {

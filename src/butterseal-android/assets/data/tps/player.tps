@@ -26,7 +26,7 @@
             </struct>
         </array>
         <key>allowRotation</key>
-        <false/>
+        <true/>
         <key>premultiplyAlpha</key>
         <false/>
         <key>shapeDebug</key>
@@ -36,7 +36,7 @@
         <key>dataFormat</key>
         <string>libgdx</string>
         <key>textureFileName</key>
-        <filename>../tilesets/ice-cave.png</filename>
+        <filename>../spritesheets/player.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>ditherType</key>
@@ -54,7 +54,7 @@
             </struct>
         </struct>
         <key>shapePadding</key>
-        <uint>0</uint>
+        <uint>2</uint>
         <key>jpgQuality</key>
         <uint>80</uint>
         <key>pngOptimizationLevel</key>
@@ -64,13 +64,13 @@
         <key>textureFormat</key>
         <enum type="SettingsBase::TextureFormat">png</enum>
         <key>borderPadding</key>
-        <uint>0</uint>
+        <uint>2</uint>
         <key>maxTextureSize</key>
         <QSize>
             <key>width</key>
-            <int>1024</int>
+            <int>2048</int>
             <key>height</key>
-            <int>4096</int>
+            <int>2048</int>
         </QSize>
         <key>fixedTextureSize</key>
         <QSize>
@@ -92,7 +92,7 @@
             <key>forceSquared</key>
             <false/>
             <key>forceWordAligned</key>
-            <true/>
+            <false/>
             <key>maxRects</key>
             <struct type="AlgorithmMaxRectsSettings">
                 <key>heuristic</key>
@@ -127,7 +127,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../tilesets/ice-cave.txt</filename>
+                <filename>../spritesheets/player.txt</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -142,7 +142,7 @@
             <string></string>
         </struct>
         <key>autoAliasEnabled</key>
-        <false/>
+        <true/>
         <key>trimSpriteNames</key>
         <false/>
         <key>cleanTransparentPixels</key>
@@ -166,8 +166,30 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>../tilesets/supertux-tiles/icecave</filename>
-            <filename>../tilesets/beacon</filename>
+            <filename>../spritesheets/character/down_0002.png</filename>
+            <filename>../spritesheets/character/down_0003.png</filename>
+            <filename>../spritesheets/character/east_0000.png</filename>
+            <filename>../spritesheets/character/east_0001.png</filename>
+            <filename>../spritesheets/character/east_0002.png</filename>
+            <filename>../spritesheets/character/east_0003.png</filename>
+            <filename>../spritesheets/character/east_0004.png</filename>
+            <filename>../spritesheets/character/east_0005.png</filename>
+            <filename>../spritesheets/character/up_0000.png</filename>
+            <filename>../spritesheets/character/up_0001.png</filename>
+            <filename>../spritesheets/character/up_0002.png</filename>
+            <filename>../spritesheets/character/up_0003.png</filename>
+            <filename>../spritesheets/character/west_0000.png</filename>
+            <filename>../spritesheets/character/west_0001.png</filename>
+            <filename>../spritesheets/character/west_0002.png</filename>
+            <filename>../spritesheets/character/west_0003.png</filename>
+            <filename>../spritesheets/character/west_0004.png</filename>
+            <filename>../spritesheets/character/west_0005.png</filename>
+            <filename>../spritesheets/character/down_0000.png</filename>
+            <filename>../spritesheets/character/down_0001.png</filename>
+            <filename>../spritesheets/character/idle_0003.png</filename>
+            <filename>../spritesheets/character/idle_0000.png</filename>
+            <filename>../spritesheets/character/idle_0001.png</filename>
+            <filename>../spritesheets/character/idle_0002.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
