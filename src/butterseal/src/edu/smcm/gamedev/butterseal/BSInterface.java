@@ -695,8 +695,8 @@ public class BSInterface {
             }
             m.map.dispose();
         }
-        //cambatch.dispose();
-        //controls.dispose();
+        cambatch.dispose();
+        controls.dispose();
         assets.dispose();
     }
 
