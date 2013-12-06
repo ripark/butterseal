@@ -180,7 +180,6 @@ public class BSPlayer {
             displacement.x -= BSMap.PIXELS_PER_TILE * currentFrame.getScaleX() / SCALE;
             break;
         }
-        state.currentMap.update.act(state);
     }
 
     private void changeSprite(BSDirection direction) {
