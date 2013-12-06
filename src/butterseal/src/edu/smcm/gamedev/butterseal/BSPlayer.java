@@ -37,6 +37,16 @@ public class BSPlayer {
             this.animation = new Animation(0.25f, skeleton);
             this.time = 0f;
         }
+
+        public BSAnimation(String prefix, int frames) {
+            this.spriteSheet = new TextureAtlas(BSAsset.PLAYER.assetPath);
+            Array<Sprite> skeleton = new Array<Sprite>();
+            for(int i = 0; i < frames; i++) {
+                skeleton.add(new Sprite(spriteSheet.findRegion(String.format("%s/%04d", prefix, i))));
+            }
+            this.animation = new Animation(0.25f, skeleton);
+            this.time = 0f;
+        }
     }
 
     BSGameState state;
@@ -62,7 +72,7 @@ public class BSPlayer {
         walkDown  = new BSAnimation("down");
         walkRight = new BSAnimation("east");
         walkLeft  = new BSAnimation("west");
-        idle      = new BSAnimation("idle");
+        idle      = new BSAnimation("man", 40);
 
         this.changeSprite(null);
         this.currentFrame.setOrigin(14/16f, 13/16f);
