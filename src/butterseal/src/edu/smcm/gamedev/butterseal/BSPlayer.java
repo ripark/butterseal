@@ -25,9 +25,6 @@ import com.badlogic.gdx.utils.Array;
  *
  */
 public class BSPlayer {
-    private static final int FRAME_ROWS = 2;
-    private static final int FRAME_COLS = 2;
-
     private static class BSAnimation {
         Animation animation;
         TextureAtlas spriteSheet;

@@ -104,7 +104,6 @@ public class BSInterface {
         Rectangle r_aboutnext = new Rectangle(1164, 388, 108, 54);
         Rectangle r_credits = new Rectangle(470, 700, 280, 80);
         int h = Gdx.graphics.getHeight();
-        int w = Gdx.graphics.getWidth();
         float hh = Math.abs(dpad.getHeight() - h);
         float xx = dpad.getWidth()/3;
         float yy = dpad.getHeight()/3;
