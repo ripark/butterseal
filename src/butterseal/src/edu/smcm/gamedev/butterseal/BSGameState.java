@@ -30,7 +30,7 @@ public class BSGameState {
     public final int slot;
     public boolean isWTF;
     BSAsset music;
-	public ArrayList<BSPower> available_powers;
+    public ArrayList<BSPower> available_powers;
 
     /**
      * Opens this game on a particular game slot.
@@ -49,6 +49,7 @@ public class BSGameState {
             this.world = new BSWorld();
             world.addRoute(BSMap.HOUSE, BSMap.ICE_CAVE_ENTRY, null);
             world.addRoute(BSMap.ICE_CAVE_ENTRY, BSMap.ICE_CAVE, null);
+            world.addRoute(BSMap.ICE_CAVE_EXIT, BSMap.MAZE, null);
             currentMap = BSMap.HOUSE;
             music = BSAsset.FIRST_MUSIC;
         }

@@ -88,7 +88,7 @@ public enum BSMap {
                                     }
                                     BSTile point = new BSTile(curr);
                                     while(point.isContainedIn(dark) &&
-                                         !point.hasProperty(m, m.playerLevel, "wall", "true")) {
+                                            !point.hasProperty(m, m.playerLevel, "wall", "true")) {
                                         point.getCell(dark).setTile(invis);
                                         point.transpose(d.dx, d.dy);
                                     }
@@ -129,6 +129,10 @@ public enum BSMap {
                         m.objectiveReached = true;
                         state.setMusic(BSAsset.SECOND_MUSIC);
                         state.world.addRoute(BSMap.ICE_CAVE, BSMap.ICE_CAVE_EXIT, null);
+
+                        if(!state.available_powers.contains(BSPower.LIGHT)) {
+                            state.available_powers.add(BSPower.LIGHT);
+                        }
                     }
                 }
             }
@@ -148,8 +152,8 @@ public enum BSMap {
         @Override
         public void reset(BSGameState state) {
         }
-	}),
-	ICE_CAVE_EXIT(BSAsset.ICE_CAVE_EXIT, "ice-cave-exit", new BSGameStateActor() {
+    }),
+    ICE_CAVE_EXIT(BSAsset.ICE_CAVE_EXIT, "ice-cave-exit", new BSGameStateActor() {
 
         @Override
         public void act(BSGameState state) {
@@ -169,8 +173,8 @@ public enum BSMap {
 
         }
 
-	}),
-	HOUSE(BSAsset.HOUSE, "house", new BSGameStateActor() {
+    }),
+    HOUSE(BSAsset.HOUSE, "house", new BSGameStateActor() {
         @Override
         public void act(BSGameState state) {
         }
@@ -182,6 +186,26 @@ public enum BSMap {
         @Override
         public void reset(BSGameState state) {
         }
+    }), MAZE (BSAsset.MAZE, "maze", new BSGameStateActor() {
+
+        @Override
+        public void act(BSGameState state) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void update(BSGameState state) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void reset(BSGameState state) {
+            // TODO Auto-generated method stub
+
+        }
+
     });
 
     static final float PIXELS_PER_TILE = 64;
