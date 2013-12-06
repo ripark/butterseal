@@ -72,7 +72,7 @@ public class BSPlayer {
         walkDown  = new BSAnimation("down");
         walkRight = new BSAnimation("east");
         walkLeft  = new BSAnimation("west");
-        idle      = new BSAnimation("man", 40);
+        idle      = new BSAnimation("idle");
 
         this.changeSprite(null);
         this.currentFrame.setOrigin(14/16f, 13/16f);
@@ -84,7 +84,6 @@ public class BSPlayer {
         this.state.currentTile = new BSTile(0,0);
         this.state.available_powers = new ArrayList<BSPower>();
         this.state.available_powers.add(BSPower.ACTION);
-        this.state.available_powers.add(BSPower.FIRE); // TODO remove
         SPEED = DEFAULT_SPEED;
     }
 
