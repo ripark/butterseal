@@ -52,7 +52,7 @@ public class BSPlayer {
     BSGameState state;
     static SpriteBatch batch;
     static AssetManager assets;
-    public static OrthographicCamera camera;
+    static OrthographicCamera camera;
     BSAnimation walkUp, walkDown, walkRight, walkLeft, idle;
     Sprite currentFrame;
     /**
