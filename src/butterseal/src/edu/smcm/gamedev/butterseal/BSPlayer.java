@@ -52,9 +52,8 @@ public class BSPlayer {
     BSGameState state;
     static SpriteBatch batch;
     static AssetManager assets;
-    public static OrthographicCamera camera;
+    static OrthographicCamera camera;
     BSAnimation walkUp, walkDown, walkRight, walkLeft, idle;
-    BSMap nextmap = null;
     Sprite currentFrame;
     /**
      * The pixels yet to move
@@ -75,13 +74,13 @@ public class BSPlayer {
         idle      = new BSAnimation("idle");
 
         this.changeSprite(null);
-        this.currentFrame.setOrigin(14/16f, 13/16f);
+        this.currentFrame.setOrigin(13/16f, 12/16f);
         this.currentFrame.setScale(SCALE / BSMap.PIXELS_PER_TILE);
         this.displacement = new Vector2();
         this.state = state;
         this.state.facing = BSDirection.NORTH;
         this.state.selectedPower = BSPower.ACTION;
-        this.state.currentTile = new BSTile(0,0);
+        this.state.currentTile = new BSTile(0, 0);
         this.state.available_powers = new ArrayList<BSPower>();
         this.state.available_powers.add(BSPower.ACTION);
         SPEED = DEFAULT_SPEED;
@@ -96,10 +95,10 @@ public class BSPlayer {
         // update moving state based on whether we have more to move
         changeSprite(state.isMoving ? state.facing : null);
         this.state.isMoving = displacement.x != 0 || displacement.y != 0;
-        if(!this.state.isMoving && this.nextmap != null) {
+        if(!this.state.isMoving && this.state.nextMap != null) {
             String oldkey = this.state.currentMap.key;
-            this.state.currentMap = this.nextmap;
-            this.nextmap = null;
+            this.state.currentMap = this.state.nextMap;
+            this.state.nextMap = null;
             this.place(oldkey);
             this.state.currentMap.usePower(state);
         }
@@ -140,38 +139,46 @@ public class BSPlayer {
      * @param direction the direction in which to move
      */
     public void move(BSDirection direction) {
+        System.out.println(state.hasbeentouching);
         if(direction == null) {
             return;
         }
         this.state.facing = direction;
-        this.state.hasbeentouching = false;
         changeSprite(state.facing);
-        if(!canMove(this.state.facing) && direction == state.facing) {
+        if(!(!state.hasbeentouching || canMove(direction))) {
             // check to see if we need to move maps
             HashMap<String,String> props = this.state.currentTile.getProperties(this.state.currentMap).get("player");
             if (props.containsKey("player")) {
-                this.nextmap = BSMap.getByKey(props.get("player"));
-                if(state.world.isRoute(state.currentMap, nextmap)) {
+                this.state.nextMap = BSMap.getByKey(props.get("player"));
+                if(state.world.isRoute(state.currentMap, this.state.nextMap)) {
+                    this.state.justchangedmaps = true;
                     this.state.currentMap.reset(state);
                 } else {
-                    nextmap = null;
+                    this.state.nextMap = null;
                 }
             }
             return;
         }
+        if(!canMove(direction)) {
+            return;
+        }
+        this.state.justchangedmaps = false;
+        this.state.hasbeentouching = false;
         this.state.isMoving = true;
-
-        //SPEED = 60 * 5f / Gdx.graphics.getFramesPerSecond();
 
         // check to see if we need to move maps
         HashMap<String,String> props = this.getFacingTile().getProperties(this.state.currentMap).get("player");
         if (props.containsKey("player")) {
-            this.nextmap = BSMap.getByKey(props.get("player"));
-            if(state.world.isRoute(state.currentMap, nextmap)) {
+            this.state.nextMap = BSMap.getByKey(props.get("player"));
+            if(state.world.isRoute(state.currentMap, this.state.nextMap)) {
                 this.state.currentMap.reset(state);
             } else {
-                nextmap = null;
+                this.state.nextMap = null;
             }
+        }
+
+        if(this.state.nextMap!=null){
+            this.state.nextMap.load(this.state);
         }
 
         if(direction != state.facing) {

@@ -17,8 +17,9 @@ public class BSGameState {
     BSDirection facing;
 
     BSWorld world;
-    BSMap currentMap;
+    BSMap currentMap, nextMap;
     BSTile currentTile;
+    long lastMapMove;
     boolean isMoving;
     boolean isSelectingPower;
     boolean isUsingPower;
@@ -31,6 +32,7 @@ public class BSGameState {
     public boolean isWTF;
     BSAsset music;
     public ArrayList<BSPower> available_powers;
+    public boolean justchangedmaps;
 
     /**
      * Opens this game on a particular game slot.
