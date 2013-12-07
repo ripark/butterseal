@@ -104,8 +104,6 @@ public class BSPlayer {
             this.state.currentMap.usePower(state);
         }
 
-
-
         this.currentFrame.draw(batch);
 
         camera.translate(ret);
@@ -149,6 +147,16 @@ public class BSPlayer {
         this.state.hasbeentouching = false;
         changeSprite(state.facing);
         if(!canMove(this.state.facing) && direction == state.facing) {
+            // check to see if we need to move maps
+            HashMap<String,String> props = this.state.currentTile.getProperties(this.state.currentMap).get("player");
+            if (props.containsKey("player")) {
+                this.nextmap = BSMap.getByKey(props.get("player"));
+                if(state.world.isRoute(state.currentMap, nextmap)) {
+                    this.state.currentMap.reset(state);
+                } else {
+                    nextmap = null;
+                }
+            }
             return;
         }
         this.state.isMoving = true;
