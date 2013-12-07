@@ -210,12 +210,11 @@ public class BSPlayer {
             }
         }
         target.time += Gdx.graphics.getDeltaTime();
-        //get key frame is returning null
-        TextureRegion iafno = target.animation.getKeyFrame(target.time, true);
+        TextureRegion new_texture = target.animation.getKeyFrame(target.time, true);
         if(this.currentFrame == null) {
-            currentFrame = new Sprite(iafno);
+            currentFrame = new Sprite(new_texture);
         } else {
-            this.currentFrame.setRegion(iafno);
+            this.currentFrame.setRegion(new_texture);
         }
     }
 
