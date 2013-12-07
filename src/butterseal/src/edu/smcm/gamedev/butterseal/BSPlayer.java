@@ -74,13 +74,13 @@ public class BSPlayer {
         idle      = new BSAnimation("idle");
 
         this.changeSprite(null);
-        this.currentFrame.setOrigin(14/16f, 13/16f);
+        this.currentFrame.setOrigin(13/16f, 12/16f);
         this.currentFrame.setScale(SCALE / BSMap.PIXELS_PER_TILE);
         this.displacement = new Vector2();
         this.state = state;
         this.state.facing = BSDirection.NORTH;
         this.state.selectedPower = BSPower.ACTION;
-        this.state.currentTile = new BSTile(0,0);
+        this.state.currentTile = new BSTile(0, 0);
         this.state.available_powers = new ArrayList<BSPower>();
         this.state.available_powers.add(BSPower.ACTION);
         SPEED = DEFAULT_SPEED;
