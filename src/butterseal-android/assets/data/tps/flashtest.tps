@@ -36,7 +36,7 @@
         <key>dataFormat</key>
         <string>libgdx</string>
         <key>textureFileName</key>
-        <filename>../spritesheets/player.png</filename>
+        <filename></filename>
         <key>flipPVR</key>
         <false/>
         <key>ditherType</key>
@@ -127,7 +127,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../spritesheets/player.txt</filename>
+                <filename></filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -166,30 +166,6 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>../spritesheets/character/down_0002.png</filename>
-            <filename>../spritesheets/character/down_0003.png</filename>
-            <filename>../spritesheets/character/east_0000.png</filename>
-            <filename>../spritesheets/character/east_0001.png</filename>
-            <filename>../spritesheets/character/east_0002.png</filename>
-            <filename>../spritesheets/character/east_0003.png</filename>
-            <filename>../spritesheets/character/east_0004.png</filename>
-            <filename>../spritesheets/character/east_0005.png</filename>
-            <filename>../spritesheets/character/up_0000.png</filename>
-            <filename>../spritesheets/character/up_0001.png</filename>
-            <filename>../spritesheets/character/up_0002.png</filename>
-            <filename>../spritesheets/character/up_0003.png</filename>
-            <filename>../spritesheets/character/west_0000.png</filename>
-            <filename>../spritesheets/character/west_0001.png</filename>
-            <filename>../spritesheets/character/west_0002.png</filename>
-            <filename>../spritesheets/character/west_0003.png</filename>
-            <filename>../spritesheets/character/west_0004.png</filename>
-            <filename>../spritesheets/character/west_0005.png</filename>
-            <filename>../spritesheets/character/down_0000.png</filename>
-            <filename>../spritesheets/character/down_0001.png</filename>
-            <filename>../spritesheets/character/idle_0003.png</filename>
-            <filename>../spritesheets/character/idle_0000.png</filename>
-            <filename>../spritesheets/character/idle_0001.png</filename>
-            <filename>../spritesheets/character/idle_0002.png</filename>
             <filename>C:/Users/Sean/Desktop/man.swf</filename>
         </array>
         <key>ignoreFileList</key>
