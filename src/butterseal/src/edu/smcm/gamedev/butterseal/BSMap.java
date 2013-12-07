@@ -39,48 +39,37 @@ public enum BSMap {
             TiledMapTileLayer light = m.getLayer("light");
             TiledMapTile invis = BSTile.getTileForProperty(m, "invisible", "true");
 
-            for(int row = 0; row < m.playerLevel.getHeight(); row++) {
-                for(int col = 0; col < m.playerLevel.getWidth(); col++) {
-                    BSTile curr = new BSTile(row, col);
-
-                    Map<String, HashMap<String, String>> pp = curr.getProperties(state.currentMap);
-
-                    if (curr.hasProperty(m, light, "light", "beacon")) {
-                        if(ButterSeal.DEBUG > 3) {
-                            System.out.println("found beacon");
-                        }
-                        if(curr.hasProperty(m, light, "beacon", "on")) {
-                            for (int i = -1; i <= 1; i++) {
-                                for (int j = -1; j <= 1; j++) {
-                                    BSTile lookingAt = new BSTile(row + i, col + j);
-                                    if(lookingAt.isContainedIn(dark)) {
-                                        Cell point = lookingAt.getCell(dark);
-                                        if(!point.getTile().equals(invis)) {
-                                            if(ButterSeal.DEBUG > 2) {
-                                                System.out.printf("Clearing tile %d,%d%n", row + i, col + j);
-                                            }
-                                            point.setTile(invis);
-                                        }
-                                    }
-                                }
-                            }
-                            for(BSDirection d : BSDirection.values()) {
+            if(state.currentTile.hasProperty(m, light, "beacon", "on")) {
+                // Clear the surrounding tiles
+                for (int i = -1; i <= 1; i++) {
+                    for (int j = -1; j <= 1; j++) {
+                        BSTile lookingAt = new BSTile(state.currentTile);
+                        lookingAt.transpose(i, j);
+                        if(lookingAt.isContainedIn(dark)) {
+                            Cell point = lookingAt.getCell(dark);
+                            if(!point.getTile().equals(invis)) {
                                 if(ButterSeal.DEBUG > 2) {
-                                    System.out.println("Clearing " + d);
+                                    System.out.printf("Clearing tile %d,%d%n", lookingAt.x, lookingAt.y);
                                 }
-                                BSTile point = new BSTile(curr);
-                                while(point.isContainedIn(dark) &&
-                                     !point.hasProperty(m, m.playerLevel, "wall", "true")) {
-                                    point.getCell(dark).setTile(invis);
-                                    point.transpose(d.dx, d.dy);
-                                }
-                                if(point.isContainedIn(dark)) {
-                                    point.getCell(dark).setTile(invis);
-                                }
+                                point.setTile(invis);
                             }
-                        } else {
-                            System.err.printf("Unknown option light=%s%n", pp.get("light").get("light"));
                         }
+                    }
+                }
+                // Clear the rank and file
+                for(BSDirection d : BSDirection.values()) {
+                    if(ButterSeal.DEBUG > 2) {
+                        System.out.println("Clearing " + d);
+                    }
+                    BSTile point = new BSTile(state.currentTile);
+                    while(point.isContainedIn(dark) &&
+                         !point.hasProperty(m, m.playerLevel, "wall", "true")) {
+                        point.getCell(dark).setTile(invis);
+                        point.transpose(d.dx, d.dy);
+                    }
+                    if(point.isContainedIn(dark)) {
+                        Cell i = point.getCell(dark);
+                        i.setTile(invis);
                     }
                 }
             }
