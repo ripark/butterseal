@@ -128,7 +128,6 @@ public enum BSMap {
                 state.available_powers.add(BSPower.FIRE);
             }
             BSMap m = state.nextMap;
-            m.SetNullsToInvisible();
             TiledMapTileLayer dark = m.getLayer("dark");
             TiledMapTileLayer light = m.getLayer("light");
             TiledMapTile invis = BSTile.getTileForProperty(m, "invisible", "true");
@@ -205,6 +204,7 @@ public enum BSMap {
         this.key = key;
         this.update = update;
         this.playerLevel = this.getLayer("player");
+        this.SetNullsToInvisible();
     }
 
     void draw(OrthographicCamera camera) {
@@ -261,8 +261,10 @@ public enum BSMap {
 
         for(MapLayer layer : this.map.getLayers()) {
             TiledMapTileLayer l = (TiledMapTileLayer) layer;
-            for(int row = 0; row < this.playerLevel.getHeight(); row++) {
-                for(int col = 0; col < this.playerLevel.getWidth(); col++) {
+            int h = l.getHeight();
+            int w = l.getWidth();
+            for(int row = 0; row < w; row++) {
+                for(int col = 0; col < h; col++) {
                     if(l.getCell(row, col) == null) {
                         l.setCell(row, col, c);
                     }
