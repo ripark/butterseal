@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -24,14 +25,16 @@ public enum BSMap {
         @Override
         public void reset(BSGameState state) {
         }
+
+        @Override
+        public void load(BSGameState state) {
+            // TODO Auto-generated method stub
+
+        }
     }),
     ICE_CAVE(BSAsset.ICE_CAVE, "ice-cave", new BSGameStateActor() {
         @Override
         public void act(BSGameState state) {
-            // TODO only act when the player moves or uses a power
-            if(!state.available_powers.contains(BSPower.FIRE)) {
-                state.available_powers.add(BSPower.FIRE);
-            }
 
             if(state.isMoving) {
                 return;
@@ -47,54 +50,37 @@ public enum BSMap {
 
                     Map<String, HashMap<String, String>> pp = curr.getProperties(state.currentMap);
 
-                    if(pp.get("light").containsKey("light")) {
-                        if(curr.hasProperty(m, light, "light", "torch")) {
-                            if(ButterSeal.DEBUG > 3) {
-                                System.out.println("found torch");
-                            }
+                    if (curr.hasProperty(m, light, "light", "beacon")) {
+                        if(ButterSeal.DEBUG > 3) {
+                            System.out.println("found beacon");
+                        }
+                        if(curr.hasProperty(m, light, "beacon", "on")) {
                             for (int i = -1; i <= 1; i++) {
                                 for (int j = -1; j <= 1; j++) {
-                                    Cell point = new BSTile(row + i, col + j).getCell(dark);
-                                    if(!point.getTile().equals(invis)) {
-                                        if(ButterSeal.DEBUG > 2) {
-                                            System.out.printf("Clearing tile %d,%d%n", row + i, col + j);
-                                        }
-                                        point.setTile(invis);
-                                    }
-                                }
-                            }
-                        } else if (curr.hasProperty(m, light, "light", "beacon")) {
-                            if(ButterSeal.DEBUG > 3) {
-                                System.out.println("found beacon");
-                            }
-                            if(curr.hasProperty(m, light, "beacon", "on")) {
-                                for (int i = -1; i <= 1; i++) {
-                                    for (int j = -1; j <= 1; j++) {
-                                        BSTile lookingAt = new BSTile(row + i, col + j);
-                                        if(lookingAt.isContainedIn(dark)) {
-                                            Cell point = lookingAt.getCell(dark);
-                                            if(!point.getTile().equals(invis)) {
-                                                if(ButterSeal.DEBUG > 2) {
-                                                    System.out.printf("Clearing tile %d,%d%n", row + i, col + j);
-                                                }
-                                                point.setTile(invis);
+                                    BSTile lookingAt = new BSTile(row + i, col + j);
+                                    if(lookingAt.isContainedIn(dark)) {
+                                        Cell point = lookingAt.getCell(dark);
+                                        if(!point.getTile().equals(invis)) {
+                                            if(ButterSeal.DEBUG > 2) {
+                                                System.out.printf("Clearing tile %d,%d%n", row + i, col + j);
                                             }
+                                            point.setTile(invis);
                                         }
                                     }
                                 }
-                                for(BSDirection d : BSDirection.values()) {
-                                    if(ButterSeal.DEBUG > 2) {
-                                        System.out.println("Clearing " + d);
-                                    }
-                                    BSTile point = new BSTile(curr);
-                                    while(point.isContainedIn(dark) &&
-                                            !point.hasProperty(m, m.playerLevel, "wall", "true")) {
-                                        point.getCell(dark).setTile(invis);
-                                        point.transpose(d.dx, d.dy);
-                                    }
-                                    if(point.isContainedIn(dark)) {
-                                        point.getCell(dark).setTile(invis);
-                                    }
+                            }
+                            for(BSDirection d : BSDirection.values()) {
+                                if(ButterSeal.DEBUG > 2) {
+                                    System.out.println("Clearing " + d);
+                                }
+                                BSTile point = new BSTile(curr);
+                                while(point.isContainedIn(dark) &&
+                                     !point.hasProperty(m, m.playerLevel, "wall", "true")) {
+                                    point.getCell(dark).setTile(invis);
+                                    point.transpose(d.dx, d.dy);
+                                }
+                                if(point.isContainedIn(dark)) {
+                                    point.getCell(dark).setTile(invis);
                                 }
                             }
                         } else {
@@ -152,6 +138,41 @@ public enum BSMap {
         @Override
         public void reset(BSGameState state) {
         }
+
+        @Override
+        public void load(BSGameState state) {
+            if(!state.available_powers.contains(BSPower.FIRE)) {
+                state.available_powers.add(BSPower.FIRE);
+            }
+            BSMap m = state.nextMap;
+            m.SetNullsToInvisible();
+            TiledMapTileLayer dark = m.getLayer("dark");
+            TiledMapTileLayer light = m.getLayer("light");
+            TiledMapTile invis = BSTile.getTileForProperty(m, "invisible", "true");
+
+            for(int row = 0; row < m.playerLevel.getHeight(); row++) {
+                for(int col = 0; col < m.playerLevel.getWidth(); col++) {
+                    BSTile curr = new BSTile(row, col);
+
+                    if(curr.hasProperty(m, light, "light", "torch")) {
+                        if(ButterSeal.DEBUG > 3) {
+                            System.out.println("found torch");
+                        }
+                        for (int i = -1; i <= 1; i++) {
+                            for (int j = -1; j <= 1; j++) {
+                                Cell point = new BSTile(row + i, col + j).getCell(dark);
+                                if(!point.getTile().equals(invis)) {
+                                    if(ButterSeal.DEBUG > 2) {
+                                        System.out.printf("Clearing tile %d,%d%n", row + i, col + j);
+                                    }
+                                    point.setTile(invis);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }),
     ICE_CAVE_EXIT(BSAsset.ICE_CAVE_EXIT, "ice-cave-exit", new BSGameStateActor() {
 
@@ -173,6 +194,12 @@ public enum BSMap {
 
         }
 
+        @Override
+        public void load(BSGameState state) {
+            // TODO Auto-generated method stub
+
+        }
+
     }),
     HOUSE(BSAsset.HOUSE, "house", new BSGameStateActor() {
         @Override
@@ -185,6 +212,12 @@ public enum BSMap {
 
         @Override
         public void reset(BSGameState state) {
+        }
+
+        @Override
+        public void load(BSGameState state) {
+            // TODO Auto-generated method stub
+
         }
     }), MAZE (BSAsset.MAZE, "maze", new BSGameStateActor() {
 
@@ -202,6 +235,12 @@ public enum BSMap {
 
         @Override
         public void reset(BSGameState state) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void load(BSGameState state) {
             // TODO Auto-generated method stub
 
         }
@@ -268,6 +307,27 @@ public enum BSMap {
 
     public void reset(BSGameState state) {
         this.update.reset(state);
+    }
+
+    public void load(BSGameState state) {
+        this.update.load(state);
+    }
+
+    private void SetNullsToInvisible() {
+        TiledMapTile invis = BSTile.getTileForProperty(this, "invisible", "true");
+        Cell c = new Cell();
+        c.setTile(invis);
+
+        for(MapLayer layer : this.map.getLayers()) {
+            TiledMapTileLayer l = (TiledMapTileLayer) layer;
+            for(int row = 0; row < this.playerLevel.getHeight(); row++) {
+                for(int col = 0; col < this.playerLevel.getWidth(); col++) {
+                    if(l.getCell(row, col) == null) {
+                        l.setCell(row, col, c);
+                    }
+                }
+            }
+        }
     }
 }
 

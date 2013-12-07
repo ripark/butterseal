@@ -8,7 +8,7 @@ public class ButterSeal implements ApplicationListener {
     BSSession session;
     BSInterface gui;
     public static boolean ANDROID_MODE = true;
-    public static int DEBUG = 1;
+    public static int DEBUG = 10;
 
     @Override
     public void create() {

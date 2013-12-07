@@ -385,8 +385,8 @@ public class BSInterface {
      * @param input
      */
     public void poll(Input input) {
-        if (ButterSeal.DEBUG > 4) {
-            System.out.println(session.screen);
+        if(ButterSeal.DEBUG > 5) {
+            System.out.println(session.state.hasbeentouching);
         }
         pollKeyboard(input);
         if(input.isTouched() && !session.state.hasbeentouching) {
@@ -601,9 +601,11 @@ public class BSInterface {
     private void DrawActiveRegions() {
         int h = Gdx.graphics.getHeight();
         rend.begin(ShapeType.Line);
-        for(Rectangle r : activeRegions.keySet()) {
             rend.setColor(Color.RED);
-            rend.rect(r.x, Math.abs(r.y-h)-r.height, r.width, r.height);
+        for(Rectangle r : activeRegions.keySet()) {
+            if (activeRegions.get(r).active(this)) {
+                rend.rect(r.x, Math.abs(r.y-h)-r.height, r.width, r.height);
+            }
         }
         rend.end();
     }
