@@ -1,6 +1,5 @@
 package edu.smcm.gamedev.butterseal;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -35,10 +34,6 @@ public enum BSMap {
     ICE_CAVE(BSAsset.ICE_CAVE, "ice-cave", new BSGameStateActor() {
         @Override
         public void act(BSGameState state) {
-
-            if(state.isMoving) {
-                return;
-            }
             BSMap m = state.currentMap;
             TiledMapTileLayer dark = m.getLayer("dark");
             TiledMapTileLayer light = m.getLayer("light");
@@ -95,7 +90,6 @@ public enum BSMap {
         public void update(BSGameState state) {
             BSMap m = state.currentMap;
             TiledMapTileLayer light = m.getLayer("light");
-            TiledMapTileLayer dark = m.getLayer("dark");
             TiledMapTile beacon_on = BSTile.getTileForProperty(m, "beacon", "on");
 
             // update beacon state
@@ -119,17 +113,6 @@ public enum BSMap {
                         if(!state.available_powers.contains(BSPower.LIGHT)) {
                             state.available_powers.add(BSPower.LIGHT);
                         }
-                    }
-                }
-            }
-
-            for(int row = 0; row < m.playerLevel.getHeight(); row++) {
-                for(int col = 0; col < m.playerLevel.getWidth(); col++) {
-                    BSTile curr = new BSTile(row, col);
-                    if(curr.hasProperty(m, dark, "lit", "true")) {
-                        curr.setProperty(m.playerLevel, "wall", "false");
-                    } else {
-                        curr.setProperty(m.playerLevel, "wall", "true");
                     }
                 }
             }
@@ -175,76 +158,34 @@ public enum BSMap {
         }
     }),
     ICE_CAVE_EXIT(BSAsset.ICE_CAVE_EXIT, "ice-cave-exit", new BSGameStateActor() {
-
         @Override
-        public void act(BSGameState state) {
-            // TODO Auto-generated method stub
-
-        }
-
+        public void act(BSGameState state) { }
         @Override
-        public void update(BSGameState state) {
-            // TODO Auto-generated method stub
-
-        }
-
+        public void update(BSGameState state) { }
         @Override
-        public void reset(BSGameState state) {
-            // TODO Auto-generated method stub
-
-        }
-
+        public void reset(BSGameState state) { }
         @Override
-        public void load(BSGameState state) {
-            // TODO Auto-generated method stub
-
-        }
-
+        public void load(BSGameState state) { }
     }),
     HOUSE(BSAsset.HOUSE, "house", new BSGameStateActor() {
         @Override
-        public void act(BSGameState state) {
-        }
-
+        public void act(BSGameState state) { }
         @Override
-        public void update(BSGameState state) {
-        }
-
+        public void update(BSGameState state) { }
         @Override
-        public void reset(BSGameState state) {
-        }
-
+        public void reset(BSGameState state) { }
         @Override
-        public void load(BSGameState state) {
-            // TODO Auto-generated method stub
-
-        }
-    }), MAZE (BSAsset.MAZE, "maze", new BSGameStateActor() {
-
+        public void load(BSGameState state) { }
+    }),
+    MAZE (BSAsset.MAZE, "maze", new BSGameStateActor() {
         @Override
-        public void act(BSGameState state) {
-            // TODO Auto-generated method stub
-
-        }
-
+        public void act(BSGameState state) { }
         @Override
-        public void update(BSGameState state) {
-            // TODO Auto-generated method stub
-
-        }
-
+        public void update(BSGameState state) { }
         @Override
-        public void reset(BSGameState state) {
-            // TODO Auto-generated method stub
-
-        }
-
+        public void reset(BSGameState state) { }
         @Override
-        public void load(BSGameState state) {
-            // TODO Auto-generated method stub
-
-        }
-
+        public void load(BSGameState state) { }
     });
 
     static final float PIXELS_PER_TILE = 64;
