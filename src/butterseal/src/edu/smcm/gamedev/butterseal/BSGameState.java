@@ -15,7 +15,7 @@ public class BSGameState {
     static AssetManager ASSETS;
     BSPower selectedPower;
     BSDirection facing;
-
+    BSPlayer player;
     BSWorld world;
     BSMap currentMap, nextMap;
     BSTile currentTile;

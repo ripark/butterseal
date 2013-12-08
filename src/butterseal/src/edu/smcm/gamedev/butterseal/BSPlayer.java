@@ -81,6 +81,7 @@ public class BSPlayer {
         this.state.facing = BSDirection.NORTH;
         this.state.selectedPower = BSPower.ACTION;
         this.state.currentTile = new BSTile(0, 0);
+        state.player = this;
         this.state.available_powers = new ArrayList<BSPower>();
         this.state.available_powers.add(BSPower.ACTION);
         SPEED = DEFAULT_SPEED;
