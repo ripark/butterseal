@@ -14,21 +14,13 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 public enum BSMap {
     ICE_CAVE_ENTRY(BSAsset.ICE_CAVE_ENTRY, "ice-cave-entry", new BSGameStateActor() {
         @Override
-        public void act(BSGameState state) {
-        }
-
+        public void act(BSGameState state) { }
         @Override
-        public void update(BSGameState state) {
-        }
-
+        public void update(BSGameState state) { }
         @Override
-        public void reset(BSGameState state) {
-        }
-
+        public void reset(BSGameState state) { }
         @Override
         public void load(BSGameState state) {
-            // TODO Auto-generated method stub
-
         }
     }),
     ICE_CAVE(BSAsset.ICE_CAVE, "ice-cave", new BSGameStateActor() {
@@ -74,7 +66,6 @@ public enum BSMap {
                 }
             }
         }
-
         @Override
         public void update(BSGameState state) {
             BSMap m = state.currentMap;
@@ -106,11 +97,8 @@ public enum BSMap {
                 }
             }
         }
-
         @Override
-        public void reset(BSGameState state) {
-        }
-
+        public void reset(BSGameState state) { }
         @Override
         public void load(BSGameState state) {
             if(!state.available_powers.contains(BSPower.FIRE)) {

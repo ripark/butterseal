@@ -68,7 +68,6 @@ public class BSInterface {
         this.player = new BSPlayer(session.state);
         BSGameState.ASSETS = assets;
 
-
         final int TILE_HEIGHT=20, TILE_WIDTH=30;
         camera.setToOrtho(false, Gdx.graphics.getWidth() / Gdx.graphics.getHeight() * TILE_WIDTH, TILE_HEIGHT);
 
