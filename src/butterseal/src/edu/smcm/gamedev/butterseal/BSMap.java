@@ -86,6 +86,7 @@ public enum BSMap {
             }
             if (state.currentTile.hasProperty(m, m.playerLevel, "objective", "true")) {
                 if (state.isUsingPower && state.selectedPower == BSPower.ACTION) {
+                    state.isUsingPower = false;
                     if(!m.objectiveReached) {
                         m.objectiveReached = true;
                         state.setMusic(BSAsset.SECOND_MUSIC);
@@ -163,6 +164,7 @@ public enum BSMap {
             BSMap m = state.currentMap;
             if (state.currentTile.hasProperty(m, m.playerLevel, "objective", "true")) {
                 if (state.isUsingPower && state.selectedPower == BSPower.ACTION) {
+                    state.isUsingPower = false;
                     if(!m.objectiveReached) {
                         m.objectiveReached = true;
                         state.setMusic(BSAsset.THIRD_MUSIC);
