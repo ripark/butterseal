@@ -29,6 +29,7 @@ public enum BSMap {
             BSMap m = state.currentMap;
             TiledMapTileLayer dark = m.getLayer("dark");
             TiledMapTileLayer light = m.getLayer("light");
+            TiledMapTileLayer wall = m.getLayer("wall");
             TiledMapTile invis = BSTile.getTileForProperty(m, "invisible", "true");
 
             if(state.currentTile.hasProperty(m, light, "beacon", "on")) {
@@ -55,7 +56,7 @@ public enum BSMap {
                     }
                     BSTile point = new BSTile(state.currentTile);
                     while(point.isContainedIn(dark) &&
-                         !point.hasProperty(m, m.playerLevel, "wall", "true")) {
+                         !point.hasProperty(m, wall, "wall", "true")) {
                         point.getCell(dark).setTile(invis);
                         point.transpose(d.dx, d.dy);
                     }
