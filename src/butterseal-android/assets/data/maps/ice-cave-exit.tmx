@@ -45,7 +45,7 @@
   </tile>
   <tile id="98">
    <properties>
-    <property name="player" value="stop"/>
+    <property name="player" value="maze"/>
    </properties>
   </tile>
   <tile id="255">

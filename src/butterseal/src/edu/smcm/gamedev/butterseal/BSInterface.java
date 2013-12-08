@@ -616,6 +616,8 @@ public class BSInterface {
         case GROWTH:
         case JUMP:
         case LIGHT:
+            powerbar.setRegion(BSAsset.POWERBAR_LIGHT.getTextureRegion(assets));
+            break;
         case STRENGTH:
         case SWIMMING:
         case ACTION:
@@ -686,6 +688,7 @@ public class BSInterface {
 
         assets.get(BSAsset. FIRST_MUSIC.assetPath, Music.class).setLooping(true);
         assets.get(BSAsset.SECOND_MUSIC.assetPath, Music.class).setLooping(true);
+        assets.get(BSAsset. THIRD_MUSIC.assetPath, Music.class).setLooping(true);
         assets.get(BSAsset. TITLE_MUSIC.assetPath, Music.class).setLooping(true);
         assets.get(BSAsset. TITLE_MUSIC.assetPath, Music.class).setVolume(0.1f);
 
@@ -693,6 +696,7 @@ public class BSInterface {
             assets.get(BSAsset. FIRST_MUSIC.assetPath, Music.class).setVolume(0);
             assets.get(BSAsset.SECOND_MUSIC.assetPath, Music.class).setVolume(0);
             assets.get(BSAsset. TITLE_MUSIC.assetPath, Music.class).setVolume(0);
+            assets.get(BSAsset. THIRD_MUSIC.assetPath, Music.class).setVolume(0);
         }
     }
     public void dispose() {

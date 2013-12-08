@@ -158,7 +158,22 @@ public enum BSMap {
         @Override
         public void act(BSGameState state) { }
         @Override
-        public void update(BSGameState state) { }
+        public void update(BSGameState state) {
+            BSMap m = state.currentMap;
+            if (state.currentTile.hasProperty(m, m.playerLevel, "objective", "true")) {
+                if (state.isUsingPower && state.selectedPower == BSPower.ACTION) {
+                    if(!m.objectiveReached) {
+                        m.objectiveReached = true;
+                        state.setMusic(BSAsset.THIRD_MUSIC);
+                        state.world.addRoute(BSMap.MAZE, BSMap.ICE_CAVE_EXIT, null);
+
+                        if(!state.available_powers.contains(BSPower.GROWTH)) {
+                            state.available_powers.add(BSPower.GROWTH);
+                        }
+                    }
+                }
+            }
+        }
         @Override
         public void reset(BSGameState state) { }
         @Override
