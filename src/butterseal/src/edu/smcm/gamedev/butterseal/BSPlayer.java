@@ -140,9 +140,25 @@ public class BSPlayer {
      * @param direction the direction in which to move
      */
     public void move(BSDirection direction) {
-        System.out.println(state.hasbeentouching);
         if(direction == null) {
             return;
+        }
+        if(ButterSeal.ANDROID_MODE) {
+            switch(state.currentMap) {
+            case HOUSE:
+                break;
+            case ICE_CAVE:
+                setSpeedScale(3);
+                break;
+            case ICE_CAVE_ENTRY:
+            case ICE_CAVE_EXIT:
+                setSpeedScale(2);
+                break;
+            case MAZE:
+                break;
+            default:
+                break;
+            }
         }
         this.state.facing = direction;
         changeSprite(state.facing);
@@ -358,6 +374,10 @@ public class BSPlayer {
 
     public float getNormalizedSpeed() {
         return SPEED / BSMap.PIXELS_PER_TILE;
+    }
+
+    public void setSpeedScale(float scale) {
+        SPEED = BSPlayer.DEFAULT_SPEED * scale;
     }
 }
 
