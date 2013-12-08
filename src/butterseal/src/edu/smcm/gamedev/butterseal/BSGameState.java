@@ -75,9 +75,13 @@ public class BSGameState {
     }
 
     public void setMusic(BSAsset music) {
-        this.music.stopMusic();
-        this.music = music;
-        this.music.playMusic();
+        if(music == null && this.music != null) {
+            this.music.stopMusic();
+        } else if(this.music != music) {
+            this.music.stopMusic();
+            this.music = music;
+            this.music.playMusic();
+        }
     }
 }
 

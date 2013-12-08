@@ -202,7 +202,7 @@ public class BSInterface {
                     System.out.println("Starting game.");
                 }
                 gui.session.screen = BSSessionState.INGAME;
-                gui.session.state.setMusic(BSAsset.FIRST_MUSIC);
+                gui.session.state.setMusic(null);
             }
 
             @Override
@@ -690,7 +690,7 @@ public class BSInterface {
         assets.get(BSAsset.SECOND_MUSIC.assetPath, Music.class).setLooping(true);
         assets.get(BSAsset. THIRD_MUSIC.assetPath, Music.class).setLooping(true);
         assets.get(BSAsset. TITLE_MUSIC.assetPath, Music.class).setLooping(true);
-        assets.get(BSAsset. TITLE_MUSIC.assetPath, Music.class).setVolume(0.1f);
+        assets.get(BSAsset. TITLE_MUSIC.assetPath, Music.class).setVolume(0.25f);
 
         if(!ButterSeal.PLAY_MUSIC) {
             assets.get(BSAsset. FIRST_MUSIC.assetPath, Music.class).setVolume(0);

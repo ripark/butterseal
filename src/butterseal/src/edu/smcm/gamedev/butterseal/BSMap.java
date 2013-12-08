@@ -105,6 +105,7 @@ public enum BSMap {
             if(!state.available_powers.contains(BSPower.FIRE)) {
                 state.available_powers.add(BSPower.FIRE);
             }
+            state.setMusic(BSAsset.FIRST_MUSIC);
             BSMap m = state.nextMap;
             TiledMapTileLayer dark = m.getLayer("dark");
             TiledMapTileLayer light = m.getLayer("light");

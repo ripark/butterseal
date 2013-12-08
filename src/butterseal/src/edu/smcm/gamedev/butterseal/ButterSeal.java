@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.GL10;
 public class ButterSeal implements ApplicationListener {
     public static       boolean ANDROID_MODE = true;
     public static final boolean PLAY_MUSIC   = true;
-    public static final int     DEBUG        = 1;
+    public static       int     DEBUG        = 5;
     BSSession session;
     BSInterface gui;
 

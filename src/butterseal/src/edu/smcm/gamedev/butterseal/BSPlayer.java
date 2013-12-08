@@ -173,9 +173,6 @@ public class BSPlayer {
                 } else {
                     this.state.nextMap = null;
                 }
-                if(props.get("player").equals("stop") && this.state.music != BSAsset.THIRD_MUSIC) {
-                    this.state.setMusic(BSAsset.THIRD_MUSIC);
-                }
             }
             return;
         }
