@@ -54,7 +54,7 @@
             </struct>
         </struct>
         <key>shapePadding</key>
-        <uint>2</uint>
+        <uint>0</uint>
         <key>jpgQuality</key>
         <uint>80</uint>
         <key>pngOptimizationLevel</key>
@@ -64,7 +64,7 @@
         <key>textureFormat</key>
         <enum type="SettingsBase::TextureFormat">png</enum>
         <key>borderPadding</key>
-        <uint>2</uint>
+        <uint>0</uint>
         <key>maxTextureSize</key>
         <QSize>
             <key>width</key>
@@ -190,7 +190,6 @@
             <filename>../spritesheets/character/idle_0000.png</filename>
             <filename>../spritesheets/character/idle_0001.png</filename>
             <filename>../spritesheets/character/idle_0002.png</filename>
-            <filename>C:/Users/Sean/Desktop/man.swf</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
