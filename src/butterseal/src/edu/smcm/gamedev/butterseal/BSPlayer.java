@@ -189,6 +189,7 @@ public class BSPlayer {
             this.state.nextMap = BSMap.getByKey(props.get("player"));
             if(state.world.isRoute(state.currentMap, this.state.nextMap)) {
                 this.state.currentMap.reset(state);
+                this.state.hasbeentouching = true;
             } else {
                 this.state.nextMap = null;
             }
