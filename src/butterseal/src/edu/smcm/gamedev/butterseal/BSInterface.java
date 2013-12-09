@@ -552,6 +552,7 @@ public class BSInterface {
             controls.begin();
             printText(5,String.format("FPS: %d", Gdx.graphics.getFramesPerSecond()));
             printText(25,String.format("Selected Power: %s", session.state.selectedPower));
+            printText(45,String.format("Current Music: %s", session.state.music));
             controls.end();
         }
         camera.update();
