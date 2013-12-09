@@ -2,6 +2,7 @@ package edu.smcm.gamedev.butterseal;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
@@ -184,9 +185,10 @@ public class BSPlayer {
         this.state.isMoving = true;
 
         // check to see if we need to move maps
-        HashMap<String,String> props = this.getFacingTile().getProperties(this.state.currentMap).get("player");
-        if (props.containsKey("player")) {
-            this.state.nextMap = BSMap.getByKey(props.get("player"));
+        Map<String, HashMap<String, String>> props = this.getFacingTile().getProperties(this.state.currentMap);
+        HashMap<String,String> pprops = props.get("player");
+        if (pprops.containsKey("player")) {
+            this.state.nextMap = BSMap.getByKey(pprops.get("player"));
             if(state.world.isRoute(state.currentMap, this.state.nextMap)) {
                 this.state.currentMap.reset(state);
                 this.state.hasbeentouching = true;
@@ -202,6 +204,14 @@ public class BSPlayer {
         if(direction != state.facing) {
             if(ButterSeal.DEBUG > 0) {
                 System.out.println("Moving " + direction);
+            }
+        }
+
+        state.currentMap.update.update(state);
+        if(props.containsKey("instruments")) {
+            Map<String, HashMap<String, String>> ins = state.currentTile.getProperties(state.currentMap);
+            if(ins.containsKey("instrument")) {
+                state.currentMap.usePower(state);
             }
         }
         switch(direction) {

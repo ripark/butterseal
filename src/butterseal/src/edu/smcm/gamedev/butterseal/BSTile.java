@@ -62,6 +62,9 @@ public class BSTile {
     public void setID(TiledMapTileLayer layer, int id) {
         layer.getCell(x, y).getTile().setId(id);
     }
+    public void setTile(TiledMapTileLayer layer, TiledMapTile tile) {
+        layer.getCell(x, y).setTile(tile);
+    }
 
     public static TiledMapTile getTileForProperty(BSMap map, String key, String value) {
         for (TiledMapTileSet i : map.map.getTileSets()) {
@@ -109,6 +112,9 @@ public class BSTile {
             t = c.getTile();
         }
         MapProperties p = t.getProperties();
+        if(value == null) {
+            return p.containsKey(key);
+        }
         return BSUtil.propertyEquals(p, key, value);
     }
     public void setProperty(TiledMapTileLayer map, String key, String value) {
